@@ -1,3 +1,15 @@
+<?php 
+	require_once 'databaseconnect.php';
+	if(isset($_SESSION['UserSession']))
+	{
+		$STH = $DBH->query("SELECT first_name FROM user_info WHERE user_id=" . $_SESSION['UserSession']);
+	
+		# setting the fetch mode
+		$STH->setFetchMode(PDO::FETCH_ASSOC);
+		$row = $STH->fetch();
+		$name = $row["first_name"];
+	}
+?>
 <div class="header">
 		<div class="headertop_desc">
 			<div class="call">
@@ -6,6 +18,17 @@
 			<div class="account_desc">
 				<ul>
 					<?php
+
+				  		if(isset($_SESSION['UserSession']))
+				  		{
+				  			echo "<li><a>Welcome $name</a></li>";
+				  		}
+				  		else
+				  		{
+				  			echo "<li><a>Welcome to our Online Store!</a></li>";
+				  		}
+				  
+
 						if(isset($_SESSION["UserSession"]))
 						{
 ?>							<li><a href="index.php?logout">Logout</a></li>
@@ -26,13 +49,18 @@
 		</div>
 		<div class="header_top">
 			<div class="logo">
-				<a href="index.php"><img src="images/logo.png" alt="" /></a>
+				<a href="index.php" ><img src="images/logo.png" alt="" /></a>
 			</div>
 			  <div class="cart">
-			  	   <p>Welcome to our Online Store! <span>Cart:</span><div id="dd" class="wrapper-dropdown-2"> 0 item(s) - $0.00
-			  	   	<ul class="dropdown">
+			  	<p>
+			  	   <img src="images/cart.png" style="width:40px; position: relative; top: 8px;"/>
+			  	   <div id="dd" class="wrapper-dropdown-2"> 
+			  	   		<span style="font-size: 30px">0 item(s) - $0.00</span>
+				  	   	<ul class="dropdown" style="width: 300px;">
 							<li>you have no items in your Shopping cart</li>
-					</ul></div></p>
+						</ul>
+					</div>
+				</p>
 			  </div>
 			  <script type="text/javascript">
 			function DropDown(el) {
