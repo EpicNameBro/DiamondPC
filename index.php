@@ -1,3 +1,16 @@
+<?php
+	require_once 'databaseconnect.php';
+
+	if(isset($_GET["logout"]))
+	{
+		session_unset();
+		if(session_destroy()) // Destroying All Sessions
+		{	
+			header("Location: index.php"); // Redirecting To Home Page
+			die();
+		}
+	}
+?>
 <!DOCTYPE HTML>
 <head>
 <title>Diamond PC</title>

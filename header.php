@@ -5,8 +5,18 @@
 			</div>
 			<div class="account_desc">
 				<ul>
-					<li><a href="login.php?register">Register</a></li>
-					<li><a href="login.php">Login</a></li>
+					<?php
+						if(isset($_SESSION["UserSession"]))
+						{
+?>							<li><a href="index.php?logout">Logout</a></li>
+<?php					}
+						else
+						{
+?>							<li><a href="login.php?register">Register</a></li>
+							<li><a href="login.php">Login</a></li>
+<?php					}
+					?>
+					
 					<li><a href="#">Delivery</a></li>
 					<li><a href="#">Checkout</a></li>
 					<li><a href="#">My Account</a></li>
