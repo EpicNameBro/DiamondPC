@@ -52,13 +52,13 @@
 			</div>			
         </div>
         <div class="copy_right">
-				<p>Diamond PC © All rights Reseverd | Design by  <a href="http://w3layouts.com">W3Layouts</a> </p>
-		   </div>
-    </div>
-    <script type="text/javascript">
-		$(document).ready(function() {			
-			$().UItoTop({ easingType: 'easeOutQuart' });
-			
-		});
-	</script>
-    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+			<p>Diamond PC © All rights Reseverd | Design by  <a href="http://w3layouts.com">W3Layouts</a> </p>
+		</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {			
+		$().UItoTop({ easingType: 'easeOutQuart' });
+		
+	});
+</script>
+<a href="#" id="toTop"><span id="toTopHover"> </span></a>
