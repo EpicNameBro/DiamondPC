@@ -5,6 +5,42 @@
 		header("Location: index.php");
 		die();
 	}
+
+	if(isset($_POST["grant"]))
+	{
+		if(isset($_POST["username"]))
+		{
+			$STH = $DBH->prepare("UPDATE User SET User_Type='Admin' WHERE Username=?");
+			//echo $_POST['username'];
+			$STH->bindParam(1, $_POST['username']);
+			
+			$STH->execute();
+			$rows_affected = $STH->rowCount();
+			//echo $rows_affected;
+			if($rows_affected == 1)
+				header("Location: admingrant.php?grantsuccess");
+			else
+				header("Location: admingrant.php?grantfailed");
+		}
+	}
+
+	if(isset($_POST["revoke"]))
+	{
+		if(isset($_POST["username"]))
+		{
+			$STH = $DBH->prepare("UPDATE User SET User_Type='Customer' WHERE Username=?");
+			//echo $_POST['username'];
+			$STH->bindParam(1, $_POST['username']);
+			
+			$STH->execute();
+			$rows_affected = $STH->rowCount();
+			//echo $rows_affected;
+			if($rows_affected == 1)
+				header("Location: admingrant.php?revokesuccess");
+			else
+				header("Location: admingrant.php?revokefailed");
+		}
+	}
 ?>
 <!DOCTYPE HTML>
 	<head>
@@ -53,7 +89,7 @@
 		                                </div>
 		                            
 		                        <?php
-		                        	if(isset($_GET["success"]))
+		                        	if(isset($_GET["grantsuccess"]))
 		                        	{
 	?>									<div id="alertdiv" class="alert alert-success fade in">
 											<a class="close" data-dismiss="alert">×</a> 
@@ -61,11 +97,11 @@
 										</div>
 		<?php                           		
 		                        	}
-		                        	if(isset($_GET["failed"]))
+		                        	if(isset($_GET["grantfailed"]))
 		                        	{
 		?>								<div id="alertdiv" class="alert alert-danger fade in">
 											<a class="close" data-dismiss="alert">×</a> 
-											<strong><span>Grant Failed. User doe not exists.</span></strong>											
+											<strong><span>Grant Failed. User does not exist or is already an Admin.</span></strong>											
 										</div>
 		<?php						}								
 		                        ?>        
@@ -100,7 +136,7 @@
 		                                </div>
 		                            
 		                        <?php
-		                        	if(isset($_GET["success"]))
+		                        	if(isset($_GET["revokesuccess"]))
 		                        	{
 		?>									<div id="alertdiv" class="alert alert-success fade in">
 												<a class="close" data-dismiss="alert">×</a> 
@@ -108,11 +144,11 @@
 										</div>
 		<?php                           		
 		                        	}
-		                        	if(isset($_GET["failed"]))
+		                        	if(isset($_GET["revokefailed"]))
 		                        	{
 		?>								<div id="alertdiv" class="alert alert-danger fade in">
 											<a class="close" data-dismiss="alert">×</a> 
-											<strong><span>Revoke Failed. User doe not exists.</span></strong>											
+											<strong><span>Revoke Failed. User does not exist or is not an Admin..</span></strong>											
 										</div>
 		<?php							}								
 		                        ?>        
