@@ -51,7 +51,7 @@
 
                         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
                             
-                        <form id="loginform" class="form-horizontal" role="form" method="POST">
+                        <form id="loginform" class="form-horizontal" role="form" method="POST" action="userlogin.php">
                                     
                             <div style="margin-bottom: 25px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -72,36 +72,13 @@
 									</div>
  <?php                           		
                             	}
-                            	# Login
-								if(isset($_POST["login"]))
-								{
-									if(isset($_POST["username"]) && isset($_POST["password"]))
-									{
-										$username = $_POST["username"];
-										$password = $_POST["password"];
-										# using the shortcut ->query() method here since there are no variable
-										# values in the select statement.
-										$STH = $DBH->query("SELECT user_id, password FROM user WHERE username='$username'");
-
-										# setting the fetch mode
-										$STH->setFetchMode(PDO::FETCH_ASSOC);
-										$row = $STH->fetch();
-										if(count($row) > 0 && password_verify($password, $row["password"]))	
-										{
-											$_SESSION["UserSession"] = $row["user_id"];
-?>											<script type="text/javascript">	
-												window.location.reload();
-											</script>
-<?php									}					
-										else			
-										{
-?>											<div id="alertdiv" class="alert alert-danger fade in">
-												<a class="close" data-dismiss="alert">×</a> 
-												<strong><span>Login Failed: Username or Password is incorrect</span></strong>											
-											</div>
-<?php									}	
-									}
-								}
+                            	if(isset($_GET["loginfailed"]))
+                            	{
+	?>								<div id="alertdiv" class="alert alert-danger fade in">
+										<a class="close" data-dismiss="alert">×</a> 
+										<strong><span>Login Failed: Username or Password is incorrect</span></strong>											
+									</div>
+<?php							}								
                             ?>        
 
 
