@@ -21,7 +21,7 @@
 
 				  		if(isset($_SESSION['UserSession']))
 				  		{
-				  			echo "<li><a>Welcome $name</a></li>";
+				  			echo "<li><a>Welcome $name!</a></li>";
 				  		}
 				  		else
 				  		{
@@ -31,17 +31,24 @@
 
 						if(isset($_SESSION["UserSession"]))
 						{
-?>							<li><a href="index.php?logout">Logout</a></li>
+?>							<li><a href="logout.php">Logout</a></li>
 <?php					}
 						else
 						{
 ?>							<li><a href="login.php?register">Register</a></li>
 							<li><a href="login.php">Login</a></li>
 <?php					}
+						
+						if(isset($_SESSION["UserType"]) && $_SESSION["UserType"] == "Admin")
+						{
+?>							<li><a href="#">Inventory</a></li>
+							<li><a href="manageusers.php">Manage Users</a></li>
+<?php					}
 					?>
 					
 					<li><a href="#">Delivery</a></li>
 					<li><a href="#">Checkout</a></li>
+					<li><a href="#">Wish List</a></li>
 					<li><a href="#">My Account</a></li>
 				</ul>
 			</div>
@@ -53,8 +60,9 @@
 			</div>
 			  <div class="cart">
 			  	<p>
-			  	   <img src="images/cart.png" style="width:40px; position: relative; top: 8px;"/>
+			  	   
 			  	   <div id="dd" class="wrapper-dropdown-2"> 
+			  	   		<img src="images/cart.png" style="width:40px; position: relative; top: 8px;"/>
 			  	   		<span style="font-size: 30px">0 item(s) - $0.00</span>
 				  	   	<ul class="dropdown" style="width: 300px;">
 							<li>you have no items in your Shopping cart</li>
@@ -63,32 +71,31 @@
 				</p>
 			  </div>
 			  <script type="text/javascript">
-			function DropDown(el) {
-				this.dd = el;
-				this.initEvents();
-			}
-			DropDown.prototype = {
-				initEvents : function() {
-					var obj = this;
+					function DropDown(el) {
+						this.dd = el;
+						this.initEvents();
+					}
+					DropDown.prototype = {
+						initEvents : function() {
+							var obj = this;
 
-					obj.dd.on('click', function(event){
-						$(this).toggleClass('active');
-						event.stopPropagation();
-					});	
-				}
-			}
+							obj.dd.on('click', function(event){
+								$(this).toggleClass('active');
+								event.stopPropagation();
+							});	
+						}
+					}
 
-			$(function() {
+					$(function() {
 
-				var dd = new DropDown( $('#dd') );
+						var dd = new DropDown( $('#dd') );
 
-				$(document).click(function() {
-					// all dropdowns
-					$('.wrapper-dropdown-2').removeClass('active');
-				});
+						$(document).click(function() {
+							// all dropdowns
+							$('.wrapper-dropdown-2').removeClass('active');
+						});
 
-			});
-
+					});
 		</script>
 	 <div class="clear"></div>
 </div>

@@ -1,15 +1,5 @@
 <?php
 	require_once 'databaseconnect.php';
-
-	if(isset($_GET["logout"]))
-	{
-		session_unset();
-		if(session_destroy()) // Destroying All Sessions
-		{	
-			header("Location: index.php"); // Redirecting To Home Page
-			die();
-		}
-	}
 ?>
 <!DOCTYPE HTML>
 <head>
@@ -28,7 +18,6 @@
   	<!-- HEADER BEGIN -->
 	<?php include 'header.php';?>
 	<!-- HEADER END -->
-
 	<div class="header_slide">
 			<div class="header_bottom_left">				
 				<div class="categories">
