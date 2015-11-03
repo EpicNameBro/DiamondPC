@@ -49,7 +49,7 @@
 				<li><a href="#">Delivery</a></li>
 				<li><a href="#">Checkout</a></li>
 				<li><a href="#">Wish List</a></li>
-				<li><a href="#">My Account</a></li>
+				<li><a href="myaccount.php">My Account</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
