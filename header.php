@@ -42,7 +42,7 @@
 					if(isset($_SESSION["UserType"]) && $_SESSION["UserType"] == "Admin")
 					{
 					?>							
-				<li><a href="#">Inventory</a></li>
+				<li><a href="inventory.php">Inventory</a></li>
 				<li><a href="manageusers.php">Manage Users</a></li>
 				<?php					}
 					?>
