@@ -24,7 +24,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script> 
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script> 
 		<script type="text/javascript" src="js/move-top.js"></script>
 		<script type="text/javascript" src="js/easing.js"></script>
 		<!-- Latest compiled and minified CSS -->
@@ -35,6 +35,8 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+		
 		<style>
 			.menu ul
 			{
@@ -62,59 +64,83 @@
 		                    </div>     
 					 		<div style="padding-top:30px" class="panel-body" >
 						 		<form class="form-horizontal" role="form" method="POST" data-toggle="validator">
-			                                    
-		                            <div class="form-group">
-	                                    <label for="name" class="col-md-1 control-label">Name</label>
-	                                    <div class="col-md-4">
-	                                        <input type="text" class="form-control" name="name" placeholder="Name" required>
-	                                    </div>
-	                                </div>   
+			                        <div class="col-md-6">   
+			                            <div class="form-group">
+		                                    <label for="name" class="col-md-2 control-label">Name</label>
+		                                    <div class="col-md-8">
+		                                        <input type="text" class="form-control" name="name" placeholder="Name" required>
+		                                    </div>
+		                                </div>   
 
-	                                <div class="form-group">
-	                                    <label for="description" class="col-md-1 control-label">Description</label>
-	                                    <div class="col-md-4">
-	                                        <input type="text" class="form-control" name="description" placeholder="Description" required>
-	                                    </div>
-	                                </div> 
+		                                <div class="form-group">
+		                                    <label for="description" class="col-md-2 control-label">Description</label>
+		                                    <div class="col-md-8">
+		                                        <textarea rows="5" class="form-control" name="description" placeholder="Description" required></textarea>
+		                                    </div>
+		                                </div> 
 
-	                                <div class="form-group">
-	                                    <label for="details" class="col-md-1 control-label">Details</label>
-	                                    <div class="col-md-4">
-	                                        <input type="text" class="form-control" name="details" placeholder="Details" required>
-	                                    </div>
-	                                </div>          
-		                        	
-		                        	<div class="form-group">
-		                        		<label for="featured" class="col-md-1 control-label">Featured?</label>
-	                                    <div class="checkbox col-md-4" style="position: relative; left: 20px;">
-	                                        <input type="checkbox" name="featured" value="">
-	                                    </div>
+		                                <div class="form-group">
+		                                    <label for="details" class="col-md-2 control-label">Details</label>
+		                                    <div class="col-md-8">
+		                                        <textarea rows="5" class="form-control" name="details" placeholder="Details" required></textarea>
+		                                    </div>
+		                                </div>          
+			                        	
+			                        	<div class="form-group">
+			                        		<label for="featured" class="col-md-2 control-label">Featured?</label>
+		                                    <div class="checkbox col-md-8" style="position: relative; left: 20px;">
+		                                        <input type="checkbox" name="featured" value="">
+		                                    </div>
+		                                </div>
+		                               
+
+		                                <div class="form-group">
+										  	<label for="category" class="col-md-2 control-label">Category</label>
+										  	<div class="col-md-8">
+											  	<select class="form-control" id="sel1" name="category">
+											  		<?php
+											  			$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
+
+														while($row = $STH->fetch())
+														{
+															echo "<option value='$row[Category_Id]'>$row[Name]</option>";
+														}
+											  		?>
+											  	</select>
+										  	</div>
+										</div>
+
+										<div class="form-group">
+		                                    <label for="price" class="col-md-2 control-label">Price</label>
+		                                    <div class="col-md-8">
+		                                        <input type="text" class="form-control" name="price" placeholder="Price" required>
+		                                    </div>
+		                                </div>
+
+		                                <div class="form-group">
+		                                    <label for="name" class="col-md-2 control-label"></label>
+		                                    <div class="col-md-8">
+		                                        <input type="submit" class="btn btn-success btn-block" name="add" value="Add">
+		                                    </div>
+		                            	</div> 
 	                                </div>
-	                               
 
-	                                <div class="form-group">
-									  	<label for="category" class="col-md-1 control-label">Category</label>
-									  	<div class="col-md-4">
-										  	<select class="form-control" id="sel1" name="category">
-										  		<?php
-										  			$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
-
-													while($row = $STH->fetch())
-													{
-											?>			<option value="<?= $row['Category_Id'] ?>"><?= $row["Name"] ?></option>
-											<?php	}
-										  		?>
-										  	</select>
-									  	</div>
-									</div>
-
-									<div class="form-group">
-	                                    <label for="price" class="col-md-1 control-label">Price</label>
-	                                    <div class="col-md-4">
-	                                        <input type="text" class="form-control" name="price" placeholder="Price" required>
-	                                    </div>
-	                                </div>  		
-		                            
+	                                <div class="col-md-6"> 
+	                                <?php
+	                                	for($i = 1 ; $i <= 10 ; $i++)
+	                                	{
+			                    ?>          
+			                                <div class="form-group">
+			                                    <label for="image1" class="col-md-2 control-label">Image <?= $i ?></label>
+			                                    <div class="col-md-8">
+			                                        <input type="file" class="image form-control" name="image<?= $i ?>" required>
+			                                    </div>
+			                                </div>
+				                            
+			                    <?php       
+		                            	}
+									?>
+		                        </div>    
 		                        <?php
 		                        	if(isset($_GET["addsuccess"]))
 		                        	{
@@ -134,12 +160,7 @@
 		                        ?>        
 
 
-		                        	<div class="form-group">
-	                                    <label for="name" class="col-md-1 control-label"></label>
-	                                    <div class="col-md-4">
-	                                        <input type="submit" class="btn btn-success" name="add" value="Add">
-	                                    </div>
-		                            </div> 
+		                        	
 		                              
 		                        </form> 
 		                    </div>
