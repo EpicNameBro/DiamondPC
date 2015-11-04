@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
+<html>
 <head>
-<title>Free Home Shoppe Website Template | Preview :: w3layouts</title>
+<title>DiamondPC</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -232,18 +233,13 @@
 				<div class="rightsidebar span_3_of_1">
 					<h2>CATEGORIES</h2>
 					<ul>
-				      <li><a href="#">Mobile Phones</a></li>
-				      <li><a href="#">Desktop</a></li>
-				      <li><a href="#">Laptop</a></li>
-				      <li><a href="#">Accessories</a></li>
-				      <li><a href="#">Software</a></li>
-				       <li><a href="#">Sports &amp; Fitness</a></li>
-				       <li><a href="#">Footwear</a></li>
-				       <li><a href="#">Jewellery</a></li>
-				       <li><a href="#">Clothing</a></li>
-				       <li><a href="#">Home Decor &amp; Kitchen</a></li>
-				       <li><a href="#">Beauty &amp; Healthcare</a></li>
-				       <li><a href="#">Toys, Kids &amp; Babies</a></li>
+						<?php
+							$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
+							while($row = $STH->fetch())
+							{
+								echo "<li><a href='$row[Category_Id]'>$row[Name]</a></li>";
+							}
+						?>
     				</ul>
     				<div class="subscribe">
     					<h2>Newsletters Signup</h2>

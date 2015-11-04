@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<html>
 <head>
 <title>Free Home Shoppe Website Template | About :: w3layouts</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

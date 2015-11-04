@@ -2,6 +2,7 @@
 	require_once 'databaseconnect.php';
 	?>
 <!DOCTYPE HTML>
+<html>
 <head>
 	<title>Diamond PC</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,12 +24,14 @@
 				<div class="categories">
 					<ul>
 						<h3>Categories</h3>
-						<li><a href="#">Mobile Phones</a></li>
-						<li><a href="#">Desktop</a></li>
-						<li><a href="#">Laptop</a></li>
-						<li><a href="#">Software</a></li>
-						<li><a href="#">Harware</a></li>
-						<li><a href="#">Gaming</a></li>
+						<?php
+							$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
+							while($row = $STH->fetch())
+							{
+								echo "<li><a href='$row[Category_Id]'>$row[Name]</a></li>";
+							}
+						?>
+						
 					</ul>
 				</div>
 			</div>
