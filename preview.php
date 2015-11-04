@@ -1,17 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>DiamondPC</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script> 
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
-<script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
-<link href="css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all"/>
-<link rel="stylesheet" href="css/global.css">
-<script src="js/slides.min.jquery.js"></script>
+<?php include 'scripts.php' ?>
 <script>
 		$(function(){
 			$('#products').slides({
