@@ -2,8 +2,7 @@
 <title>Diamond PC</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<link href="css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+
 <script src="js/jquery-1.11.3.min.js"></script> 
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
@@ -15,6 +14,9 @@
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/slider.css" rel="stylesheet" type="text/css" media="all"/>
 <style>
 	.menu ul
 	{

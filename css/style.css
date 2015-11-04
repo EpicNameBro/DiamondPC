@@ -334,10 +334,10 @@ body {
 	-o-box-shadow: 0px 0px 3px rgb(150, 150, 150);
 }
 .grid_1_of_4:first-child {
-	margin-left: 0;
+	/*margin-left: 0;*/
 }
 .images_1_of_4 {
-	width: 20.8%;
+	width: 23%;
 	padding: 1.5%;
 	text-align: center;
 	position: relative;
@@ -407,7 +407,14 @@ body {
 	clear: both;
 	padding: 0px;
 	margin: 0px;
+
 }
+
+.featured, .newest
+{
+	margin: auto;
+}
+
 .group:before, .group:after {
 	content: "";
 	display: table;
