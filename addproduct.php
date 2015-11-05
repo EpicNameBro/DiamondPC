@@ -15,7 +15,119 @@
 	{
 		header("Location: inventory.php?nocat");
 	}
-	
+
+	date_default_timezone_set('America/Montreal');
+
+	if(isset($_POST['add']))
+	{
+
+		$product = array(
+		'name' 			=>  @$_POST['name'],
+		'description'	=>  @$_POST['description'],
+		'details' 		=>  @$_POST['details'],
+		'date_added' 	=>  date('Y-m-d h:i:s a', time()),
+		'featured' 		=>  isset($_POST['featured']) ? 1 : 0,
+		'category' 		=>  @$_POST['category'],
+		'price' 		=>  @$_POST['price']
+		);
+
+		//print_r($product);
+
+		$STH = $DBH->prepare(
+			"INSERT INTO Product (Name, Description, Details, Date_Added, Featured, Category_Id, Price)
+			 VALUES (:name, :description, :details, :date_added, :featured, :category, :price)");
+		$STH->execute($product);
+
+
+
+
+		$prodcut_id = $DBH->lastInsertId();
+
+		for($i = 1 ; $i <= 10 ; $i++)
+		{
+			$input = "image$i";
+			if(is_uploaded_file($_FILES[$input]['tmp_name'])/*isset($_FILES[$input])*/)
+			{
+				$filepath = "none";
+				try {	
+					    // Undefined | Multiple Files | $_FILES Corruption Attack
+					    // If this request falls under any of them, treat it invalid.
+					    if (
+					        !isset($_FILES[$input]['error']) ||
+					        is_array($_FILES[$input]['error'])
+					    ) {
+					        throw new RuntimeException('Invalid parameters.');
+					    }
+
+					    // Check $_FILES[$input]['error'] value.
+					    switch ($_FILES[$input]['error']) {
+					        case UPLOAD_ERR_OK:
+					            break;
+					        case UPLOAD_ERR_NO_FILE:
+					            throw new RuntimeException('No file sent.');
+					        case UPLOAD_ERR_INI_SIZE:
+					        case UPLOAD_ERR_FORM_SIZE:
+					            throw new RuntimeException('Exceeded filesize limit.');
+					        default:
+					            throw new RuntimeException('Unknown errors.');
+					    }
+
+					    // You should also check filesize here. 
+					    if ($_FILES[$input]['size'] > 1000000) {
+					        throw new RuntimeException('Exceeded filesize limit.');
+					    }
+
+					    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+					    // Check MIME Type by yourself.
+					    $finfo = new finfo(FILEINFO_MIME_TYPE);
+					    if (false === $ext = array_search(
+					        $finfo->file($_FILES[$input]['tmp_name']),
+					        array(
+					            'jpg' => 'image/jpeg',
+					            'png' => 'image/png',
+					            'gif' => 'image/gif',
+					        ),
+					        true
+					    )) {
+					        throw new RuntimeException('Invalid file format.');
+					    }
+
+					    // You should name it uniquely.
+					    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+					    // On this example, obtain safe unique name from its binary data.
+					    $filename = sha1_file($_FILES[$input]['tmp_name']);
+					    $filepath = 'product_images/' . $filename . '.' . $ext;
+					    if (!move_uploaded_file(
+					        $_FILES[$input]['tmp_name'],
+					        sprintf('product_images/%s.%s',
+					            $filename,
+					            $ext
+					        )
+					    )) {
+					        throw new RuntimeException('Failed to move uploaded file.');
+					    }
+
+					    //echo 'File is uploaded successfully.';
+
+					    $productimage = array(
+						'product_id' => $prodcut_id,
+						'image_url' => $filepath				
+						);
+						$STH = $DBH->prepare(
+							"INSERT INTO Product_Image (Product_Id, Image_Url)
+							 VALUES (:product_id, :image_url)");
+						$STH->execute($productimage);
+
+					} catch (RuntimeException $e) {
+
+					    //echo 'try exception: ' . $e->getMessage() . "</br>";
+
+					}
+			}
+		}
+		
+	}
+
 	?>
 <!DOCTYPE HTML>
 <html>
@@ -36,7 +148,7 @@
 							<div class="panel-title">Add Product</div>
 						</div>
 						<div style="padding-top:30px" class="panel-body" >
-							<form class="form-horizontal" role="form" method="POST" data-toggle="validator">
+							<form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" data-toggle="validator">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="name" class="col-md-2 control-label">Name</label>

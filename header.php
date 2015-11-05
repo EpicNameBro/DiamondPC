@@ -61,7 +61,7 @@
 		<div class="cart" style="position: relative; top: 20px;">
 			<p>
 			<div id="dd" class="wrapper-dropdown-2">
-				<img src="images/cart.png" style="width:40px; position: relative; top: 8px;"/>
+				<img src="images/cart.png" style="width:40px; position: relative; bottom: 8px;"/>
 				<span style="font-size: 30px">0 item(s) - $0.00</span>
 				<ul class="dropdown" style="width: 300px;">
 					<li>you have no items in your Shopping cart</li>

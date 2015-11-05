@@ -2,7 +2,7 @@
 	include 'databaseconnect.php';
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
-		header("Location: index.php");
+		header("Location: inventory.php");
 		die();
 	}
 ?>

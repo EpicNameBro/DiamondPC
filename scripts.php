@@ -8,6 +8,10 @@
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript" src="js/jquery.accordion.js"></script>
 <script type="text/javascript" src="js/startstop-slider.js"></script>
+
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <!-- Optional theme -->
@@ -15,8 +19,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<link href="css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+
 <style>
 	.menu ul
 	{

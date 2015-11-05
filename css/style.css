@@ -290,12 +290,12 @@ body {
 	text-transform: uppercase;
 }
 .content_top{
-	padding: 15px 20px;
+	padding: 0px 15px;
 	border: 1px solid #EBE8E8;
 	border-radius: 3px;
 }
 .content_bottom {
-	padding: 15px 20px;
+	padding: 0px 15px;
 	border: 1px solid #EBE8E8;
 	border-radius: 3px;
 	margin-top: 2.6%;
@@ -311,14 +311,14 @@ body {
 }
 .see {
 	float: right;
-	padding-top:8px;
+	padding-top:20px;
 }
 .see p a{
 	display: inline;
 	font-size: 0.8125em;
 	color: #333;
 	background: url(../images/list-img.png) no-repeat right 3px;
-    padding:0px 12px 0px 0px;
+    padding:0px 10px 10px 0px;
 }
 .see p a:hover{
 	color: blue;
