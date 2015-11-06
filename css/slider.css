@@ -99,8 +99,8 @@
     transition:all 0.2s linear;
 }
 .button:hover {
-	text-shadow: 0px 1px 1px #000;
-	background:blue;
+	/*text-shadow: 0px 1px 1px #000;*/
+	background:#2eadd3;
 	 -webkit-transform:scale(1.05);
     -moz-transform:scale(1.05);
     -ms-transform:scale(1.05);

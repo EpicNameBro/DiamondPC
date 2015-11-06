@@ -6,22 +6,31 @@
 	if(isset($_GET['product_id']))
 	{
 		$id = $_GET['product_id'];
-		$STH = $DBH->query(
+		$STH = $DBH->prepare(
 			"SELECT Product.Name AS product_name, Description, Details, Category.Name AS category_name, Price 
 			 FROM Product INNER JOIN Category ON Product.Category_Id = Category.Category_Id
-			 WHERE Product_Id = $id");
+			 WHERE Product_Id = ?");
+		$STH->bindParam(1, $id);
+		$STH->execute();
 		$product = $STH->fetch();
 	
 	
-		$STH = $DBH->query(
+		$STH = $DBH->prepare(
 			"SELECT Image_Url
 			   FROM Product_Image 
-			  WHERE Product_Id=$id");
+			  WHERE Product_Id=?");
+		$STH->bindParam(1, $id);
+		$STH->execute();
 	
 		while($image = $STH->fetch())
 		{
 			$images[] = $image["Image_Url"];
 		}
+	}
+	else
+	{
+		header("Location: index.php");
+		die();
 	}
 	?>
 <!DOCTYPE HTML>
@@ -50,6 +59,19 @@
 			.description
 			{
 				height: 100%;
+			}
+
+			.share
+			{
+				background-color: black;
+				border-radius: 5px;
+				margin: 30px 20px 10px 0px;
+			}
+
+			.share img
+			{
+				width: 35px;
+				height: 35px;
 			}
 		</style>
 		<script type="text/javascript">
@@ -104,24 +126,35 @@
 									<h1><?= $product['product_name'] ?></h1>
 									<hr>
 									<?= $product['Description'] ?><br>
-									<b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+									<div class="rating"><b>Rating:</b> </div>
 									<div class="price"><b>Price: </b>$<?= $product['Price'] ?></div>
 									<hr>
-									<form role="form">
-										<div class="form-group">
-											<label>Quantity</label>
-											<select>
-												<?php
-												for($i = 1 ; $i <= 10 ; $i++)
-												{
-										?>			
-													<option value="<?= $i ?>"><?= $i ?></option>
-										<?php 	}
-												?>
-											</select>
-										</div>
-										<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
-									</form>
+									<div class="col-md-6">
+										<form role="form">
+											<div class="form-group">
+												<label>Quantity : </label>
+												</br>
+												<select>
+													<?php
+													for($i = 1 ; $i <= 10 ; $i++)
+													{
+											?>			
+														<option value="<?= $i ?>"><?= $i ?></option>
+											<?php 	}
+													?>
+												</select>
+											</div>
+											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+											</br></br>
+											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
+										</form>
+									</div>
+									<div class="col-md-6">
+										<label>Share : </label>
+										</br>
+										<a class="share" href="#"><img src="images/facebook.png"/></a>
+										<a class="share" href="#"><img src="images/twitter.png"/></a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -148,7 +181,7 @@
 									</div>
 									
 									<div class="tab-pane" id="reviews">
-										<div class="panel widget">
+										<div class="panel panel-default widget">
 											<div class="panel-body">
 												<ul class="list-group">
 													<li class="list-group-item">
@@ -239,50 +272,6 @@
 						</div>	
 					</div>
 				</div>
-				
-				<!--<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
-					<ol class="carousel-indicators">
-					<?php
-						for($i = 0 ; $i < count($images) ; $i++)
-						{
-						?>		
-							<li data-target="#myCarousel" data-slide-to="<?= $i ?>" class="item <?= $i == 0 ? 'active' : '' ?>"></li>
-					<?php
-						}
-						?>	
-					</ol>
-					
-					<div class="carousel-inner" role="listbox">
-						<?php
-						for($i = 0 ; $i < count($images) ; $i++)
-						{
-						?>				
-								<div class="item <?= $i == 0 ? 'active' : '' ?>">
-									<img style="width: 100%; height: 100%;" src="<?= $images[$i] ?>" alt=" "/>
-								</div>
-					<?php
-						}
-						?>
-						
-						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-						</a>
-						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-						</a>
-					</div>-->
-				<!--Quantity:
-					<select>
-						<?php
-						for($i = 1 ; $i <= 10 ; $i++)
-						{
-						?>			
-						<option value="<?= $i ?>"><?= $i ?></option>
-						<?php 	}
-						?>
-					</select>-->
 			</div>
 		</div>
 		<?php include 'footer.php';?>

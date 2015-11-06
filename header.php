@@ -114,13 +114,13 @@
 				if(path.indexOf("index.php") >= 0)
 					list[0].setAttribute("class", "active");
 				else if(path.indexOf("about.php") >= 0)
-				list[1].setAttribute("class", "active");
+					list[1].setAttribute("class", "active");
 				else if(path.indexOf("delivery.php") >= 0)
-				list[2].setAttribute("class", "active");
+					list[2].setAttribute("class", "active");
 				else if(path.indexOf("news.php") >= 0)
-				list[3].setAttribute("class", "active");
+					list[3].setAttribute("class", "active");
 				else if(path.indexOf("contact.php") >= 0)
-				list[4].setAttribute("class", "active");
+					list[4].setAttribute("class", "active");
 				
 			</script>
 		</div>
