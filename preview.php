@@ -63,9 +63,9 @@
 				</br>
 
 				<ol class="breadcrumb">
-					<li><a href="index.html"><i class="glyphicon glyphicon-home"></i></a></li>
-					<li><a href="categories.html">Category</a></li>
-					<li><a href="product.html">Product</a></li>
+					<li><a href="index.php"><i class="glyphicon glyphicon-home"></i></a></li>
+					<li><a href="categories.html"><?= $product['category_name'] ?></a></li>
+					<li><a href="product.html"><?= $product['product_name'] ?></a></li>
 				</ol>
 
 				<div class="col-md-9">
