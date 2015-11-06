@@ -1,11 +1,9 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <head> 
         <?php include 'scripts.php' ?>
+
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#posts").accordion({ 
@@ -15,6 +13,21 @@
                 });
             });
         </script>
+
+        <scipt type="text/javascript" src="jquery.accordion.js" />
+
+        <style type="text/css">
+            .bs-example{
+                margin: 20px;
+            }
+            .panel-body p{
+                color: black;
+                font-size: 160%;
+            }
+            .panel-heading{
+                background: lightblue!important;
+            }
+        </style>
     </head>
     <body>
         <div class="wrap">
@@ -42,76 +55,61 @@
                     </div>
                     <div class="faqs">
                         <h2>Frequently Asked Questions</h2>
-                        <div id="posts">
-                            <div class="tab bar">
-                                <h4 class="post-title">1.What is Lorem Ipsum?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 2.What is Lorem Ipsum Lorem Ipsum has been the industry's standard dummy text?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 3.What is Lorem Ipsum Lorem Ipsum has been the industry's?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 4.What is Lorem Ipsum dummy text of the printing?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 5.What is Lorem Ipsum printing and typesetting industry?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 6.What is Lorem Ipsum text of the printing?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Pellentesque ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 7.What is Lorem Ipsum?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 8.What is Lorem Ipsum dummy text ever since the 1500s?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 9.What is Lorem Ipsum  Lorem Ipsum has been the industry's standard dummy text?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Pellentesque ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.</p>
-                            </div>
-                            <div class="tab bar">
-                                <h4 class="post-title"> 10.What is Lorem Ipsum typesetting industry?</h4>
-                            </div>
-                            <div class="panel margin-lr-7">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        
+                        <div class="bs-example">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. What is DIAMONDPC?</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>For information about the company go to <a href="about.php" target="_blank">DIAMONDPC</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. How do I register?</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>To register please click on "Register" on the top of the page and follow the steps.</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. How do I log in?</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>To log in please click on "Login" on the top of the page and put in your username and password.</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">4. How do I buy on DIAMONDPC?</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>You don't have to be registered to buy a product. Chose your product and go through the checkout process.</a></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="container">
-            1. <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">What is DIAMONDPC?</button>
-            <div id="demo" class="collapse">
-                GO TO: <a href="about.php">About DIAMONDPC</a>
             </div>
         </div>
         <?php include 'footer.php';?>

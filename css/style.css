@@ -1075,19 +1075,19 @@ body {
 }
 .images_1_of_3  h3{
 	color:#383838;
-	font-size: 1em;
+	font-size: 150%;
 	margin:5px 0;
 	font-family: 'ambleregular';
 	text-transform: uppercase;
 }
 .images_1_of_3  p  {
-	font-size:0.823em;
+	font-size:120%;
 	padding:5px 0;
 	color:#727272;
 	line-height: 1.8em;
 }
 /* FAQ  ============================================================================= */
-.ui-accordion .bar{ cursor:pointer;
+/*.ui-accordion .bar{ cursor:pointer;
       margin:15px 0;
  }
 #posts .tab .post-title{
@@ -1112,7 +1112,7 @@ body {
 	font-size:0.95em;
 	line-height: 1.8em;
 	padding:5px 20px;
-}
+}*/
 /****** News **************************/
 .image {
 	clear: both;
