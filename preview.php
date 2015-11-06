@@ -1,285 +1,274 @@
+<?php
+	require_once 'databaseconnect.php';
+	$id = "";
+	$product = [];
+	$images = [];
+	if(isset($_GET['product_id']))
+	{
+		$id = $_GET['product_id'];
+		$STH = $DBH->query(
+			"SELECT Product.Name AS product_name, Description, Details, Category.Name AS category_name, Price 
+			 FROM Product INNER JOIN Category ON Product.Category_Id = Category.Category_Id
+			 WHERE Product_Id = $id");
+		$product = $STH->fetch();
+	
+	
+		$STH = $DBH->query(
+			"SELECT Image_Url
+			   FROM Product_Image 
+			  WHERE Product_Id=$id");
+	
+		while($image = $STH->fetch())
+		{
+			$images[] = $image["Image_Url"];
+		}
+	}
+	?>
 <!DOCTYPE HTML>
 <html>
-<head>
-<?php include 'scripts.php' ?>
-<script>
-		$(function(){
-			$('#products').slides({
-				preload: true,
-				preloadImage: 'img/loading.gif',
-				effect: 'slide, fade',
-				crossfade: true,
-				slideSpeed: 350,
-				fadeSpeed: 500,
-				generateNextPrev: true,
-				generatePagination: false
+	<head>
+		<?php include 'scripts.php';?>
+		<style>
+			#mainimage
+			{
+				outline: 10px solid grey;
+				width: 100%;
+				height: 270px;
+			}
+
+			.productboxthumb
+			{
+				
+
+				margin: 10px 0px 10px 0px;
+			}
+
+			.previewimage
+			{
+				cursor: pointer;
+			}
+		</style>
+		<script type="text/javascript">
+			$( document ).ready(function() {
+			    $(".previewimage").click(function() {
+				  	$("#mainimage").attr("src", $(this).attr("src")); 
+				});
 			});
-		});
-	</script>
-</head>
-<body>
-  <div class="wrap">
- <?php include 'header.php';?>
- <div class="main">
-    <div class="content">
-    	<div class="content_top">
-    		<div class="back-links">
-    		<p><a href="index.html">Home</a> >>>> <a href="#">Electronics</a></p>
-    	    </div>
-    		<div class="clear"></div>
-    	</div>
-    	<div class="section group">
-				<div class="cont-desc span_1_of_2">
-				  <div class="product-details">				
-					<div class="grid images_3_of_2">
-						<div id="container">
-						   <div id="products_example">
-							   <div id="products">
-							   <!-- Make sure to add both image and thumbnail-->
-								<div class="slides_container">
-									<a href="#" target="_blank"><img src="images/productslide-1.jpg" alt=" " /></a>
-									<a href="#" target="_blank"><img src="images/productslide-2.jpg" alt=" " /></a>
-									<a href="#" target="_blank"><img src="images/productslide-3.jpg" alt=" " /></a>					
-									<a href="#" target="_blank"><img src="images/productslide-4.jpg" alt=" " /></a>
-									<a href="#" target="_blank"><img src="images/productslide-5.jpg" alt=" " /></a>
-									<a href="#" target="_blank"><img src="images/productslide-6.jpg" alt=" " /></a>
+		</script>
+	</head>
+	<body>
+		<div class="wrap">
+			<?php include 'header.php';?>
+			<div class="main">
+				</br>
+
+				<ol class="breadcrumb">
+					<li><a href="index.html"><i class="glyphicon glyphicon-home"></i></a></li>
+					<li><a href="categories.html">Category</a></li>
+					<li><a href="product.html">Product</a></li>
+				</ol>
+
+				<div class="col-md-9">
+					<div class="col-md-12 column productboxmain">
+						<div class="row clearfix">
+							<div class="col-md-6 column">
+								<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+								<?php
+									for($i = 0 ; $i < count($images) ; $i++)
+									{
+						?>				<div class="col-md-3 column productboxthumb"> 
+											
+											<img style="width: 150px; height: 100px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
+											
+										</div>
+						<?php
+									}
+								?>
+							</div>
+							<div class="panel panel-default col-md-6 column">
+								<div class="panel-body">
+									<h1><?= $product['product_name'] ?></h1>
+									<?= $product['Description'] ?><br>
+									<b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+									<div class="price"><b>Price: </b>$<?= $product['Price'] ?></div>
+									<form role="form">
+										<div class="form-group">
+											<label>Quantity</label>
+											<select>
+												<?php
+												for($i = 1 ; $i <= 10 ; $i++)
+												{
+										?>			
+													<option value="<?= $i ?>"><?= $i ?></option>
+										<?php 	}
+												?>
+											</select>
+										</div>
+										<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+									</form>
 								</div>
-								<ul class="pagination">
-									<li><a href="#"><img src="images/thumbnailslide-1.jpg" alt=" " /></a></li>
-									<li><a href="#"><img src="images/thumbnailslide-2.jpg" alt=" " /></a></li>
-									<li><a href="#"><img src="images/thumbnailslide-3.jpg" alt=" " /></a></li>
-									<li><a href="#"><img src="images/thumbnailslide-4.jpg" alt=" " /></a></li>
-									<li><a href="#"><img src="images/thumbnailslide-5.jpg" alt=" " /></a></li>
-									<li><a href="#"><img src="images/thumbnailslide-6.jpg" alt=" " /></a></li>
+							</div>
+						</div>
+					</div>
+
+						</br></br>
+					<div class="col-md-12 column productbox">
+						<div class="row clearfix">
+							<div class="col-md-12 column">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#details" data-toggle="tab">Detail</a></li>
+									<li><a href="#reviews" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Reviews</a></li>
 								</ul>
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div class="tab-pane active" id="details">
+										<div class="tabcontent">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<?= $product['Details'] ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="tab-pane" id="reviews">
+										<div class="panel widget">
+											<div class="panel-body">
+												<ul class="list-group">
+													<li class="list-group-item">
+														<div class="row">
+															<div class="col-xs-2 col-md-2"> <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""></div>
+															<div class="col-xs-10 col-md-10">
+																<div>
+																	<a href=""> Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
+																	<div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
+																</div>
+																<div class="comment-text"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit </div>
+																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="row">
+															<div class="col-xs-2 col-md-2"> <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""></div>
+															<div class="col-xs-10 col-md-10">
+																<div>
+																	<a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
+																	<div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
+																</div>
+																<div class="comment-text"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+																	euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim 
+																</div>
+																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="row">
+															<div class="col-xs-2 col-md-2"> <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""></div>
+															<div class="col-xs-10 col-md-10">
+																<div>
+																	<a href="">Lorem ipsum dolor sit amet</a>
+																	<div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
+																</div>
+																<div class="comment-text"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+																	euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim 
+																</div>
+																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
+															</div>
+														</div>
+													</li>
+												</ul>
+												<a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a> 
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="desc span_3_of_2">
-					<h2>Lorem Ipsum is simply dummy text </h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>					
-					<div class="price">
-						<p>Price: <span>$500</span></p>
-					</div>
-					<div class="available">
-						<p>Available Options :</p>
-					<ul>
-						<li>Color:
-							<select>
-							<option>Silver</option>
-							<option>Black</option>
-							<option>Dark Black</option>
-							<option>Red</option>
-						</select></li>
-						<li>Size:<select>
-							<option>Large</option>
-							<option>Medium</option>
-							<option>small</option>
-							<option>Large</option>
-							<option>small</option>
-						</select></li>
-						<li>Quality:<select>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select></li>
-					</ul>
-					</div>
-				<div class="share-desc">
-					<div class="share">
-						<p>Share Product :</p>
-						<ul>
-					    	<li><a href="#"><img src="images/facebook.png" alt="" /></a></li>
-					    	<li><a href="#"><img src="images/twitter.png" alt="" /></a></li>					    
-			    		</ul>
-					</div>
-					<div class="button"><span><a href="#">Add to Cart</a></span></div>					
-					<div class="clear"></div>
-				</div>
-				 <div class="wish-list">
-				 	<ul>
-				 		<li class="wish"><a href="#">Add to Wishlist</a></li>
-				 	    <li class="compare"><a href="#">Add to Compare</a></li>
-				 	</ul>
-				 </div>
-			</div>
-			<div class="clear"></div>
-		  </div>
-		<div class="product_desc">	
-			<div id="horizontalTab">
-				<ul class="resp-tabs-list">
-					<li>Product Details</li>
-					<li>product Tags</li>
-					<li>Product Reviews</li>
-					<div class="clear"></div>
-				</ul>
-				<div class="resp-tabs-container">
-					<div class="product-desc">
-						<p>Lorem Ipsum is simply dummy text of the <span>printing and typesetting industry</span>. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <span>when an unknown printer took a galley of type and scrambled</span> it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<span> It has survived not only five centuries</span>, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>					</div>
 
-				 <div class="product-tags">
-						 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-					<h4>Add Your Tags:</h4>
-					<div class="input-box">
-						<input type="text" value="">
+				<div class="col-md-3">
+					<div class="row">
+						<div class="categories">
+							<ul>
+								<h3>Categories</h3>
+								<?php
+									$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
+									while($row = $STH->fetch())
+									{
+										echo "<li><a href='$row[Category_Id]'>$row[Name]</a></li>";
+									}
+								?>
+								
+							</ul>
+						</div>	
 					</div>
-					<div class="button"><span><a href="#">Add Tags</a></span></div>
-			    </div>	
+					</br>
+					
+					<div class="row">
+						<div class="categories">
+							<ul>
 
-				<div class="review">
-					<h4>Lorem ipsum Review by <a href="#">Finibus Bonorum</a></h4>
-					 <ul>
-					 	<li>Price :<a href="#"><img src="images/price-rating.png" alt="" /></a></li>
-					 	<li>Value :<a href="#"><img src="images/value-rating.png" alt="" /></a></li>
-					 	<li>Quality :<a href="#"><img src="images/quality-rating.png" alt="" /></a></li>
-					 </ul>
-					 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-				  <div class="your-review">
-				  	 <h3>How Do You Rate This Product?</h3>
-				  	  <p>Write Your Own Review?</p>
-				  	  <form>
-					    	<div>
-						    	<span><label>Nickname<span class="red">*</span></label></span>
-						    	<span><input type="text" value=""></span>
-						    </div>
-						    <div><span><label>Summary of Your Review<span class="red">*</span></label></span>
-						    	<span><input type="text" value=""></span>
-						    </div>						
-						    <div>
-						    	<span><label>Review<span class="red">*</span></label></span>
-						    	<span><textarea> </textarea></span>
-						    </div>
-						   <div>
-						   		<span><input type="submit" value="SUBMIT REVIEW"></span>
-						  </div>
-					    </form>
-				  	 </div>				
-				</div>
-			</div>
-		 </div>
-	 </div>
-	    <script type="text/javascript">
-    $(document).ready(function () {
-        $('#horizontalTab').easyResponsiveTabs({
-            type: 'default', //Types: default, vertical, accordion           
-            width: 'auto', //auto or any width like 600px
-            fit: true   // 100% fit in a container
-        });
-    });
-   </script>		
-   <div class="content_bottom">
-    		<div class="heading">
-    		<h3>Related Products</h3>
-    		</div>
-    		<div class="see">
-    			<p><a href="#">See all Products</a></p>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
-   <div class="section group">
-				<div class="grid_1_of_4 images_1_of_4">
-					 <a href="#"><img src="images/new-pic1.jpg" alt=""></a>					
-					<div class="price" style="border:none">
-					       		<div class="add-cart" style="float:none">								
-									<h4><a href="#">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
+								<h3>Related Products</h3>
+								<li><a href='#'>See all</a></li>
+								
+							</ul>
+						</div>	
+						<div class="panel panel-default">
+							<div class="panel-body">
+
+							</div>
+						</div>	
 					</div>
 				</div>
-				<div class="grid_1_of_4 images_1_of_4">
-					<a href="#"><img src="images/new-pic2.jpg" alt=""></a>
-					 <div class="price" style="border:none">
-					       		<div class="add-cart" style="float:none">								
-									<h4><a href="#">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
-					</div>
-				</div>
-				<div class="grid_1_of_4 images_1_of_4">
-					<a href="#"><img src="images/new-pic4.jpg" alt=""></a>
-					<div class="price" style="border:none">
-					       		<div class="add-cart" style="float:none">								
-									<h4><a href="#">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
-					</div>
-				</div>
-				<div class="grid_1_of_4 images_1_of_4">
-				 <img src="images/new-pic3.jpg" alt="">
-					 <div class="price" style="border:none">
-					       		<div class="add-cart" style="float:none">								
-									<h4><a href="#">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
-					</div>
-				</div>
-			</div>
-        </div>
-				<div class="rightsidebar span_3_of_1">
-					<h2>CATEGORIES</h2>
-					<ul>
+				
+				<!--<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
+					<ol class="carousel-indicators">
+					<?php
+						for($i = 0 ; $i < count($images) ; $i++)
+						{
+						?>		
+							<li data-target="#myCarousel" data-slide-to="<?= $i ?>" class="item <?= $i == 0 ? 'active' : '' ?>"></li>
+					<?php
+						}
+						?>	
+					</ol>
+					
+					<div class="carousel-inner" role="listbox">
 						<?php
-							$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
-							while($row = $STH->fetch())
-							{
-								echo "<li><a href='$row[Category_Id]'>$row[Name]</a></li>";
-							}
+						for($i = 0 ; $i < count($images) ; $i++)
+						{
+						?>				
+								<div class="item <?= $i == 0 ? 'active' : '' ?>">
+									<img style="width: 100%; height: 100%;" src="<?= $images[$i] ?>" alt=" "/>
+								</div>
+					<?php
+						}
 						?>
-    				</ul>
-    				<div class="subscribe">
-    					<h2>Newsletters Signup</h2>
-    						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.......</p>
-						    <div class="signup">
-							    <form>
-							    	<input type="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';"><input type="submit" value="Sign up">
-							    </form>
-						    </div>
-      				</div>
-      				 <div class="community-poll">
-      				 	<h2>Community POll</h2>
-      				 	<p>What is the main reason for you to purchase products online?</p>
-      				 	<div class="poll">
-      				 		<form>
-      				 			<ul>
-									<li>
-									<input type="radio" name="vote" class="radio" value="1">
-									<span class="label"><label>More convenient shipping and delivery </label></span>
-									</li>
-									<li>
-									<input type="radio" name="vote" class="radio" value="2">
-									<span class="label"><label for="vote_2">Lower price</label></span>
-									</li>
-									<li>
-									<input type="radio" name="vote" class="radio" value="3">
-									<span class="label"><label for="vote_3">Bigger choice</label></span>
-									</li>
-									<li>
-									<input type="radio" name="vote" class="radio" value="5">
-									<span class="label"><label for="vote_5">Payments security </label></span>
-									</li>
-									<li>
-									<input type="radio" name="vote" class="radio" value="6">
-									<span class="label"><label for="vote_6">30-day Money Back Guarantee </label></span>
-									</li>
-									<li>
-									<input type="radio" name="vote" class="radio" value="7">
-									<span class="label"><label for="vote_7">Other.</label></span>
-									</li>
-									</ul>
-      				 		</form>
-      				 	</div>
-      				 </div>
- 				</div>
- 		</div>
- 	</div>
-    </div>
- </div>
- <?php include 'footer.php';?>
-</body>
+						
+						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+						</a>
+					</div>-->
+				<!--Quantity:
+					<select>
+						<?php
+						for($i = 1 ; $i <= 10 ; $i++)
+						{
+						?>			
+						<option value="<?= $i ?>"><?= $i ?></option>
+						<?php 	}
+						?>
+					</select>-->
+			</div>
+		</div>
+		<?php include 'footer.php';?>
+	</body>
 </html>
-

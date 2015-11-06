@@ -24,14 +24,14 @@
 	Set to display block
 */
 
-.slides_container a {
+/*.slides_container a {
 	width:366px;
 	height:274px;
 	display:block;
-}
+}*/
 
 /*Next/prev buttons*/
-
+/*
 #products .next,#products .prev {
 	position:absolute;
 	top:127px;
@@ -50,10 +50,10 @@
 #products .next {
 	left:350px;
 	background:url(../images/arrow-next.png);
-}
+}*/
 
 /*****Pagination********/
-
+/*
 #products .pagination {
 	background:#dfdfdf;
 	padding:5px;
@@ -143,3 +143,4 @@
 	width:69px;
 }
 }
+*/

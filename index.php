@@ -82,131 +82,98 @@
 		</div>
 		<div class="main">
 			<div class="content">
-				<div class="content_top">
-					<div class="heading">
-						<h3>New Products</h3>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="heading">
+							<h3>New Products</h3>
+						</div>
+						<div class="see">
+							<p><a href="#">See all Products</a></p>
+						</div>
+						<div class="clear"></div>
 					</div>
-					<div class="see">
-						<p><a href="#">See all Products</a></p>
+				</div>
+
+				<div class="section group newest">
+					<?php
+						$STH = $DBH->query(
+							"SELECT Product_Id, Name, Price 
+							   FROM Product
+							  ORDER BY Date_Added DESC LIMIT 4");
+						while($row = $STH->fetch())
+						{
+							$STH_image = $DBH->query(
+							"SELECT Image_Url 
+							   FROM Product_Image
+							  WHERE Product_Id=$row[Product_Id] LIMIT 1");
+							$image = $STH_image->fetch()['Image_Url'];
+?>
+							<div class="grid_1_of_4 images_1_of_4">
+								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
+								<h2><?= $row['Name'] ?></h2>
+								<div class="price-details">
+									<div class="price-number">
+										<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+									</div>
+									<div class="add-cart">
+										<h4><a href="preview.php">Add to Cart</a></h4>
+									</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+
+<?php
+						}
+
+
+					?>
+					
+				</div>
+
+				<div class="content_bottom">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="heading">
+								<h3>Featured Products</h3>
+							</div>
+							<div class="see">
+								<p><a href="#">See all Products</a></p>
+							</div>
+							<div class="clear"></div>
+						</div>
 					</div>
-					<div class="clear"></div>
 				</div>
 				<div class="section group featured">
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/feature-pic1.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$620.87</span></p>
+				<?php
+						$STH = $DBH->query(
+							"SELECT Product_Id, Name, Price 
+							   FROM Product
+							  WHERE Featured=1 ORDER BY Date_Added DESC LIMIT 4");
+						while($row = $STH->fetch())
+						{
+							$STH_image = $DBH->query(
+							"SELECT Image_Url 
+							   FROM Product_Image
+							  WHERE Product_Id=$row[Product_Id] LIMIT 1");
+							$image = $STH_image->fetch()['Image_Url'];
+?>
+							<div class="grid_1_of_4 images_1_of_4">
+								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
+								<h2><?= $row['Name'] ?></h2>
+								<div class="price-details">
+									<div class="price-number">
+										<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+									</div>
+									<div class="add-cart">
+										<h4><a href="preview.php">Add to Cart</a></h4>
+									</div>
+									<div class="clear"></div>
+								</div>
 							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/feature-pic2.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$899.75</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/feature-pic3.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$599.00</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/feature-pic4.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$679.87</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-				</div>
-				<div class="content_bottom">
-					<div class="heading">
-						<h3>Feature Products</h3>
-					</div>
-					<div class="see">
-						<p><a href="#">See all Products</a></p>
-					</div>
-					<div class="clear"></div>
-				</div>
-				<div class="section group newest">
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/new-pic1.jpg" alt="" /></a>					
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$849.99</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/new-pic2.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$599.99</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/new-pic4.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$799.99</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_4 images_1_of_4">
-						<a href="preview.php"><img src="images/new-pic3.jpg" alt="" /></a>
-						<h2>Lorem Ipsum is simply </h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p><span class="rupees">$899.99</span></p>
-							</div>
-							<div class="add-cart">
-								<h4><a href="preview.php">Add to Cart</a></h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
+
+<?php
+						}
+					?>
 				</div>
 			</div>
 		</div>
