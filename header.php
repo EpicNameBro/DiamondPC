@@ -56,7 +56,7 @@
 	</div>
 	<div class="header_top">
 		<div class="logo">
-			<a href="index.php" ><img src="images/logo.png" alt="" width="271px"/></a>
+			<a href="index.php" ><img src="images/logo.png" alt="" width="200px"/></a>
 		</div>
 		<div class="cart" style="position: relative; top: 20px;">
 			<p>

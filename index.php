@@ -130,19 +130,20 @@
 					
 				</div>
 
-				<div class="content_bottom">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<div class="heading">
-								<h3>Featured Products</h3>
-							</div>
-							<div class="see">
-								<p><a href="#">See all Products</a></p>
-							</div>
-							<div class="clear"></div>
+				</br>
+
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="heading">
+							<h3>Featured Products</h3>
 						</div>
+						<div class="see">
+							<p><a href="#">See all Products</a></p>
+						</div>
+						<div class="clear"></div>
 					</div>
 				</div>
+				
 				<div class="section group featured">
 				<?php
 						$STH = $DBH->query(
@@ -170,7 +171,6 @@
 									<div class="clear"></div>
 								</div>
 							</div>
-
 <?php
 						}
 					?>

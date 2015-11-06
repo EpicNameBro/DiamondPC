@@ -43,7 +43,7 @@
 
 		$prodcut_id = $DBH->lastInsertId();
 
-		for($i = 1 ; $i <= 10 ; $i++)
+		for($i = 1 ; $i <= 5 ; $i++)
 		{
 			$input = "image$i";
 			if(is_uploaded_file($_FILES[$input]['tmp_name'])/*isset($_FILES[$input])*/)
@@ -204,7 +204,7 @@
 								</div>
 								<div class="col-md-6">
 									<?php
-										for($i = 1 ; $i <= 10 ; $i++)
+										for($i = 1 ; $i <= 5 ; $i++)
 										{
 										?>          
 									<div class="form-group">

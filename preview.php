@@ -31,15 +31,14 @@
 		<style>
 			#mainimage
 			{
-				outline: 10px solid grey;
+				
 				width: 100%;
-				height: 270px;
+				height: 300px;
 			}
 
 			.productboxthumb
 			{
-				
-
+				outline: 1px solid grey;
 				margin: 10px 0px 10px 0px;
 			}
 
@@ -47,12 +46,21 @@
 			{
 				cursor: pointer;
 			}
+
+			.description
+			{
+				height: 100%;
+			}
 		</style>
 		<script type="text/javascript">
 			$( document ).ready(function() {
 			    $(".previewimage").click(function() {
 				  	$("#mainimage").attr("src", $(this).attr("src")); 
 				});
+			    $(".previewimage").hover(function() {
+				  	$("#mainimage").attr("src", $(this).attr("src")); 
+				});
+
 			});
 		</script>
 	</head>
@@ -72,25 +80,33 @@
 					<div class="col-md-12 column productboxmain">
 						<div class="row clearfix">
 							<div class="col-md-6 column">
-								<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
-								<?php
-									for($i = 0 ; $i < count($images) ; $i++)
-									{
-						?>				<div class="col-md-3 column productboxthumb"> 
-											
-											<img style="width: 150px; height: 100px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
-											
-										</div>
-						<?php
-									}
-								?>
+								<div class="col-md-3">
+									<?php
+										for($i = 0 ; $i < count($images) ; $i++)
+										{
+							?>				<div class="row productboxthumb"> 
+												
+												<img style="width: 150px; height: 50px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
+												
+											</div>
+							<?php
+										}
+									?>
+								</div>
+
+								<div class="col-md-9">
+									<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+								</div>
+								
 							</div>
-							<div class="panel panel-default col-md-6 column">
+							<div class="description panel panel-default col-md-6 column">
 								<div class="panel-body">
 									<h1><?= $product['product_name'] ?></h1>
+									<hr>
 									<?= $product['Description'] ?><br>
 									<b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
 									<div class="price"><b>Price: </b>$<?= $product['Price'] ?></div>
+									<hr>
 									<form role="form">
 										<div class="form-group">
 											<label>Quantity</label>
