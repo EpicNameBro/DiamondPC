@@ -29,7 +29,7 @@
 		<div class="col-md-6">
 
 			<!-- Holds the id of the edit item -->
-			<input type="hidden" id="productid" value="">
+			<input type="hidden" name="product_id" value="<?= $product['product_id']?>">
 
 			<div class="form-group">
 				<label for="name" class="col-md-3 control-label">Name</label>
@@ -64,7 +64,7 @@
 						
 						while($row = $STH->fetch())
 						{
-			?>				<option value='$row[Category_Id]' <?= $row['Category_Id'] == $product['Category_Id'] ? 'selected' : '' ?>> <?= $row['Name'] ?></option>
+			?>				<option value="<?= $row['Category_Id'] ?>" <?= $row['Category_Id'] == $product['Category_Id'] ? 'selected' : '' ?>> <?= $row['Name'] ?></option>
 			<?php			
 						}
 							

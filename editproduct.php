@@ -5,6 +5,32 @@
 		header("Location: index.php");
 		die();
 	}
+
+	if(isset($_POST['edit']))
+	{
+		$STH = $DBH->prepare(
+			"UPDATE Product 
+			 SET Name=?,Description=?, Details=?, Featured=?, Category_Id=?, Price=?
+			 WHERE Product_Id=?");
+
+		$STH->bindParam(1, $_POST['name']);
+		$STH->bindParam(2, nl2br($_POST['description']));
+		$STH->bindParam(3, nl2br($_POST['details']));
+		$STH->bindParam(4, isset($_POST['featured']) ? $n = 1 : $n = 0);
+		$STH->bindParam(5, $_POST['category']);
+		$STH->bindParam(6, $_POST['price']);
+		$STH->bindParam(7, $_POST['product_id']);
+		$STH->execute();
+
+		$STH = $DBH->prepare(
+			"UPDATE Inventory 
+			    SET Quantity=?
+			  WHERE Product_Id=?");
+
+		$STH->bindParam(1, $_POST['quantity']);
+		$STH->bindParam(2, $_POST['product_id']);
+		$STH->execute();
+	}
 	
 	$products = [];
 	
