@@ -31,6 +31,43 @@
 		$STH->bindParam(2, $_POST['product_id']);
 		$STH->execute();
 	}
+
+	if(isset($_POST['delete']))
+	{
+		$product_id = $_POST['delete'];
+		$STH = $DBH->query(
+			"SELECT Image_Url
+			   FROM Product_Image
+ 			  WHERE Product_Id=$product_id");
+
+		while($row = $STH->fetch())
+		{
+			unlink($row['Image_Url']);
+		}
+
+
+		$STH = $DBH->prepare(
+			"DELETE FROM Inventory 
+			  WHERE Product_Id=?");
+
+		$STH->bindParam(1, $product_id);
+		$STH->execute();
+
+		$STH = $DBH->prepare(
+			"DELETE FROM Product_Image 
+			  WHERE Product_Id=?");
+
+		$STH->bindParam(1, $product_id);
+		$STH->execute();
+
+
+		$STH = $DBH->prepare(
+			"DELETE FROM Product 
+			 WHERE Product_Id=?");
+
+		$STH->bindParam(1, $product_id);
+		$STH->execute();
+	}
 	
 	$products = [];
 	
@@ -58,6 +95,12 @@
 <html>
 	<head>
 		<?php include 'scripts.php' ?>
+		<script type="text/javascript">
+		function validate(form)
+		{
+			return confirm('Are you certain?');
+		}
+		</script>
 	</head>
 	<body>
 		<div class="wrap">
@@ -95,7 +138,9 @@
 									<button productid="<?= $products[$i]['product_id'] ?>" type="button" class="edit btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModal">Edit</button>
 								</div>
 								<div class="col-md-2">
-									<button type="button" class="btn btn-danger btn-lg btn-block">Delete</button>
+									<form method="POST" onsubmit="return validate(this);">
+										<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="delete btn btn-danger btn-lg btn-block" >Delete</button>
+									</form>
 								</div>
 							</div>
 						</div>
