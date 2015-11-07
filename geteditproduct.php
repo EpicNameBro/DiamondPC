@@ -1,6 +1,10 @@
 <?php
 	require_once 'databaseconnect.php';
-	
+	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
+	{
+		header("Location: index.php");
+		die();
+	}
 	$STH = $DBH->query(
 		"SELECT Product.Product_Id AS product_id, Product.Name AS product_name, Description, Details, Featured, Category_Id, Price, Quantity, Image_Url 
 		   FROM Inventory 
@@ -14,8 +18,8 @@
 	$product = array(
 		"product_id" => $row['product_id'],
 		"product_name" => $row['product_name'],
-		"Description" => $row['Description'],
-		"Details" => $row['Details'],
+		"Description" => str_replace('<br />','', $row['Description']),
+		"Details" => str_replace('<br />','', $row['Details']),
 		"Featured" => $row['Featured'],
 		"Category_Id" => $row['Category_Id'],
 		"Price" => $row['Price'],
