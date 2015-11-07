@@ -7,7 +7,7 @@
 	{
 		$id = $_GET['product_id'];
 		$STH = $DBH->prepare(
-			"SELECT Product.Name AS product_name, Description, Details, Category.Name AS category_name, Price 
+			"SELECT Product.Name AS product_name, Description, Details, Category.Category_Id AS category_id, Category.Name AS category_name, Price 
 			 FROM Product INNER JOIN Category ON Product.Category_Id = Category.Category_Id
 			 WHERE Product_Id = ?");
 		$STH->bindParam(1, $id);
@@ -94,7 +94,7 @@
 
 				<ol class="breadcrumb">
 					<li><a href="index.php"><i class="glyphicon glyphicon-home"></i></a></li>
-					<li><a href="categories.html"><?= $product['category_name'] ?></a></li>
+					<li><a href="category.php?category_id=<?= $product['category_id'] ?>"><?= $product['category_name'] ?></a></li>
 					<li><a href="product.html"><?= $product['product_name'] ?></a></li>
 				</ol>
 
@@ -102,24 +102,27 @@
 					<div class="col-md-12 column productboxmain">
 						<div class="row clearfix">
 							<div class="col-md-6 column">
-								<div class="col-md-3">
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<div class="col-md-3">
+											<?php
+												for($i = 0 ; $i < count($images) ; $i++)
+												{
+									?>				<div class="row productboxthumb"> 
+														
+														<img style="width: 150px; height: 50px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
+														
+													</div>
 									<?php
-										for($i = 0 ; $i < count($images) ; $i++)
-										{
-							?>				<div class="row productboxthumb"> 
-												
-												<img style="width: 150px; height: 50px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
-												
-											</div>
-							<?php
-										}
-									?>
-								</div>
+												}
+											?>
+										</div>
 
-								<div class="col-md-9">
-									<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+										<div class="col-md-9">
+											<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+										</div>
+									</div>
 								</div>
-								
 							</div>
 							<div class="description panel panel-default col-md-6 column">
 								<div class="panel-body">
@@ -134,13 +137,13 @@
 											<div class="form-group">
 												<label>Quantity : </label>
 												</br>
-												<select>
+												<select class="form-control">
 													<?php
 													for($i = 1 ; $i <= 10 ; $i++)
 													{
-											?>			
+								?>			
 														<option value="<?= $i ?>"><?= $i ?></option>
-											<?php 	}
+								<?php 				}
 													?>
 												</select>
 											</div>
@@ -160,12 +163,12 @@
 						</div>
 					</div>
 
-						</br></br>
+					</br></br>
 					<div class="col-md-12 column productbox">
 						<div class="row clearfix">
 							<div class="col-md-12 column">
 								<ul class="nav nav-tabs">
-									<li class="active"><a href="#details" data-toggle="tab">Detail</a></li>
+									<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
 									<li><a href="#reviews" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Reviews</a></li>
 								</ul>
 								<!-- Tab panes -->
@@ -247,7 +250,7 @@
 									$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
 									while($row = $STH->fetch())
 									{
-										echo "<li><a href='$row[Category_Id]'>$row[Name]</a></li>";
+										echo "<li><a href='category.php?category_id=$row[Category_Id]'>$row[Name]</a></li>";
 									}
 								?>
 								

@@ -23,8 +23,8 @@
 
 		$product = array(
 		'name' 			=>  @$_POST['name'],
-		'description'	=>  @$_POST['description'],
-		'details' 		=>  @$_POST['details'],
+		'description'	=>  nl2br(@$_POST['description']),
+		'details' 		=>  nl2br(@$_POST['details']),
 		'date_added' 	=>  date('Y-m-d h:i:s a', time()),
 		'featured' 		=>  isset($_POST['featured']) ? 1 : 0,
 		'category' 		=>  @$_POST['category'],
@@ -39,10 +39,18 @@
 		$STH->execute($product);
 
 
-
-
 		$prodcut_id = $DBH->lastInsertId();
 
+
+		$STH = $DBH->prepare(
+			"INSERT INTO Inventory (Product_Id, Quantity)
+			 VALUES (?,?)");
+
+		$STH->bindParam(1,  $product_id);
+		$STH->bindParam(2,  $_POST['quantity']);
+
+
+		
 		for($i = 1 ; $i <= 5 ; $i++)
 		{
 			$input = "image$i";
@@ -119,15 +127,12 @@
 						$STH->execute($productimage);
 
 					} catch (RuntimeException $e) {
-
 					    //echo 'try exception: ' . $e->getMessage() . "</br>";
-
 					}
 			}
 		}
 		
 	}
-
 	?>
 <!DOCTYPE HTML>
 <html>
@@ -183,18 +188,27 @@
 												
 												while($row = $STH->fetch())
 												{
-												echo "<option value='$row[Category_Id]'>$row[Name]</option>";
+													echo "<option value='$row[Category_Id]'>$row[Name]</option>";
 												}
 												?>
 											</select>
 										</div>
 									</div>
+
 									<div class="form-group">
 										<label for="price" class="col-md-2 control-label">Price</label>
 										<div class="col-md-8">
 											<input type="text" class="form-control" name="price" placeholder="Price" required>
 										</div>
 									</div>
+
+									<div class="form-group">
+										<label for="quantity" class="col-md-2 control-label">Quantity</label>
+										<div class="col-md-8">
+											<input type="text" class="form-control" name="quantity" placeholder="Quantity" value="0" required>
+										</div>
+									</div>
+
 									<div class="form-group">
 										<label for="name" class="col-md-2 control-label"></label>
 										<div class="col-md-8">

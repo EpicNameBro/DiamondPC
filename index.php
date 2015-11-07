@@ -20,7 +20,7 @@
 							$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
 							while($row = $STH->fetch())
 							{
-								echo "<li><a href='$row[Category_Id]'>$row[Name]</a></li>";
+								echo "<li><a href='category.php?category_id=$row[Category_Id]'>$row[Name]</a></li>";
 							}
 						?>
 						
