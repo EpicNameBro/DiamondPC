@@ -1,5 +1,5 @@
 <?php
-	require_once 'databaseconnect.php';
+	include 'databaseconnect.php';
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
 		header("Location: index.php");
@@ -31,21 +31,17 @@
 		'price' 		=>  @$_POST['price']
 		);
 
-		//print_r($product);
-
+		
 		$STH = $DBH->prepare(
 			"INSERT INTO Product (Name, Description, Details, Date_Added, Featured, Category_Id, Price)
 			 VALUES (:name, :description, :details, :date_added, :featured, :category, :price)");
 		$STH->execute($product);
 
-
-		$prodcut_id = $DBH->lastInsertId();
-
+		$product_id = $DBH->lastInsertId();
 
 		$STH = $DBH->prepare(
-			"INSERT INTO Inventory (Product_Id, Quantity)
-			 VALUES (?,?)");
-
+			"INSERT INTO Inventory(Product_Id, Quantity)
+			 VALUES(?,?)");
 		$STH->bindParam(1,  $product_id);
 		$STH->bindParam(2,  $_POST['quantity']);
 		$STH->execute();
@@ -118,7 +114,7 @@
 					    //echo 'File is uploaded successfully.';
 
 					    $productimage = array(
-						'product_id' => $prodcut_id,
+						'product_id' => $product_id,
 						'image_url' => $filepath				
 						);
 						$STH = $DBH->prepare(
