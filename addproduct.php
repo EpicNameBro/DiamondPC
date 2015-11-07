@@ -1,5 +1,5 @@
 <?php
-	include 'databaseconnect.php';
+	require_once 'databaseconnect.php';
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
 		header("Location: index.php");
@@ -48,7 +48,7 @@
 
 		$STH->bindParam(1,  $product_id);
 		$STH->bindParam(2,  $_POST['quantity']);
-
+		$STH->execute();
 
 		
 		for($i = 1 ; $i <= 5 ; $i++)

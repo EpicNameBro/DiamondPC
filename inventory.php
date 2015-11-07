@@ -28,9 +28,9 @@
 			 	<div class="categories">
 				  	<ul>
 				  		<h3>Inventory</h3>
-				  		<li><a href="addcategory.php">Add Category</a></li>
+				  		<li><a href="addcategory.php">Add / Remove Category</a></li>
 				      	<li><a href="addproduct.php">Add Product</a></li>
-				      	<li><a href="editproduct.php">Edit Product</a></li>
+				      	<li><a href="editproduct.php">Edit Products</a></li>
 				  	</ul>
 				</div>		
 			</div>
