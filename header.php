@@ -32,7 +32,8 @@
 					{
 					?>							
 				<li><a href="logout.php">Logout</a></li>
-				<?php					}
+				<li><a href="wishlist.php">Wish List</a></li>
+			<?php	}
 					else
 					{
 					?>							
@@ -48,7 +49,7 @@
 					?>
 				<li><a href="#">Delivery</a></li>
 				<li><a href="#">Checkout</a></li>
-				<li><a href="#">Wish List</a></li>
+				
 				<li><a href="myaccount.php">My Account</a></li>
 			</ul>
 		</div>

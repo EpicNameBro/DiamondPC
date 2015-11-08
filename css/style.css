@@ -382,7 +382,7 @@ body {
 	display: inline-block;
 }
 .add-cart h4 a{
-	font-size:0.9em;
+	font-size:0.7em;
 	display: block;
 	padding:10px 15px;
 	font-family: 'ambleregular';
@@ -397,7 +397,7 @@ body {
 }
 .add-cart h4 a:hover{
 	  text-shadow: 0px 0px 1px #000;
-	  background:#292929;
+	  background: blue;
 }
 /*** Footer ***/
 .footer {

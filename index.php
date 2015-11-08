@@ -1,10 +1,28 @@
 <?php
 	require_once 'databaseconnect.php';
-	?>
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<?php include 'scripts.php' ?>
+	<style>
+		.producttitle h2
+		{
+			font-size: 1.1em;
+			text-align: center;
+		}
+
+		.price-number p
+		{
+			font-size:1.0em;
+			vertical-align: middle;
+		}
+
+		.addcart
+		{
+			float: right;
+		}
+	</style>
 </head>
 <body>
 	<div class="wrap">
@@ -108,20 +126,23 @@
 							  WHERE Product_Id=$row[Product_Id] LIMIT 1");
 							$image = $STH_image->fetch()['Image_Url'];
 ?>
-							<div class="grid_1_of_4 images_1_of_4">
-								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
-								<h2><?= $row['Name'] ?></h2>
-								<div class="price-details">
-									<div class="price-number">
-										<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+							<div class="col-md-3">
+								<div class="panel panel-default">
+									<div class="producttitle panel-body">
+										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
+										<h2 class=""><?= $row['Name'] ?></h2>
+										<div class="price-details">
+											<div class="price-number">
+												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+											</div>
+											
+											<h4><a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a></h4>
+											
+											<div class="clear"></div>
+										</div>
 									</div>
-									<div class="add-cart">
-										<h4><a href="preview.php">Add to Cart</a></h4>
-									</div>
-									<div class="clear"></div>
 								</div>
 							</div>
-
 <?php
 						}
 
@@ -158,17 +179,21 @@
 							  WHERE Product_Id=$row[Product_Id] LIMIT 1");
 							$image = $STH_image->fetch()['Image_Url'];
 ?>
-							<div class="grid_1_of_4 images_1_of_4">
-								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
-								<h2><?= $row['Name'] ?></h2>
-								<div class="price-details">
-									<div class="price-number">
-										<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+							<div class="col-md-3">
+								<div class="panel panel-default">
+									<div class="producttitle panel-body">
+										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
+										<h2 class=""><?= $row['Name'] ?></h2>
+										<div class="price-details">
+											<div class="price-number">
+												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+											</div>
+											
+											<h4><a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a></h4>
+											
+											<div class="clear"></div>
+										</div>
 									</div>
-									<div class="add-cart">
-										<h4><a href="preview.php">Add to Cart</a></h4>
-									</div>
-									<div class="clear"></div>
 								</div>
 							</div>
 <?php

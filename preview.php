@@ -148,8 +148,10 @@
 												</select>
 											</div>
 											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
-											</br></br>
-											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
+											</br></br>								
+										</form>
+										<form method='post' action='wishlist.php'>
+											<button name="wishlistadd" value="<?= $_GET['product_id'] ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
 										</form>
 									</div>
 									<div class="col-md-6">
