@@ -13,7 +13,7 @@
 <div class="header">
 	<div class="headertop_desc">
 		<div class="call">
-			<p><span>Need help?</span> call us <span class="number">1-22-3456789</span></p>
+			<p><span>Need help? Call us:</span> <span class="number">514 965 9925</span></p>
 		</div>
 		<div class="account_desc">
 			<ul>

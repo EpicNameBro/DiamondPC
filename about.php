@@ -1,7 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<?php include 'scripts.php' ?>
+	<?php include 'scripts.php' ?>
+
+	<style type="text/css">
+		.content p{
+			font-size: 120%;
+		}
+
+		.content .section .history-desc .history{
+			font-size: 120%;
+		}
+	</style>
+
 </head>
 <body>
   <div class="wrap">
