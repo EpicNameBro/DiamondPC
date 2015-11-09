@@ -126,10 +126,10 @@
 									<img src="<?= $products[$i]['Image_Url'] ?>"/>
 								</div>
 								<div class="col-md-2">
-									<h3><b><?= $products[$i]['product_name'] ?></b></h3>
+									<h4><b><?= $products[$i]['product_name'] ?></b></h4>
 								</div>
 								<div class="col-md-2">
-									<h3><b>$<?= $products[$i]['Price'] ?></b></h3>
+									<h3 class="text-success"><b>$<?= $products[$i]['Price'] ?></b></h3>
 								</div>
 								<div class="productinfo col-md-2">
 									<h3><b>Stock: <?= $products[$i]['Quantity'] ?></b></h3>
