@@ -73,6 +73,22 @@
 				width: 35px;
 				height: 35px;
 			}
+			.producttitle h2
+			{
+				font-size: 1.1em;
+				text-align: center;
+			}
+
+			.price-number p
+			{
+				font-size:1.0em;
+				vertical-align: middle;
+			}
+
+			.addcart
+			{
+				float: right;
+			}
 		</style>
 		<script type="text/javascript">
 			$( document ).ready(function() {
@@ -266,13 +282,54 @@
 							<ul>
 
 								<h3>Related Products</h3>
-								<li><a href='#'>See all</a></li>
+								<!-- <li><a href='#'>See all</a></li> -->
 								
 							</ul>
 						</div>	
 						<div class="panel panel-default">
 							<div class="panel-body">
+								<?php
+										$related_products = [];
 
+										$STH = $DBH->query(
+											"SELECT Product_Id, Name, Price 
+											   FROM Product
+											  WHERE Category_Id=$product[category_id]
+											  ORDER BY RAND() DESC LIMIT 4");
+										while($row = $STH->fetch())
+										{
+											$STH_image = $DBH->query(
+											"SELECT Image_Url 
+											   FROM Product_Image
+											  WHERE Product_Id=$row[Product_Id] LIMIT 1");
+											$image = $STH_image->fetch()['Image_Url'];
+											$related_products[] = array(
+												'Product_Id' =>  $row['Product_Id'],
+												'Name' =>  $row['Name'],
+												'Price' =>  $row['Price'],
+												'Image_Url' => $image);
+										}
+										for($i = 0 ; $i < count($related_products) ; $i++)
+										{
+									?>
+											<div class="panel panel-default">
+												<div class="producttitle panel-body">
+													<a href="preview.php?product_id=<?= $related_products[$i]['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $related_products[$i]['Image_Url'] ?>" alt="" /></a>
+													<h2 class=""><?= $related_products[$i]['Name'] ?></h2>
+													<div class="price-details">
+														<div class="price-number">
+															<p><span class="rupees">$<?= $related_products[$i]['Price'] ?></span></p>
+														</div>
+														
+														<h4><a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a></h4>
+														
+														<div class="clear"></div>
+													</div>
+												</div>
+											</div>
+									<?php
+										}
+									?>
 							</div>
 						</div>	
 					</div>
