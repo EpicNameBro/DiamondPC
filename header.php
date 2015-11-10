@@ -122,7 +122,6 @@
 					list[3].setAttribute("class", "active");
 				else if(path.indexOf("contact.php") >= 0)
 					list[4].setAttribute("class", "active");
-				
 			</script>
 		</div>
 		<div class="search_box">
