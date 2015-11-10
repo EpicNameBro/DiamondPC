@@ -91,27 +91,39 @@
 							for($i = 0 ; $i < count($products) ; $i++)
 							{
 							?>
-															
-								<div class="panel panel-default">
-									<div class="panel-body">
+								<div class="col-md-12 panel panel-default">
+									<div class="panel-body" style="text-align: center;">
 										<a href="preview.php?product_id=<?= $products[$i]['product_id'] ?>">
-											<div class="col-md-3">
-												<img style="height: 125px" src="<?= $products[$i]['Image_Url'] ?>"/>
-											</div>
-											<div class="col-md-3">
-												<h3><b><?= $products[$i]['product_name'] ?></b></h3>
-											</div>
+											<img style="height: 125px; width: auto" class="col-md-3 vcenter" src="<?= $products[$i]['Image_Url'] ?>"/>
+											<span class="col-md-3 vcenter"><b><h4><?= $products[$i]['product_name'] ?></h4></b></span>
 										</a>
-										<div class="col-md-3">
-											<h3><b>$<?= $products[$i]['Price'] ?></b></h3>
-										</div>
-										<div class="col-md-3">
-											<form method="POST" onsubmit="return validate(this);">
-												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="delete btn btn-danger btn-lg btn-block" >Delete</button>
-											</form>
-										</div>
+										<span class="col-md-3 vcenter"><b>$<?= $products[$i]['Price'] ?></b></span>
+										<form method="POST" onsubmit="return validate(this);" class="col-md-3 vcenter" style="display: inline-block">
+												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="btn btn-danger btn-lg btn-block" >Delete</button>
+										</form>
 									</div>
 								</div>
+
+								<!--<div class="panel panel-default">
+									<div class="panel-body">
+										<a href="preview.php?product_id=<?= $products[$i]['product_id'] ?>">
+											
+												<img class="col-md-3 vcenter" style="height: 125px" src="<?= $products[$i]['Image_Url'] ?>"/>
+											
+											
+												<h3 class="col-md-3 vcenter"><b><?= $products[$i]['product_name'] ?></b></h3>
+											
+										</a>
+										
+											<h3 class="col-md-3 vcenter"><b>$<?= $products[$i]['Price'] ?></b></h3>
+										
+											
+											<form method="POST" onsubmit="return validate(this);" class="">
+												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="col-md-3 btn btn-danger btn-lg btn-block vcenter" >Delete</button>
+											</form>
+										
+									</div>
+								</div>-->
 							
 					<?php	}
 							?>

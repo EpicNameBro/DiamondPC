@@ -39,4 +39,9 @@
 	{
 	margin: 0;
 	}
+	.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+	}
 </style>
