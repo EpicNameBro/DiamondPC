@@ -47,7 +47,7 @@
 				<li><a href="manageusers.php">Manage Users</a></li>
 				<?php					}
 					?>
-				<li><a href="#">Delivery</a></li>
+				<li><a href="cart.php">Cart</a></li>
 				<li><a href="#">Checkout</a></li>
 				
 				<li><a href="myaccount.php">My Account</a></li>

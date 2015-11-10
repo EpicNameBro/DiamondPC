@@ -135,9 +135,9 @@
 											<div class="price-number">
 												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
 											</div>
-											
-											<h4><a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a></h4>
-											
+											<form role="form" method="POST" action="cart.php">
+												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+											</form>
 											<div class="clear"></div>
 										</div>
 									</div>
@@ -189,8 +189,9 @@
 												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
 											</div>
 											
-											<h4><a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a></h4>
-											
+											<form role="form" method="POST" action="cart.php">
+												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+											</form>
 											<div class="clear"></div>
 										</div>
 									</div>

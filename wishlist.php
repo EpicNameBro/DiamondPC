@@ -103,41 +103,9 @@
 										</form>
 									</div>
 								</div>
-
-								<!--<div class="panel panel-default">
-									<div class="panel-body">
-										<a href="preview.php?product_id=<?= $products[$i]['product_id'] ?>">
-											
-												<img class="col-md-3 vcenter" style="height: 125px" src="<?= $products[$i]['Image_Url'] ?>"/>
-											
-											
-												<h3 class="col-md-3 vcenter"><b><?= $products[$i]['product_name'] ?></b></h3>
-											
-										</a>
-										
-											<h3 class="col-md-3 vcenter"><b>$<?= $products[$i]['Price'] ?></b></h3>
-										
-											
-											<form method="POST" onsubmit="return validate(this);" class="">
-												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="col-md-3 btn btn-danger btn-lg btn-block vcenter" >Delete</button>
-											</form>
-										
-									</div>
-								</div>-->
 							
 					<?php	}
 							?>
-						<script type="text/javascript">
-							$( document ).ready(function() {
-							    $(".edit").click(function() {
-							    	 $.ajax({url: "geteditproduct.php?product_id=" + $(this).attr('productid'), success: function(result){
-							    	 	
-								        $("#editproduct").html(result);
-								    },});
-							    							    	
-								});
-							});
-						</script>
 					</div>
 				</div>
 				<!-- Modal -->

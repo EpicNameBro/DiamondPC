@@ -170,12 +170,12 @@
 										<div class="price"><h3 class="text-success"><b>Price: </b>$<?= $product['Price'] ?></h3></div>
 										<hr>
 										<div class="col-md-6">
-											<form role="form">
+											<form role="form" method="POST" action="cart.php">
 												<div class="form-group">
 
 													<label>Quantity : </label>
-													</br>
-													<select class="form-control">
+													</br>.
+													<select class="form-control" name="quantity">
 														<?php
 														for($i = 1 ; $i <= 10 ; $i++)
 														{
@@ -185,7 +185,8 @@
 														?>
 													</select>
 												</div>
-												<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+
+												<button name="addcart" value="<?= $id ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
 												</br></br>								
 											</form>
 											<form method='post' action='wishlist.php'>
