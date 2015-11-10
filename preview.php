@@ -41,7 +41,6 @@
 			#mainimage
 			{
 				
-				width: 100%;
 				height: 300px;
 			}
 
@@ -83,12 +82,24 @@
 			{
 				font-size:1.0em;
 				vertical-align: middle;
+				text-align: center;
 			}
 
-			.addcart
+			.well 
 			{
-				float: right;
+   				 background: white;
 			}
+
+			.details
+			{
+				margin-top: 40px;
+			}
+
+			.related
+			{
+				text-align: center;
+			}
+
 		</style>
 		<script type="text/javascript">
 			$( document ).ready(function() {
@@ -114,67 +125,79 @@
 					<li><a href="product.html"><?= $product['product_name'] ?></a></li>
 				</ol>
 
-				<div class="col-md-9">
-					<div class="col-md-12 column productboxmain">
-						<div class="row clearfix">
-							<div class="col-md-6 column">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<div class="col-md-3">
+				<div class="col-md-10">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="row clearfix">
+								<div class="col-md-6 column">
+									<div class="row">
+										<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="col-md-3">
+													<?php
+														for($i = 0 ; $i < count($images) ; $i++)
+														{
+											?>				<div class="row productboxthumb"> 
+																
+																<img style="width: 150px; height: 50px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
+																
+															</div>
 											<?php
-												for($i = 0 ; $i < count($images) ; $i++)
-												{
-									?>				<div class="row productboxthumb"> 
-														
-														<img style="width: 150px; height: 50px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
-														
-													</div>
-									<?php
-												}
-											?>
-										</div>
+														}
+													?>
+												</div>
 
-										<div class="col-md-9">
-											<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+												<div class="col-md-9">
+													<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="well">
+											<b>Description:</b>
+											</br>
+											<?= $product['Description'] ?><br>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="description panel panel-default col-md-6 column">
-								<div class="panel-body">
-									<h1><?= $product['product_name'] ?></h1>
-									<hr>
-									<?= $product['Description'] ?><br>
-									<div class="rating"><b>Rating:</b> </div>
-									<div class="price"><b>Price: </b>$<?= $product['Price'] ?></div>
-									<hr>
-									<div class="col-md-6">
-										<form role="form">
-											<div class="form-group">
-												<label>Quantity : </label>
-												</br>
-												<select class="form-control">
-													<?php
-													for($i = 1 ; $i <= 10 ; $i++)
-													{
-								?>			
-														<option value="<?= $i ?>"><?= $i ?></option>
-								<?php 				}
-													?>
-												</select>
-											</div>
-											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
-											</br></br>								
-										</form>
-										<form method='post' action='wishlist.php'>
-											<button name="wishlistadd" value="<?= $_GET['product_id'] ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
-										</form>
-									</div>
-									<div class="col-md-6">
-										<label>Share : </label>
-										</br>
-										<a class="share" href="#"><img src="images/facebook.png"/></a>
-										<a class="share" href="#"><img src="images/twitter.png"/></a>
+								<div class="description col-md-6 column">
+									<div class="">
+										<h1><?= $product['product_name'] ?></h1>
+										<hr>
+										
+										<div class="rating"><h3><b>Rating:</b></h3></div>
+										<div class="price"><h3 class="text-success"><b>Price: </b>$<?= $product['Price'] ?></h3></div>
+										<hr>
+										<div class="col-md-6">
+											<form role="form">
+												<div class="form-group">
+
+													<label>Quantity : </label>
+													</br>
+													<select class="form-control">
+														<?php
+														for($i = 1 ; $i <= 10 ; $i++)
+														{
+									?>			
+															<option value="<?= $i ?>"><?= $i ?></option>
+									<?php 				}
+														?>
+													</select>
+												</div>
+												<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+												</br></br>								
+											</form>
+											<form method='post' action='wishlist.php'>
+												<button name="wishlistadd" value="<?= $_GET['product_id'] ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
+											</form>
+										</div>
+										<div class="col-md-6">
+											<label>Share : </label>
+											</br>
+											<a class="share" href="#"><img src="images/facebook.png"/></a>
+											<a class="share" href="#"><img src="images/twitter.png"/></a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -182,9 +205,9 @@
 					</div>
 
 					</br></br>
-					<div class="col-md-12 column productbox">
+					<div class="row">
 						<div class="row clearfix">
-							<div class="col-md-12 column">
+							<div class="col-md-12 details">
 								<ul class="nav nav-tabs">
 									<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
 									<li><a href="#reviews" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Reviews</a></li>
@@ -259,8 +282,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-3">
-					<div class="row">
+				<div class="col-md-2 right">
+					
 						<div class="categories">
 							<ul>
 								<h3>Categories</h3>
@@ -274,10 +297,10 @@
 								
 							</ul>
 						</div>	
-					</div>
+					
 					</br>
 					
-					<div class="row">
+					
 						<div class="categories">
 							<ul>
 
@@ -312,27 +335,30 @@
 										for($i = 0 ; $i < count($related_products) ; $i++)
 										{
 									?>
-											<div class="panel panel-default">
-												<div class="producttitle panel-body">
-													<a href="preview.php?product_id=<?= $related_products[$i]['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $related_products[$i]['Image_Url'] ?>" alt="" /></a>
+											<div class="well">
+												<div class="producttitle">
+													<a href="preview.php?product_id=<?= $related_products[$i]['Product_Id'] ?>">
+														<img style="width: 212px; height: auto;" src="<?= $related_products[$i]['Image_Url'] ?>" alt="" />
+													</a>
 													<h2 class=""><?= $related_products[$i]['Name'] ?></h2>
 													<div class="price-details">
 														<div class="price-number">
 															<p><span class="rupees">$<?= $related_products[$i]['Price'] ?></span></p>
 														</div>
 														
-														<h4><a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a></h4>
+														<a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a>
 														
 														<div class="clear"></div>
 													</div>
 												</div>
 											</div>
+											<hr>
 									<?php
 										}
 									?>
 							</div>
 						</div>	
-					</div>
+					
 				</div>
 			</div>
 		</div>
