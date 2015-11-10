@@ -41,27 +41,63 @@
 					    </form>
 
 					    <?php
-					    	if(isset($_POST["userName"]) && isset($_POST["userEmail"]) && isset($_POST["userMsg"]) || isset($_POST["userCompany"]))
+					    	if(isset($_POST["userName"]) && isset($_POST["userEmail"]) && isset($_POST["userMsg"]) && isset($_POST["userCompany"]))
 					    	{
-					    		//$userName = $_POST["userName"];
+								echo 'tests';
+					    		$userName = $_POST["userName"];
 					    		$userEmail = $_POST["userEmail"];
 					    		$companyName = $_POST["userCompany"];
 					    		$userMessage = $_POST["userMsg"];
-
+								/*
 					    		$to = "futurediamondpc@gmail.com"; // this is your Email address
-							    $from = $_POST["userEmail"]; // this is the sender's Email address
-							    $userName = $_POST["userName"];
+							    $from = $userEmail; // this is the sender's Email address
 							    $subject = "Form submission";
 							    $subject2 = "Copy of your form submission";
-							    $message = $userName . " wrote the following:" . "\n\n" . $_POST["userMsg"];
-							    $message2 = "Here is a copy of your message " . $userName . "\n\n" . $_POST["userMsg"];
+							    $message = $userName . " wrote the following:" . "\n\n" . $userMessage;
+							    $message2 = "Here is a copy of your message " . $userName . "\n\n" . $userMessage;
 
 							    $headers = "From:" . $from;
 							    $headers2 = "From:" . $to;
-							    mail($to, $subject, $message, $headers);
-							    mail($from, $subject2, $message2, $headers2); // sends a copy of the message to the sender
-							    echo "Mail Sent. Thank you " . $userName . ", we will contact you shortly.";
-							    // You can also use header('Location: thank_you.php'); to redirect to another page.
+							    $success = mail($to, $subject, $message, $headers);
+							    $success2 = mail($from, $subject2, $message2, $headers2); // sends a copy of the message to the sender
+
+							    if($success && $success2)
+							    {
+							    	echo "Mail Sent. Thank you " . $userName . ", we will contact you shortly.";
+							    }
+							    else
+							    {
+							    	echo "Error";
+							    }*/
+								
+								require_once "Mail.php";
+
+								$from = $userEmail;
+								$to = 'jonathan_delcorpo@hotmail.com';
+								$subject = 'Hi!';
+								$body = $userMessage;
+
+								$headers = array(
+									'From' => $from,
+									'To' => $to,
+									'Subject' => $subject
+								);
+
+								$smtp = Mail::factory('smtp', array(
+										'host' => 'ssl://smtp.gmail.com',
+										'port' => '465',
+										'auth' => true,
+										'username' => 'futurediamonpc@gmail.com',
+										'password' => 'gjbigboss4321'
+									));
+
+								$mail = $smtp->send($to, $headers, $body);
+
+								if (PEAR::isError($mail)) {
+									echo('<p>' . $mail->getMessage() . '</p>');
+								} else {
+									echo('<p>Message successfully sent!</p>');
+								}
 					    	}
 					    ?>
 				  </div>
@@ -84,12 +120,12 @@
       				</div>
       			<div class="company_address">
 				     	<h3>Company Information :</h3>
-						    	<p>821 Sainte-Croix, Saint Laurent</p>
-						   		<p>H4L 3X9, QC</p>
-						   		<p>Canada</p>
+				    	<p>821 Sainte-Croix, Saint Laurent</p>
+				   		<p>H4L 3X9, QC</p>
+				   		<p>Canada</p>
 				   		<p>Phone: 514 965 9925</p>
 				 	 	<p>Email: <span>futurediamondpc@gmail.com</span></p>
-				   		<p>Follow on: <span>Facebook</span>, <span>Twitter</span>, <span>Instagram</span></p>
+				   		<p>Follow on: <span><a href="https://www.facebook.com/futurediamondpc" target="_blank"/>Facebook</span>, <span><a href="https://twitter.com/futurediamondpc" target="_blank"/>Twitter</span>, <span><a href="https://instagram.com/futurediamondpc/" target="_blank"/>Instagram</span></p>
 				   </div>
 				 </div>
 			  </div>		
