@@ -43,12 +43,12 @@
 					    <?php
 					    	if(isset($_POST["userName"]) && isset($_POST["userEmail"]) && isset($_POST["userMsg"]) && isset($_POST["userCompany"]))
 					    	{
-								echo 'tests';
+								//echo 'tests';
 					    		$userName = $_POST["userName"];
 					    		$userEmail = $_POST["userEmail"];
 					    		$companyName = $_POST["userCompany"];
 					    		$userMessage = $_POST["userMsg"];
-								/*
+								
 					    		$to = "futurediamondpc@gmail.com"; // this is your Email address
 							    $from = $userEmail; // this is the sender's Email address
 							    $subject = "Form submission";
@@ -68,9 +68,9 @@
 							    else
 							    {
 							    	echo "Error";
-							    }*/
+							    }
 								
-								require_once "Mail.php";
+								/*require_once "Mail.php";
 
 								$from = $userEmail;
 								$to = 'jonathan_delcorpo@hotmail.com';
@@ -97,7 +97,7 @@
 									echo('<p>' . $mail->getMessage() . '</p>');
 								} else {
 									echo('<p>Message successfully sent!</p>');
-								}
+								}*/
 					    	}
 					    ?>
 				  </div>

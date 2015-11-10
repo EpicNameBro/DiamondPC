@@ -1,14 +1,34 @@
 <?php
 	require_once 'databaseconnect.php';
+
+    if(isset($_SESSION["UserSession"]))
+    {
+        $STH = $DBH->prepare("SELECT Username FROM User WHERE 'id' = $_SESSION[UserSession];");
+        $STH->bindParam(1, $_POST["username"]);
+        $STH->execute();
+
+        $STH = $DBH->prepare(
+                "SELECT First_Name, Last_Name, Email, Birthdate, Address, City, State_Province, Country, Postal_Code_Zip, Phone_Number FROM User_Info;");
+        $STH->bindParam(2, $_POST["firstname"]);
+        $STH->bindParam(3, $_POST["lastname"]);
+        $STH->bindParam(4, $_POST["email"]);
+        $STH->bindParam(5, $_POST["birthdate"]);
+        $STH->bindParam(6, $_POST["address"]);
+        $STH->bindParam(7, $_POST["city"]);
+        $STH->bindParam(8, $_POST["stateprovince"]);
+        $STH->bindParam(9, $_POST["country"]);
+        $STH->bindParam(10, $_POST["postalcodezip"]);
+        $STH->bindParam(11, $_POST["phonenumber"]);
+        $STH->execute();
+        //die();
+    }
 ?>
 <!DOCTYPE HTML>
 <head>
 	<?php include 'scripts.php' ?>
 	
 	<style type="text/css">
-		.panel panel-info{
-			float: left;
-		}
+		
 	</style>
 </head>
 <body>
@@ -18,19 +38,14 @@
 	<!-- HEADER END -->
 		<div class="container">    
 
-        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div id="myinfo" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <div class="panel-title">My Info</div>
                             <!--<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="login.php" >Sign In</a></div>-->
                         </div>  
                         <div class="panel-body" >
-                            <form id="signupform" class="form-horizontal" role="form" action="register.php" method="POST" data-toggle="validator">
-                                
-                                <div id="signupalert" style="display:none" class="alert alert-danger">
-                                    <p>Error:</p>
-                                    <span></span>
-                                </div>
+                            <form id="myinfoform" class="form-horizontal" role="form" action="register.php" method="POST" data-toggle="validator">
 
                                 <div class="form-group">
                                     <label for="username" class="col-md-3 control-label">Username</label>
@@ -117,28 +132,16 @@
                                     </div>
                                 </div> 
 
-                                <?php
-                                	if(isset($_GET["registerfailed"]))
-                                	{
-?>
-										<div id="alertdiv" class="alert alert-danger fade in">
-											<a class="close" data-dismiss="alert">×</a> 
-											<strong><span>Registration failed. Please review your info.</span></strong>											
-										</div>
-<?php                                		
-                                	}
-	                            ?>
-                                    
-
                                 <div class="form-group">
                                     <!-- Button -->                                        
                                     <div class="col-md-offset-3 col-md-9">
                                         <input type="submit" id="btn-login" class="btn btn-info" name="submit" value="Submit"> &nbsp
-										<input type="submit" id="btn-login" class="btn btn-info" name="edit" value="Edit">
+										<input type="submit" id="btn-edit" class="btn btn-info" name="edit" value="Edit"> &nbsp
+                                        <input type="submit" id="btn-delete" class="btn btn-info" name="delete" value="Delete">
                                     </div>
                                 </div>
                             </form>
-							
+
                          </div>
                     </div>                            
          </div> 
