@@ -40,7 +40,7 @@
 		<style>
 			#mainimage
 			{
-				
+				width: auto;
 				height: 300px;
 			}
 
@@ -137,13 +137,9 @@
 													<?php
 														for($i = 0 ; $i < count($images) ; $i++)
 														{
-											?>				<div class="row productboxthumb"> 
-																
-																<img style="width: 150px; height: 50px;" src="<?= $images[$i] ?>" class="previewimage img-responsive" alt="Alt Text">
-																
-															</div>
-											<?php
-														}
+											?>																	
+															<img style="width: 50px; height: 50px;" src="<?= $images[$i] ?>" class="productboxthumb previewimage img-responsive" alt="Alt Text">															
+											<?php		}
 													?>
 												</div>
 

@@ -5,11 +5,11 @@
 	{
 		$query = $_GET['query'];
 		$STH = $DBH->query(
-			"SELECT Product.Product_Id AS product_id, Product.Name AS product_name, Price, Image_Url 
+			"SELECT Product.Product_Id AS product_id, Product.Name AS product_name, Product.Details as product_details, Price, Image_Url 
 			   FROM Product_Image 
 			  INNER JOIN Product  ON Product_Image.Product_Id = Product.Product_Id  
 			  INNER JOIN Category ON Product.Category_Id = Category.Category_Id
-			  WHERE Product.Name LIKE '%$query%' OR Product.Description LIKE '%$query%'
+			  WHERE Product.Name  LIKE '%$query%' OR Product.Description LIKE '%$query%' OR Product.Details LIKE '%$query%'
               GROUP BY Product_Id ORDER BY Date_Added DESC");
 		
 		
@@ -30,7 +30,7 @@
 		die();
 	}
 	
-	?>
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>

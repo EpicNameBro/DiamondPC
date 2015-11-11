@@ -22,6 +22,47 @@
 		{
 			float: right;
 		}
+
+		.previewimage
+		{
+			display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+
+		.carousel .item {
+		    width: 100%; /*slider width*/
+		    max-height: 600px; /*slider height*/
+		}
+
+		.carousel .item img {
+		    width: auto; /*img width*/
+		    height: 400px;
+		    display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+
+		/*add some makeup*/
+		.carousel .carousel-control {
+		    background: #000;
+		    border: none;
+		}
+
+		/*full width container*/
+		@media (max-width: 767px) {
+		    .block {
+		        margin-left: -20px;
+		        margin-right: -20px;
+		    }
+		}
+
+		.carousel
+		{
+			display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
 	</style>
 </head>
 <body>
@@ -30,7 +71,7 @@
 		<?php include 'header.php';?>
 		<!-- HEADER END -->
 		<div class="header_slide">
-			<div class="header_bottom_left">
+			<div class="col-md-2 header_bottom_left">
 				<div class="categories">
 					<ul>
 						<h3>Categories</h3>
@@ -46,10 +87,11 @@
 					</ul>
 				</div>
 			</div>
-			<div class="header_bottom_right">
+			<div class="col-md-10 header_bottom_right">
 				<div class="slider">
 					<div id="slider">
 						<div id="mover">
+							
 							<div id="slide-1" class="slide">
 								<div class="slider-img">
 									<a href="preview.php"><img src="images/slide-1-image.png" alt="learn more" /></a>									    
@@ -131,8 +173,11 @@
 							<div class="col-md-3">
 								<div class="panel panel-default">
 									<div class="producttitle panel-body">
-										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
-										<h2 class=""><?= $row['Name'] ?></h2>
+										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>">
+											<img class="previewimage" style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" />
+											<h2 class=""><?= $row['Name'] ?></h2>
+										</a>
+										
 
 										<div class="price-details" >
 											</br>
@@ -187,8 +232,11 @@
 							<div class="col-md-3">
 								<div class="panel panel-default">
 									<div class="producttitle panel-body">
-										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
-										<h2 class=""><?= $row['Name'] ?></h2>
+										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>">
+											<img class="previewimage" style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" />
+											<h2 class=""><?= $row['Name'] ?></h2>
+										</a>
+										
 										<div class="price-details" >
 											</br>
 											<div class="price-number">
