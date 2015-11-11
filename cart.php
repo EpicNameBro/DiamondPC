@@ -1,11 +1,14 @@
 <?php
 	require_once 'databaseconnect.php';
+
+	//User must be logged in to see this page
 	if(!isset($_SESSION["UserSession"]))
 	{
 		header("Location: index.php");
 		die();
 	}
 
+	//delete from the users cart
 	if(isset($_POST['delete']))
 	{
 		$product_id = $_POST['delete'];
@@ -18,6 +21,7 @@
 		$STH->execute();
 	}
 
+	//add a product to the users cart
 	if(isset($_POST['addcart']))
 	{
 		try
@@ -38,6 +42,7 @@
 		}
 	}
 
+	//modify quantity of a cart item
 	if(isset($_POST['quantity']) && isset($_POST['product_id']))
 	{
 		$product_id = $_POST['product_id'];
@@ -64,7 +69,7 @@
 	         GROUP BY Product_Id ORDER BY Date_Added DESC");
 	
 	
-	
+	//get info of all cart products for the user
 	while($product = $STH->fetch())
 	{
 		$products[] = array(
@@ -77,8 +82,8 @@
 		);
 	}
 
+	//calculate the subtotal
 	$subtotal = 0;
-
 	for($i = 0 ; $i < count($products) ; $i++)
 	{
 		$subtotal += $products[$i]['total_cost'];
@@ -91,16 +96,16 @@
 	<head>
 		<?php include 'scripts.php' ?>
 		<script type="text/javascript">
-		function validate(form)
-		{
-			return confirm('Are you certain?');
-		}
+			function validate(form)
+			{
+				return confirm('Are you certain?');
+			}
 		</script>
 		<style>
-		.panel
-		{
-			text-align: center;
-		}
+			.panel
+			{
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
@@ -118,6 +123,7 @@
 					<div style="padding-top:30px" class="panel-body" >
 						<div class="col-md-9">
 						<?php
+							//display all cart items
 							for($i = 0 ; $i < count($products) ; $i++)
 							{
 							?>
@@ -125,7 +131,7 @@
 									<div class="panel-body" style="text-align: center;">
 										<form method="POST" onsubmit="return validate(this);">
 											<a href="preview.php?product_id=<?= $products[$i]['product_id'] ?>">
-												<img style="height: 125px; width: auto" class="col-md-3 vcenter" src="<?= $products[$i]['Image_Url'] ?>"/>
+												<img style="height: auto; width: 125px" class="col-md-3 vcenter" src="<?= $products[$i]['Image_Url'] ?>"/>
 												<span class="col-md-3 vcenter"><b><h4><?= $products[$i]['product_name'] ?></h4></b></span>
 											</a>
 											<span class="col-md-2 vcenter"><b>$<?= $products[$i]['Price'] ?></b></span>

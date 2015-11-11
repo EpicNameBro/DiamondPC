@@ -35,6 +35,7 @@
 					<ul>
 						<h3>Categories</h3>
 						<?php
+							//display a list of all categories
 							$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
 							while($row = $STH->fetch())
 							{
@@ -114,6 +115,7 @@
 
 				<div class="section group newest">
 					<?php
+						//display the newest products
 						$STH = $DBH->query(
 							"SELECT Product_Id, Name, Price 
 							   FROM Product
@@ -131,12 +133,14 @@
 									<div class="producttitle panel-body">
 										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
 										<h2 class=""><?= $row['Name'] ?></h2>
-										<div class="price-details">
+
+										<div class="price-details" >
+											</br>
 											<div class="price-number">
 												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
 											</div>
 											<form role="form" method="POST" action="cart.php">
-												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span></button>
 											</form>
 											<div class="clear"></div>
 										</div>
@@ -167,6 +171,7 @@
 				
 				<div class="section group featured">
 				<?php
+						//display the featured products
 						$STH = $DBH->query(
 							"SELECT Product_Id, Name, Price 
 							   FROM Product
@@ -184,13 +189,13 @@
 									<div class="producttitle panel-body">
 										<a href="preview.php?product_id=<?= $row['Product_Id'] ?>"><img style="width: 212px; height: 212px;" src="<?= $image ?>" alt="" /></a>
 										<h2 class=""><?= $row['Name'] ?></h2>
-										<div class="price-details">
+										<div class="price-details" >
+											</br>
 											<div class="price-number">
 												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
 											</div>
-											
 											<form role="form" method="POST" action="cart.php">
-												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span></button>
 											</form>
 											<div class="clear"></div>
 										</div>

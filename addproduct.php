@@ -1,34 +1,42 @@
 <?php
 	include 'databaseconnect.php';
+
+	//If the user is not an admin, they shouldnt be on this page
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
 		header("Location: index.php");
 		die();
 	}
 	
+
+	//check if there are any  categories
 	$STH = $DBH->query("SELECT Count(*) as NumCategory FROM Category");
 	# setting the fetch mode
 	$STH->setFetchMode(PDO::FETCH_ASSOC);
 	$row = $STH->fetch();
 	
+	//If there are no categories, inform the user that they must add a category before they can add products
 	if($row['NumCategory'] == "0")
 	{
 		header("Location: inventory.php?nocat");
 	}
 
+	//the timezone for inserting timesttamps
 	date_default_timezone_set('America/Montreal');
 
+
+	//add a product
 	if(isset($_POST['add']))
 	{
-
+		//All product information
 		$product = array(
-		'name' 			=>  @$_POST['name'],
-		'description'	=>  nl2br(@$_POST['description']),
-		'details' 		=>  nl2br(@$_POST['details']),
-		'date_added' 	=>  date('Y-m-d h:i:s a', time()),
-		'featured' 		=>  isset($_POST['featured']) ? 1 : 0,
-		'category' 		=>  @$_POST['category'],
-		'price' 		=>  @$_POST['price']
+			'name' 			=>  @$_POST['name'],
+			'description'	=>  nl2br(@$_POST['description']),
+			'details' 		=>  nl2br(@$_POST['details']),
+			'date_added' 	=>  date('Y-m-d h:i:s a', time()),
+			'featured' 		=>  isset($_POST['featured']) ? 1 : 0,
+			'category' 		=>  @$_POST['category'],
+			'price' 		=>  @$_POST['price']
 		);
 
 		
@@ -37,6 +45,7 @@
 			 VALUES (:name, :description, :details, :date_added, :featured, :category, :price)");
 		$STH->execute($product);
 
+		//get the id of the product that was just inserted
 		$product_id = $DBH->lastInsertId();
 
 		$STH = $DBH->prepare(
@@ -47,6 +56,7 @@
 		$STH->execute();
 
 		
+		//Upload up to 5 images
 		for($i = 1 ; $i <= 5 ; $i++)
 		{
 			$input = "image$i";
@@ -180,6 +190,7 @@
 										<div class="col-md-8">
 											<select class="form-control" id="sel1" name="category">
 											<?php
+												//Show all categories in a combo box
 												$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
 												
 												while($row = $STH->fetch())
@@ -214,34 +225,35 @@
 								</div>
 								<div class="col-md-6">
 									<?php
+										//inputs for uploading and previewing images (Up to 5)
 										for($i = 1 ; $i <= 5 ; $i++)
 										{
-										?>          
-									<div class="form-group">
-										<label for="image1" class="col-md-2 control-label">Image <?= $i ?></label>
-										<div class="col-md-5">
-											<input imagenum="<?= $i ?>"  type="file" class="image form-control" id="image<?= $i ?>" name="image<?= $i ?>">
-										</div>
-										<div class="col-md-5">
-											<div class="panel-group" >
-												<div class="panel panel-default">
-													<div class="panel-heading">
-														<h4 class="panel-title">
-															<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $i ?>">Image preview</a>
-														</h4>
-													</div>
-													<div id="collapse<?= $i ?>" class="panel-collapse collapse">
-														<div class="panel-body">
-															<img id="imagedisplay<?= $i ?>" src="#" alt="your image" />
+									?>          
+											<div class="form-group">
+												<label for="image1" class="col-md-2 control-label">Image <?= $i ?></label>
+												<div class="col-md-5">
+													<input imagenum="<?= $i ?>"  type="file" class="image form-control" id="image<?= $i ?>" name="image<?= $i ?>">
+												</div>
+												<div class="col-md-5">
+													<div class="panel-group" >
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h4 class="panel-title">
+																	<a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $i ?>">Image preview</a>
+																</h4>
+															</div>
+															<div id="collapse<?= $i ?>" class="panel-collapse collapse">
+																<div class="panel-body">
+																	<img id="imagedisplay<?= $i ?>" src="#" alt="your image" />
+																</div>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>
 								<?php       
-									}
-									?>
+										}
+								?>
 								<script type="text/javascript">
 									function readURL(input) {
 									    if (input.files && input.files[0]) {
@@ -262,20 +274,23 @@
 								</script>
 						</div>
 						<?php
+							//display a message if the product was added successfully or not
 							if(isset($_GET["addsuccess"]))
 							{
-							?>									<div id="alertdiv" class="alert alert-success fade in">
-						<a class="close" data-dismiss="alert">×</a> 
-						<strong><span>Add Product Success</span></strong>											
-						</div>
-						<?php                           		
+						?>
+							<div id="alertdiv" class="alert alert-success fade in">
+								<a class="close" data-dismiss="alert">×</a> 
+								<strong><span>Add Product Success</span></strong>											
+							</div>
+					<?php                           		
 							}
 							if(isset($_GET["addfailed"]))
 							{
-							?>								<div id="alertdiv" class="alert alert-danger fade in">
-						<a class="close" data-dismiss="alert">×</a> 
-						<strong><span>Add Product Failed.</span></strong>											
-						</div>
+						?>								
+							<div id="alertdiv" class="alert alert-danger fade in">
+								<a class="close" data-dismiss="alert">×</a> 
+								<strong><span>Add Product Failed.</span></strong>											
+							</div>
 						<?php						}								
 							?>        
 						</form> 

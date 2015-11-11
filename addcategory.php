@@ -1,11 +1,14 @@
 <?php
 	require_once 'databaseconnect.php';
+
+	//If user is not an admin, then prevent them from accessing the page
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
 		header("Location: index.php");
 		die();
 	}
 	
+	//add a category
 	if(isset($_POST['add']))
 	{
 		if(isset($_POST["name"]))
@@ -15,6 +18,7 @@
 		}
 	}
 
+	//remove a category
 	if(isset($_POST['remove']))
 	{
 		if(isset($_POST["name"]))
@@ -51,25 +55,31 @@
 											<input type="text" class="form-control" name="name" placeholder="Name" required>
 										</div>
 									</div>
+
+
+
 									<?php
+										//Display a message displaying if the category was successfully added or not
 										if(isset($_GET["addsuccess"]))
 										{
-										?>									
-									<div id="alertdiv" class="alert alert-success fade in">
-										<a class="close" data-dismiss="alert">×</a> 
-										<strong><span>Add Category Success</span></strong>											
-									</div>
-									<?php                           		
-										}
-										if(isset($_GET["addfailed"]))
-										{
-										?>								
-									<div id="alertdiv" class="alert alert-danger fade in">
-										<a class="close" data-dismiss="alert">×</a> 
-										<strong><span>Add Category Failed.</span></strong>											
-									</div>
-									<?php						}								
-										?>        
+			?>									
+											<div id="alertdiv" class="alert alert-success fade in">
+												<a class="close" data-dismiss="alert">×</a> 
+												<strong><span>Add Category Success</span></strong>											
+											</div>
+											<?php                           		
+												}
+												if(isset($_GET["addfailed"]))
+												{
+												?>								
+											<div id="alertdiv" class="alert alert-danger fade in">
+												<a class="close" data-dismiss="alert">×</a> 
+												<strong><span>Add Category Failed.</span></strong>											
+											</div>
+			<?php						}								
+										?>    
+
+
 									<div class="form-group">
 										<label for="name" class="col-md-1 control-label"></label>
 										<div class="col-md-4">
@@ -93,6 +103,8 @@
 										<div class="col-md-6">
 											<select class="form-control" id="sel1" name="name">
 											<?php
+
+												//Display all categories in a combo box
 												$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
 												
 												while($row = $STH->fetch())
@@ -104,6 +116,8 @@
 										</div>
 									</div>
 									<?php
+
+										//Display a message displaying if the category was successfully removed or not
 										if(isset($_GET["removesuccess"]))
 										{
 										?>									

@@ -1,5 +1,7 @@
 <?php
+	//this page is used to get product information on request
 	require_once 'databaseconnect.php';
+	//customers should not be on this page.
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
 		header("Location: index.php");

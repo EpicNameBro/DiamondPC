@@ -1,5 +1,6 @@
 <?php 
 	require_once 'databaseconnect.php';
+	//There is no reason for the user to be on this page if they are logged in
 	if(isset($_SESSION["UserSession"]))
 	{
 		header("Location: index.php");

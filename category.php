@@ -3,8 +3,11 @@
 	$id = "";
 	$categoryname = "";
 	$products = [];
+
+	//get the category id from the url
 	if(isset($_GET['category_id']))
 	{
+		//use quote because prepare is not available
 		$id = $DBH->quote($_GET['category_id']);
 
 		$STH = $DBH->query(
@@ -82,6 +85,7 @@
 							</div>
 							</br>
 							<?php
+								//display all products from the category
 								for($i = 0 ; $i < count($products) ; $i++)
 								{
 					?>				<div class="col-md-12 panel panel-default">

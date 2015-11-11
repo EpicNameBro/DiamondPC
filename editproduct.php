@@ -1,11 +1,14 @@
 <?php
 	require_once 'databaseconnect.php';
+
+	//Customers should not have access to this page
 	if(!isset($_SESSION["UserType"]) || $_SESSION["UserType"] != "Admin")
 	{
 		header("Location: index.php");
 		die();
 	}
 
+	//Change information on a product
 	if(isset($_POST['edit']))
 	{
 		$STH = $DBH->prepare(
@@ -32,6 +35,7 @@
 		$STH->execute();
 	}
 
+	//delete a product from the inventory
 	if(isset($_POST['delete']))
 	{
 		$product_id = $_POST['delete'];
@@ -117,33 +121,34 @@
 					</div>
 					<div style="padding-top:30px" class="panel-body" >
 						<?php
+							//display all the inventory items
 							for($i = 0 ; $i < count($products) ; $i++)
 							{
 							?>								
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div class="col-md-2">
-									<img src="<?= $products[$i]['Image_Url'] ?>"/>
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<div class="col-md-2">
+											<img src="<?= $products[$i]['Image_Url'] ?>"/>
+										</div>
+										<div class="col-md-2">
+											<h4><b><?= $products[$i]['product_name'] ?></b></h4>
+										</div>
+										<div class="col-md-2">
+											<h3 class="text-success"><b>$<?= $products[$i]['Price'] ?></b></h3>
+										</div>
+										<div class="productinfo col-md-2">
+											<h3><b>Stock: <?= $products[$i]['Quantity'] ?></b></h3>
+										</div>
+										<div class="col-md-2">
+											<button productid="<?= $products[$i]['product_id'] ?>" type="button" class="edit btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModal">Edit</button>
+										</div>
+										<div class="col-md-2">
+											<form method="POST" onsubmit="return validate(this);">
+												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="delete btn btn-danger btn-lg btn-block" >Delete</button>
+											</form>
+										</div>
+									</div>
 								</div>
-								<div class="col-md-2">
-									<h4><b><?= $products[$i]['product_name'] ?></b></h4>
-								</div>
-								<div class="col-md-2">
-									<h3 class="text-success"><b>$<?= $products[$i]['Price'] ?></b></h3>
-								</div>
-								<div class="productinfo col-md-2">
-									<h3><b>Stock: <?= $products[$i]['Quantity'] ?></b></h3>
-								</div>
-								<div class="col-md-2">
-									<button productid="<?= $products[$i]['product_id'] ?>" type="button" class="edit btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModal">Edit</button>
-								</div>
-								<div class="col-md-2">
-									<form method="POST" onsubmit="return validate(this);">
-										<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="delete btn btn-danger btn-lg btn-block" >Delete</button>
-									</form>
-								</div>
-							</div>
-						</div>
 					<?php	}
 							?>
 						<script type="text/javascript">

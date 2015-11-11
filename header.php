@@ -1,5 +1,7 @@
 <?php 
 	require_once 'databaseconnect.php';
+
+	//only get some user specific if the user is logged in
 	if(isset($_SESSION['UserSession']))
 	{
 		$STH = $DBH->query("SELECT first_name FROM user_info WHERE user_id=" . $_SESSION['UserSession']);
@@ -8,6 +10,25 @@
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$row = $STH->fetch();
 		$name = $row["first_name"];
+
+
+	
+		$STH = $DBH->query(
+			"SELECT Price * Quantity as total_cost, Quantity
+			   FROM Cart 
+			  INNER JOIN Product  ON Cart.Product_Id = Product.Product_Id   
+			  WHERE Cart.User_Id = $_SESSION[UserSession]
+		      GROUP BY Product.Product_Id ORDER BY Date_Added DESC");
+		
+		
+		$subtotal = 0;
+		$totalquantity = 0;
+		while($row = $STH->fetch())
+		{
+			$subtotal += $row['total_cost'];
+			$totalquantity += $row['Quantity'];
+		}
+
 	}
 	?>
 <div class="header">
@@ -63,9 +84,64 @@
 			<p>
 			<div id="dd" class="wrapper-dropdown-2">
 				<img src="images/cart.png" style="width:40px; position: relative; bottom: 8px;"/>
-				<span style="font-size: 30px">0 item(s) - $0.00</span>
-				<ul class="dropdown" style="width: 300px;">
-					<li>you have no items in your Shopping cart</li>
+				<span style="font-size: 30px"><?= isset($totalquantity) ? $totalquantity : 0 ?> item(s) - $<?= isset($subtotal) ? $subtotal : 0 ?></span>
+				<ul class="dropdown" style="width: 300px; height: 250px; overflow-y: scroll; overflow-x: hidden; border-style: solid">
+					<li>					
+						<a class="btn btn-info btn-block" href="cart.php">View Cart</a>
+					</li>
+					<li>
+						<span><h4><b>Total: <span class="text-success">$<?= isset($subtotal) ? $subtotal : 0 ?></span></b></h4></span>
+					</li>
+					<?php
+						//diplay cart items in dropdown
+						if(isset($_SESSION['UserSession']))
+						{
+							$STH = $DBH->query(
+							  "SELECT Product.Product_Id AS product_id, Product.Name AS product_name, Price, Image_Url, Quantity, Price * Quantity as total_cost
+							     FROM Cart 
+							    INNER JOIN Product  ON Cart.Product_Id = Product.Product_Id  
+							    INNER JOIN Product_Image  ON Product.Product_Id = Product_Image.Product_Id  
+							    WHERE Cart.User_Id = $_SESSION[UserSession]
+						        GROUP BY Product_Id ORDER BY Date_Added DESC");
+		
+							while($row = $STH->fetch())
+							{
+	?>					
+								<li>
+									<div class="row">
+										<div class="panel panel-default">
+											<div class="producttitle panel-body">
+												<div class="row">
+													<a href="preview.php?product_id=<?= $row['Product_Id'] ?>">
+														<div class="col-md-3">
+															<img class="" style="width: 50px; height: auto;" src="<?= $row['Image_Url'] ?>" alt="" />
+														</div>
+
+														<div class="col-md-9">
+															<h2 style="font-size: 1.3em"><b><?= $row['product_name'] ?></b></h2>
+														</div>
+													</a>
+
+												</div>
+												
+												<div class="price-details">
+													<div class="price-number">
+														<p><span class="rupees">$<?= $row['Price'] ?></span></p>
+													</div>
+
+													<div class="quantity">
+														<h4 style="float: right"><b>Quantity:</b><?= $row['Quantity'] ?></h4>
+													</div>
+													<div class="clear"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+	<?php					}
+						}	
+					?>
+					
 				</ul>
 			</div>
 			</p>
