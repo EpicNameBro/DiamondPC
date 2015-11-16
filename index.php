@@ -29,40 +29,6 @@
 		    margin-left: auto;
 		    margin-right: auto;
 		}
-
-		.carousel .item {
-		    width: 100%; /*slider width*/
-		    max-height: 600px; /*slider height*/
-		}
-
-		.carousel .item img {
-		    width: auto; /*img width*/
-		    height: 400px;
-		    display: block;
-		    margin-left: auto;
-		    margin-right: auto;
-		}
-
-		/*add some makeup*/
-		.carousel .carousel-control {
-		    background: #000;
-		    border: none;
-		}
-
-		/*full width container*/
-		@media (max-width: 767px) {
-		    .block {
-		        margin-left: -20px;
-		        margin-right: -20px;
-		    }
-		}
-
-		.carousel
-		{
-			display: block;
-		    margin-left: auto;
-		    margin-right: auto;
-		}
 	</style>
 </head>
 <body>
