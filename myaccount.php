@@ -33,17 +33,19 @@
             $STH = $DBH->prepare("UPDATE user_info SET First_Name = $firstname, Last_Name = $lastname, Email = $email, Birthdate = $birthdate, Address = $address, City = $city, State_Province = $stateprovince, Country = $country, Postal_Code_Zip = $postalcodezip, Phone_Number = $phonenumber 
                                   FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");
 
-            //$STH->execute();
+
 
             $STH = $DBH->prepare("UPDATE user SET Username = $username 
                                   FROM User INNER JOIN User_Info ON user_info.user_id = user.user_id WHERE user.user_id = $id");
-            //$STH->execute();
+
         }
        
         if(isset($_POST["delete"]))
         {
             $STH = $DBH->query("DELETE FROM User_Info WHERE user_info.user_id = $id");
             $STH = $DBH->query("DELETE FROM User WHERE user.user_id = $id");
+
+            //unset($_SESSION["UserSession"]);
         }
 
         /*$attributes = '';
