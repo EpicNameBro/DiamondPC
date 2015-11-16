@@ -3,24 +3,61 @@
 
     if(isset($_SESSION["UserSession"]))
     {
-        $STH = $DBH->prepare("SELECT Username FROM User WHERE 'id' = $_SESSION[UserSession];");
-        $STH->bindParam(1, $_POST["username"]);
-        $STH->execute();
+        $id = $DBH->quote($_SESSION["UserSession"]);
+        $STH = $DBH->query(
+                "SELECT Username, First_Name, Last_Name, Email, Birthdate, Address, City, State_Province, Country, Postal_Code_Zip, Phone_Number 
+                 FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");
 
-        $STH = $DBH->prepare(
-                "SELECT First_Name, Last_Name, Email, Birthdate, Address, City, State_Province, Country, Postal_Code_Zip, Phone_Number FROM User_Info;");
-        $STH->bindParam(2, $_POST["firstname"]);
-        $STH->bindParam(3, $_POST["lastname"]);
-        $STH->bindParam(4, $_POST["email"]);
-        $STH->bindParam(5, $_POST["birthdate"]);
-        $STH->bindParam(6, $_POST["address"]);
-        $STH->bindParam(7, $_POST["city"]);
-        $STH->bindParam(8, $_POST["stateprovince"]);
-        $STH->bindParam(9, $_POST["country"]);
-        $STH->bindParam(10, $_POST["postalcodezip"]);
-        $STH->bindParam(11, $_POST["phonenumber"]);
-        $STH->execute();
+
+        $user = $STH->fetch();
         //die();
+        if(isset($_POST["username"]) && isset($_POST["firstname"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["birthdate"]) &&
+           isset($_POST["address"]) && isset($_POST["city"]) && isset($_POST["stateprovince"]) && isset($_POST["country"]) && isset($_POST["postalcodezip"]) &&
+           isset($_POST["phonenumber"]) && isset($_POST["submit"]))
+        {
+            $username = $_POST["username"];
+            $firstname = $_POST["firstname"];
+            $lastname = $_POST["lastname"];
+            $email = $_POST["email"];
+            $birthdate = $_POST["birthdate"];
+            $address = $_POST["address"];
+            $city = $_POST["city"];
+            $stateprovince = $_POST["stateprovince"];
+            $country = $_POST["country"];
+            $postalcodezip = $_POST["postalcodezip"];
+            $phonenumber = $_POST["phonenumber"];
+
+            /*$STH = $DBH->prepare("UPDATE user_info SET Username = $username, First_Name = $firstname, Last_Name = $lastname, Email = $email, Birthdate = $birthdate, Address = $address, City = $city, State_Province = $stateprovince, Country = $country, Postal_Code_Zip = $postalcodezip, Phone_Number = $phonenumber 
+                                  FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");*/
+
+            $STH = $DBH->prepare("UPDATE user_info SET First_Name = $firstname, Last_Name = $lastname, Email = $email, Birthdate = $birthdate, Address = $address, City = $city, State_Province = $stateprovince, Country = $country, Postal_Code_Zip = $postalcodezip, Phone_Number = $phonenumber 
+                                  FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");
+
+
+
+            $STH = $DBH->prepare("UPDATE user SET Username = $username 
+                                  FROM User INNER JOIN User_Info ON user_info.user_id = user.user_id WHERE user.user_id = $id");
+
+        }
+       
+        if(isset($_POST["delete"]))
+        {
+            $STH = $DBH->query("DELETE FROM User_Info WHERE user_info.user_id = $id");
+            $STH = $DBH->query("DELETE FROM User WHERE user.user_id = $id");
+
+            //unset($_SESSION["UserSession"]);
+        }
+
+        /*$attributes = '';
+        if(!isset($_GET["edit"]))
+        {
+            $attributes ='readonly disabled';
+        }
+        else
+        {
+
+        }*/
+        
     }
 ?>
 <!DOCTYPE HTML>
@@ -30,6 +67,26 @@
 	<style type="text/css">
 		
 	</style>
+
+    <script type="text/javascript">
+    function enableInputs(){
+        var elements = document.getElementsByTagName("input");
+        for(i = 0 ; i < elements.length ; i++)
+        {
+            elements[i].readOnly = false;
+            elements[i].disabled = false;
+        }
+    }
+    </script>
+
+    <?php include 'scripts.php' ?>
+    <script type="text/javascript">
+        function validate(form)
+        {
+            return confirm('Are you certain?');
+        }
+    </script>
+
 </head>
 <body>
 	<div class="wrap">
@@ -45,33 +102,44 @@
                             <!--<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="login.php" >Sign In</a></div>-->
                         </div>  
                         <div class="panel-body" >
-                            <form id="myinfoform" class="form-horizontal" role="form" action="register.php" method="POST" data-toggle="validator">
+                        <!--<?php
+                                //if(isset($_GET["editsuccess"]))
+                                {
+ ?>                                 <div id="alertdiv" class="alert alert-success fade in">
+                                            <a class="close" data-dismiss="alert">×</a> 
+                                            <strong><span>Edit Successful!</span></strong>                                            
+                                    </div>
+ <?php                                  
+                                }
+                                //if(isset($_GET["editfailed"]))
+                                {
+    ?>                              <div id="alertdiv" class="alert alert-danger fade in">
+                                        <a class="close" data-dismiss="alert">×</a> 
+                                        <strong><span>Edit Failed: Please make sure your inputs are correct.</span></strong>                                           
+                                    </div>
+<?php                           }                               
+                            ?>-->        
+
+                            <form id="myinfoform" class="form-horizontal" role="form" action="myaccount.php" method="POST" data-toggle="validator">
 
                                 <div class="form-group">
                                     <label for="username" class="col-md-3 control-label">Username</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="username" placeholder="Username" data-minlength="6" required>
+                                        <input value="<?=$user['Username']?>" type="text" class="form-control" name="username" placeholder="Username" data-minlength="6" required readonly disabled>
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password" class="col-md-3 control-label">Password</label>
-                                    <div class="col-md-9">
-                                        <input type="password" class="form-control" name="password" placeholder="Password" data-minlength="6" required>
-                                    </div>
-                                </div>     
+                                </div>    
 
                                 <div class="form-group">
                                     <label for="firstname" class="col-md-3 control-label">First Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
-                                    </div>
+                                        <input value="<?=$user['First_Name']?>" type="text" class="form-control" name="firstname" placeholder="First Name" required readonly disabled>
+                                    </div> 
                                 </div>   
 
                                 <div class="form-group">
                                     <label for="lastname" class="col-md-3 control-label">Last Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+                                        <input value="<?=$user['Last_Name']?>" type="text" class="form-control" name="lastname" placeholder="Last Name" required readonly disabled>
                                     </div>
                                 </div>                               
                                 
@@ -79,56 +147,56 @@
                                 <div class="form-group">
                                     <label for="email" class="col-md-3 control-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="email" placeholder="Email Address" required>
+                                        <input value="<?=$user['Email']?>" type="text" class="form-control" name="email" placeholder="Email Address" required readonly disabled>
                                     </div>
                                 </div>
                                     
  								<div class="form-group">
                                     <label for="birthdate" class="col-md-3 control-label">Birthdate</label>
                                     <div class="col-md-9">
-                                        <input type="date" class="form-control" name="birthdate" placeholder="Birthdate" required>
+                                        <input value="<?=$user['Birthdate']?>" type="date" class="form-control" name="birthdate" placeholder="Birthdate" required readonly disabled>
                                     </div>
                                 </div> 
 
                                 <div class="form-group">
                                     <label for="address" class="col-md-3 control-label">Address</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="address" placeholder="Address" required>
+                                        <input value="<?=$user['Address']?>" type="text" class="form-control" name="address" placeholder="Address" required readonly disabled>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="city" class="col-md-3 control-label">City</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="city" placeholder="City" required>
+                                        <input value="<?=$user['City']?>" type="text" class="form-control" name="city" placeholder="City" required readonly disabled>
                                     </div>
                                 </div> 
 
                                 <div class="form-group">
                                     <label for="stateprovince" class="col-md-3 control-label">State / Province</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="stateprovince" placeholder="State / Province" required>
+                                        <input value="<?=$user['State_Province']?>" type="text" class="form-control" name="stateprovince" placeholder="State / Province" required readonly disabled>
                                     </div>
                                 </div> 
 
                                 <div class="form-group">
                                     <label for="country" class="col-md-3 control-label">Country</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="country" placeholder="Country" required>
+                                        <input value="<?=$user['Country']?>" type="text" class="form-control" name="country" placeholder="Country" required readonly disabled>
                                     </div>
                                 </div>  
 
                                 <div class="form-group">
                                     <label for="postalcodezip" class="col-md-3 control-label">Postal Code / Zip</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="postalcodezip" placeholder="Postal Code / Zip" required>
+                                        <input value="<?=$user['Postal_Code_Zip']?>" type="text" class="form-control" name="postalcodezip" placeholder="Postal Code / Zip" required readonly disabled>
                                     </div>
                                 </div>  
 
                                 <div class="form-group">
                                     <label for="phonenumber" class="col-md-3 control-label">Phone Number</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="phonenumber" placeholder="Phone Number" required>
+                                        <input value="<?=$user['Phone_Number']?>" type="text" class="form-control" name="phonenumber" placeholder="Phone Number" required readonly disabled>
                                     </div>
                                 </div> 
 
@@ -136,12 +204,14 @@
                                     <!-- Button -->                                        
                                     <div class="col-md-offset-3 col-md-9">
                                         <input type="submit" id="btn-login" class="btn btn-info" name="submit" value="Submit"> &nbsp
-										<input type="submit" id="btn-edit" class="btn btn-info" name="edit" value="Edit"> &nbsp
-                                        <input type="submit" id="btn-delete" class="btn btn-info" name="delete" value="Delete">
+                                        <a href="javascript:enableInputs()" class="btn btn-info">Edit</a> &nbsp
+                                        
                                     </div>
                                 </div>
                             </form>
-
+                            <form action="" onsubmit="return validate(this);" method="POST">
+                                <input type="submit" id="btn-delete" class="btn btn-info" name="delete" value="Delete">
+                            </form>
                          </div>
                     </div>                            
          </div> 
