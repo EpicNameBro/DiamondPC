@@ -71,7 +71,6 @@
         .jssora22r:hover { background-position: -190px -31px; }
         .jssora22l.jssora22ldn { background-position: -250px -31px; }
         .jssora22r.jssora22rdn { background-position: -310px -31px; }
->>>>>>> origin/master
 	</style>
 
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
