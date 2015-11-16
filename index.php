@@ -41,6 +41,7 @@
         .jssorb05 {
             position: absolute;
         }
+
         .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
             position: absolute;
             /* size of bullet elment */
@@ -50,10 +51,22 @@
             overflow: hidden;
             cursor: pointer;
         }
-        .jssorb05 div { background-position: -7px -7px; }
-        .jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
-        .jssorb05 .av { background-position: -67px -7px; }
-        .jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+
+        .jssorb05 div { 
+        	background-position: -7px -7px; 
+        }
+
+        .jssorb05 div:hover, .jssorb05 .av:hover { 
+        	background-position: -37px -7px; 
+        }
+
+        .jssorb05 .av { 
+        	background-position: -67px -7px; 
+        }
+
+        .jssorb05 .dn, .jssorb05 .dn:hover { 
+        	background-position: -97px -7px; 
+        }
 
         .jssora22l, .jssora22r {
             display: block;
@@ -65,12 +78,31 @@
             background: url('img/a22.png') center center no-repeat;
             overflow: hidden;
         }
-        .jssora22l { background-position: -10px -31px; }
-        .jssora22r { background-position: -70px -31px; }
-        .jssora22l:hover { background-position: -130px -31px; }
-        .jssora22r:hover { background-position: -190px -31px; }
-        .jssora22l.jssora22ldn { background-position: -250px -31px; }
-        .jssora22r.jssora22rdn { background-position: -310px -31px; }
+        .jssora22l { 
+        	background-position: -10px -31px;
+        	background-color: black; 
+        }
+
+        .jssora22r { 
+        	background-position: -70px -31px;
+        	background-color: black; 
+        }
+
+        .jssora22l:hover { 
+        	background-position: -130px -31px; 
+        }
+
+        .jssora22r:hover { 
+        	background-position: -190px -31px; 
+        }
+
+        .jssora22l.jssora22ldn { 
+        	background-position: -250px -31px; 
+        }
+
+        .jssora22r.jssora22rdn { 
+        	background-position: -310px -31px; 
+        }
 	</style>
 
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
@@ -211,13 +243,44 @@
 			        </div>
 			        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden;">
 			            <div data-p="225.00" style="display: none;">
-			                <img data-u="image" src="img/red.jpg" />
+			                <!--<img data-u="image" src="img/red.jpg" />-->
+			                <div class="slider-img">
+								<a href="preview.php"><img src="images/slide-1-image.png" alt="learn more" /></a>									    
+							</div>
+			                <h1>Clearance<br><span>SALE</span></h1>
+								<h2>UPTo 20% OFF</h2>
+								<div class="features_list">
+									<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+								</div>
+								<a href="preview.php" class="button">Shop Now</a>
 			            </div>
 			            <div data-p="225.00" style="display: none;">
-			                <img data-u="image" src="img/purple.jpg" />
+			                <!--<img data-u="image" src="img/purple.jpg" />-->
+			                <div class="slider-img">
+								<a href="preview.php"><img src="images/slide-2-image.jpg" alt="learn more" /></a>
+							</div>
+							<div class="slider-text">
+								<h1>Clearance<br><span>SALE</span></h1>
+								<h2>UPTo 10% OFF</h2>
+								<div class="features_list">
+									<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+								</div>
+								<a href="preview.php" class="button">Shop Now</a>
+							</div>
 			            </div>
 			            <div data-p="225.00" style="display: none;">
-			                <img data-u="image" src="img/blue.jpg" />
+			                <!--<img data-u="image" src="img/blue.jpg" />-->
+			                <div class="slider-img">
+								<a href="preview.php"><img src="images/slide-3-image.jpg" alt="learn more" /></a>
+							</div>
+			                <div class="slider-text">
+								<h1>Clearance<br><span>SALE</span></h1>
+								<h2>UPTo 40% OFF</h2>
+								<div class="features_list">
+									<h4>Get to Know More About Our Memorable Services</h4>
+								</div>
+								<a href="preview.php" class="button">Shop Now</a>
+							</div>
 			            </div>
 			        </div>
 			        <!-- Bullet Navigator -->

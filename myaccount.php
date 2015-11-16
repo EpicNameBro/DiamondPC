@@ -1,6 +1,13 @@
 <?php
 	require_once 'databaseconnect.php';
 
+    //User must be logged in to see this page
+    if(!isset($_SESSION["UserSession"]))
+    {
+        header("Location: index.php");
+        die();
+    }
+
     if(isset($_SESSION["UserSession"]))
     {
         $id = $DBH->quote($_SESSION["UserSession"]);
