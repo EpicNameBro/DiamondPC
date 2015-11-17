@@ -122,46 +122,42 @@
 			            <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
 			        </div>
 			        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden;">
-			            <div data-p="225.00" style="display: none;">
-			                <!--<img data-u="image" src="img/red.jpg" />-->
-			                <div class="slider-img">
-								<a href="preview.php"><img src="images/slide-1-image.png" alt="learn more" /></a>									    
-							</div>
-			                <h1>Clearance<br><span>SALE</span></h1>
-								<h2>UPTo 20% OFF</h2>
-								<div class="features_list">
-									<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+						<?php
+						//display the featured products
+						$STH = $DBH->query(
+							"SELECT Product_Id, Name, Description, Price 
+							   FROM Product
+							  WHERE Featured=1 ORDER BY Date_Added DESC LIMIT 4");
+						while($row = $STH->fetch())
+						{
+							$STH_image = $DBH->query(
+							"SELECT Image_Url 
+							   FROM Product_Image
+							  WHERE Product_Id=$row[Product_Id] LIMIT 1");
+							$image = $STH_image->fetch()['Image_Url'];
+?>
+							<div data-p="225.00" style="display: none;">
+								<!--<img data-u="image" src="img/red.jpg" />-->
+								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>">
+									<div class="slider-img">
+										<img  src="<?= $image ?>" alt="learn more" />								    
+									</div>
+									<h1 style="width: 80%"><?= $row['Name'] ?></h1>
+								</a>	
+								<div style="width: 80%">
+									<h4><?= $row['Description'] ?></h4>
 								</div>
-								<a href="preview.php" class="button">Shop Now</a>
-			            </div>
-			            <div data-p="225.00" style="display: none;">
-			                <!--<img data-u="image" src="img/purple.jpg" />-->
-			                <div class="slider-img">
-								<a href="preview.php"><img src="images/slide-2-image.jpg" alt="learn more" /></a>
-							</div>
-							<div class="slider-text">
-								<h1>Clearance<br><span>SALE</span></h1>
-								<h2>UPTo 10% OFF</h2>
 								<div class="features_list">
-									<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+									<h2 class="text-success">$<?= $row['Price'] ?></h2>
 								</div>
-								<a href="preview.php" class="button">Shop Now</a>
-							</div>
-			            </div>
-			            <div data-p="225.00" style="display: none;">
-			                <!--<img data-u="image" src="img/blue.jpg" />-->
-			                <div class="slider-img">
-								<a href="preview.php"><img src="images/slide-3-image.jpg" alt="learn more" /></a>
-							</div>
-			                <div class="slider-text">
-								<h1>Clearance<br><span>SALE</span></h1>
-								<h2>UPTo 40% OFF</h2>
-								<div class="features_list">
-									<h4>Get to Know More About Our Memorable Services</h4>
-								</div>
-								<a href="preview.php" class="button">Shop Now</a>
-							</div>
-			            </div>
+								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>" class="button">Shop Now</a>
+			            	</div>
+<?php
+						}
+					?>
+			            
+			            
+			           
 			        </div>
 			        <!-- Bullet Navigator -->
 			        <div data-u="navigator" class="jssorb05" style="bottom:16px;right:6px;" data-autocenter="1">
