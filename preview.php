@@ -104,9 +104,7 @@
 				height: 50px;
 			}
 
-			.form-group {
-				float: left;
-			}
+			
 
 		</style>
 		<script type="text/javascript">
@@ -188,8 +186,9 @@
 									<?php 				}
 														?>
 													</select>
+												
 												</div>
-
+												
 												<button name="addcart" value="<?= $id ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
 												</br></br>								
 											</form>
@@ -257,9 +256,9 @@
 																<textarea rows="4" class="form-control" name="comment" placeholder="Enter your review..."></textarea>
 																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
 																<br />
-																<div class="form-group">
+																<div class="row">
 								                                    <!-- Button -->                                        
-								                                    <div class="col-md-offset-3 col-md-9">
+								                                    <div class="col-md-10">
 								                                        <input type="submit" id="btn-comment" class="btn btn-info" name="comment" value="Comment">
 								                                    </div>
 								                                </div>
