@@ -257,6 +257,22 @@ body {
 .menu li {
 	float:left;
 }
+.menu .dropdown-menu li a
+{
+	float:none;
+	border-right: 0;
+	background: #FFF;
+}
+
+.menu .dropdown-menu li
+{
+	float: left;
+    clear: left;
+	width: 100%;
+	border-right: 0;
+	background: #FFF;
+}
+
 .menu li a {
 	font-family: 'ambleregular';
 	font-size:0.823em;

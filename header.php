@@ -140,7 +140,8 @@
 									</div>
 								</div>
 							</li>
-							<?php					}
+							<?php					
+							}
 						}	
 					?>
 
@@ -182,6 +183,29 @@
 			<div class="menu">
 				<ul>
 					<li><a href="index.php">Home</a></li>
+					<li>
+						<div class="dropdown">
+							<a style="cursor: pointer" class="dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
+								Categories
+								<span class="caret"></span>	
+							</a>
+							<ul class="dropdown-menu">
+								<?php
+									$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
+									while($row = $STH->fetch())
+									{
+								?>
+									<li>
+										<a href="category.php?category_id=<?= $row['Category_Id'] ?>">
+											<?= $row['Name'] ?>
+										</a>
+									</li>
+									<?php
+									}
+								?>
+							</ul>
+						</div>
+					</li>
 					<li><a href="about.php">About</a></li>
 					<li><a href="delivery.php">FAQ</a></li>
 					<li><a href="news.php">News</a></li>
@@ -189,23 +213,45 @@
 					<div class="clear"></div>
 				</ul>
 				<script type="text/javascript">
-					var path = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-					var list = document.getElementsByClassName("menu")[0].getElementsByTagName("li");
-					if (path.indexOf("index.php") >= 0)
-						list[0].setAttribute("class", "active");
-					else if (path.indexOf("about.php") >= 0)
-						list[1].setAttribute("class", "active");
-					else if (path.indexOf("delivery.php") >= 0)
-						list[2].setAttribute("class", "active");
-					else if (path.indexOf("news.php") >= 0)
-						list[3].setAttribute("class", "active");
-					else if (path.indexOf("contact.php") >= 0)
-						list[4].setAttribute("class", "active");
+					/*var path = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+																				var list = document.getElementsByClassName("menu")[0].getElementsByTagName("li");
+																				if (path.indexOf("index.php") >= 0)
+																					list[0].setAttribute("class", "active");
+																				
+																				else if(path.indexOf("category.php") >= 0)
+																					list[1].setAttribute("class", "active");
+																				
+																				else if (path.indexOf("about.php") >= 0)
+																					list[2].setAttribute("class", "active");
+																				
+																				else if (path.indexOf("delivery.php") >= 0)
+																					list[3].setAttribute("class", "active");
+																				
+																				else if (path.indexOf("news.php") >= 0)
+																					list[4].setAttribute("class", "active");
+																				
+																				else if (path.indexOf("contact.php") >= 0)
+																					list[5].setAttribute("class", "active");*/
 				</script>
 			</div>
 			<div class="search_box">
 				<form method="GET" action="search.php">
-					<input type="text" name="query" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+					<?php
+						if(isset($_GET['category_id']))
+						{
+							$category_id = $DBH->quote($_GET['category_id']);
+							$STH = $DBH->query("SELECT Category_Id, Name FROM Category WHERE Category_Id=$category_id");
+							$category = $STH->fetch();
+							$category_name = $category['Name'];
+							$category_id_no_quote = $category['Category_Id'];
+							
+					?>
+							<input type="hidden" name="category_id" value="<?= $category_id_no_quote ?>">
+					<?php
+						}
+					?>
+					
+					<input type="text" name="query" value="Search <?= isset($category_name) ? $category_name : '' ?>" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search <?= isset($category_name) ? $category_name : '' ?>';}">
 					<input type="submit" value="">
 				</form>
 			</div>
