@@ -11,18 +11,13 @@
     if(isset($_SESSION["UserSession"]))
     {
         $id = $DBH->quote($_SESSION["UserSession"]);
-        $STH = $DBH->query(
-                "SELECT Username, First_Name, Last_Name, Email, Birthdate, Address, City, State_Province, Country, Postal_Code_Zip, Phone_Number 
-                 FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");
+        
 
-
-        $user = $STH->fetch();
-        //die();
-        if(isset($_POST["username"]) && isset($_POST["firstname"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["birthdate"]) &&
+        if(isset($_POST["firstname"]) && isset($_POST["lastname"]) && isset($_POST["email"]) && isset($_POST["birthdate"]) &&
            isset($_POST["address"]) && isset($_POST["city"]) && isset($_POST["stateprovince"]) && isset($_POST["country"]) && isset($_POST["postalcodezip"]) &&
            isset($_POST["phonenumber"]) && isset($_POST["submit"]))
         {
-            $username = $_POST["username"];
+            //$username = $_POST["username"];
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
             $email = $_POST["email"];
@@ -34,25 +29,37 @@
             $postalcodezip = $_POST["postalcodezip"];
             $phonenumber = $_POST["phonenumber"];
 
-            /*$STH = $DBH->prepare("UPDATE user_info SET Username = $username, First_Name = $firstname, Last_Name = $lastname, Email = $email, Birthdate = $birthdate, Address = $address, City = $city, State_Province = $stateprovince, Country = $country, Postal_Code_Zip = $postalcodezip, Phone_Number = $phonenumber 
-                                  FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");*/
+            $STH = $DBH->prepare("UPDATE user_info SET First_Name = ?, Last_Name = ?, Email = ?, Birthdate = ?, Address = ?, City = ?, State_Province = ?, Country = ?, Postal_Code_Zip = ?, Phone_Number = ? 
+                                  WHERE user_info.user_id = $id");
 
-            $STH = $DBH->prepare("UPDATE user_info SET First_Name = $firstname, Last_Name = $lastname, Email = $email, Birthdate = $birthdate, Address = $address, City = $city, State_Province = $stateprovince, Country = $country, Postal_Code_Zip = $postalcodezip, Phone_Number = $phonenumber 
-                                  FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");
-
-
-
-            $STH = $DBH->prepare("UPDATE user SET Username = $username 
-                                  FROM User INNER JOIN User_Info ON user_info.user_id = user.user_id WHERE user.user_id = $id");
+            $STH->bindParam(1, $firstname);
+            $STH->bindParam(2, $lastname);
+            $STH->bindParam(3, $email);
+            $STH->bindParam(4, $birthdate);
+            $STH->bindParam(5, $address);
+            $STH->bindParam(6, $city);
+            $STH->bindParam(7, $stateprovince);
+            $STH->bindParam(8, $country);
+            $STH->bindParam(9, $postalcodezip);
+            $STH->bindParam(10, $phonenumber);
+            $STH->execute();
 
         }
+
+        $STH = $DBH->query(
+                "SELECT Username, First_Name, Last_Name, Email, Birthdate, Address, City, State_Province, Country, Postal_Code_Zip, Phone_Number 
+                 FROM User_Info INNER JOIN User ON user.user_id = user_info.user_id WHERE user.user_id = $id");
+
+
+        $user = $STH->fetch();
        
         if(isset($_POST["delete"]))
         {
             $STH = $DBH->query("DELETE FROM User_Info WHERE user_info.user_id = $id");
             $STH = $DBH->query("DELETE FROM User WHERE user.user_id = $id");
 
-            //unset($_SESSION["UserSession"]);
+            header("Location: logout.php");
+            die();
         }
 
         /*$attributes = '';
@@ -64,6 +71,7 @@
         {
 
         }*/
+
         
     }
 ?>
@@ -72,7 +80,10 @@
 	<?php include 'scripts.php' ?>
 	
 	<style type="text/css">
-		
+        .form-delete {
+            width: 150px;
+            float: right;
+        }
 	</style>
 
     <script type="text/javascript">
@@ -216,8 +227,11 @@
                                     </div>
                                 </div>
                             </form>
-                            <form action="" onsubmit="return validate(this);" method="POST">
-                                <input type="submit" id="btn-delete" class="btn btn-info" name="delete" value="Delete">
+                            <!--<form action="" onsubmit="return validate(this);" method="POST" class="form-delete">
+                                <input type="submit" id="btn-delete" class="btn btn-info" name="delete" value="Delete Account">
+                            </form>-->
+                            <form method="POST" onsubmit="return validate(this);" class="form-delete">
+                                <button type="submit" name="delete" class="btn btn-danger btn-lg btn-block" >Delete Account</button>
                             </form>
                          </div>
                     </div>                            
