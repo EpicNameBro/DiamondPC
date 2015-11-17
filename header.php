@@ -53,14 +53,15 @@
 					{
 					?>
 						<li><a href="logout.php">Logout</a></li>
+						<li><a href="myaccount.php">My Account</a></li>
 						<li><a href="wishlist.php">Wish List</a></li>
 						<?php	}
 					else
 					{
 					?>
 							<li><a href="login.php?register">Register</a></li>
-							<li><a href="login.php">Login</a></li>
-							<?php					}
+							<li><a href="login.php">Login</a></li>								
+<?php				}
 					if(isset($_SESSION["UserType"]) && $_SESSION["UserType"] == "Admin")
 					{
 					?>
@@ -71,7 +72,7 @@
 									<li><a href="cart.php">Cart</a></li>
 									<li><a href="#">Checkout</a></li>
 
-									<li><a href="myaccount.php">My Account</a></li>
+									
 				</ul>
 			</div>
 			<div class="clear"></div>
