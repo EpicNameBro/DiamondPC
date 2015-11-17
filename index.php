@@ -114,7 +114,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-md-10 header_bottom_right">
+			<div class="col-md-10 header_bottom_right panel panel-default" style="padding:0; margin: 0;">
 				<div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden; visibility: hidden;">
 			        <!-- Loading Screen -->
 			        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -139,8 +139,8 @@
 							<div data-p="225.00" style="display: none;">
 								<!--<img data-u="image" src="img/red.jpg" />-->
 								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>">
-									<div class="slider-img">
-										<img  src="<?= $image ?>" alt="learn more" />								    
+									<div class="slider-img" >
+										<img style="height: 500px;" src="<?= $image ?>" alt="learn more" />								    
 									</div>
 									<h1 style="width: 80%"><?= $row['Name'] ?></h1>
 								</a>	
