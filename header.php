@@ -183,7 +183,7 @@
 			<div class="menu">
 				<ul>
 					<li><a href="index.php">Home</a></li>
-					<li>
+					<li class="noselect">
 						<div class="dropdown">
 							<a style="cursor: pointer" class="dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
 								Categories

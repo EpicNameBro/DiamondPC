@@ -165,8 +165,8 @@
 			            <div data-u="prototype" style="width:16px;height:16px;"></div>
 			        </div>
 			        <!-- Arrow Navigator -->
-			        <span data-u="arrowleft" class="jssora22l" style="top:123px;left:12px;width:40px;height:58px;" data-autocenter="2"></span>
-			        <span data-u="arrowright" class="jssora22r" style="top:123px;right:12px;width:40px;height:58px;" data-autocenter="2"></span>
+			        <span data-u="arrowleft" class="jssora22l noselect" style="top:123px;left:12px;width:40px;height:58px;" data-autocenter="2"></span>
+			        <span data-u="arrowright" class="jssora22r noselect" style="top:123px;right:12px;width:40px;height:58px;" data-autocenter="2"></span>
 			        <a href="http://www.jssor.com" style="display:none">Jssor Slider</a>
 			    </div>
 

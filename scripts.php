@@ -22,6 +22,12 @@
 <link rel="stylesheet" href="css/bootstrap-theme.min.css" media="all"/>
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script>
+	$( document ).ready(function() {
+		$(".noselect").mousedown(function(e){ e.preventDefault(); });
+	});
+	
+</script>
 <style>
 	.menu ul
 	{
