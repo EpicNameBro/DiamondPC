@@ -174,6 +174,34 @@
 					});
 
 				});
+			
+			});
+		</script>
+		<div class="clear"></div>
+	</div>
+	<div class="header_bottom">
+		<div class="menu">
+			<ul>
+				<li><a href="index.php">Home</a></li>
+				<li><a href="about.php">About</a></li>
+				<li><a href="delivery.php">FAQ</a></li>
+				<!--<li><a href="news.php">News</a></li>-->
+				<li><a href="contact.php">Contact</a></li>
+				<div class="clear"></div>
+			</ul>
+			<script type="text/javascript">
+				var path = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+				var list = document.getElementsByClassName("menu")[0].getElementsByTagName("li");
+				if(path.indexOf("index.php") >= 0)
+					list[0].setAttribute("class", "active");
+				else if(path.indexOf("about.php") >= 0)
+					list[1].setAttribute("class", "active");
+				else if(path.indexOf("delivery.php") >= 0)
+					list[2].setAttribute("class", "active");
+				else if(path.indexOf("news.php") >= 0)
+					list[3].setAttribute("class", "active");
+				else if(path.indexOf("contact.php") >= 0)
+					list[4].setAttribute("class", "active");
 			</script>
 			<div class="clear"></div>
 		</div>
