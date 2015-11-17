@@ -93,6 +93,9 @@
 	<div class="wrap">
 		<!-- HEADER BEGIN -->
 		<?php include 'header.php';?>
+		
+		
+		
 		<!-- HEADER END -->
 		<div class="header_slide">
 			<div class="col-md-2 header_bottom_left">
@@ -188,7 +191,7 @@
 						<div class="clear"></div>
 					</div>
 				</div>
-
+				
 				<div class="section group newest">
 					<?php
 						//display the newest products
