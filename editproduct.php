@@ -33,7 +33,39 @@
 		$STH->bindParam(1, $_POST['quantity']);
 		$STH->bindParam(2, $_POST['product_id']);
 		$STH->execute();
+		
+		$product_id=$_POST['product_id'];
+
+		
+		foreach($_FILES['addimage']['name'] as $name) 
+		{
+        	$input = "addimage";
+			require_once 'imageupload.php';
+    	}
+		
+		if(isset($_POST['deleteimage']) && is_array($_POST['deleteimage']) ) 
+		{
+			foreach($_POST['deleteimage'] as $image_id) 
+			{
+				$STH = $DBH->query(
+					"SELECT Image_Url
+					   FROM Product_Image
+					  WHERE Product_Image_Id=$image_id");
+
+				$row = $STH->fetch();
+				unlink($row['Image_Url']);
+
+
+				$STH = $DBH->prepare("DELETE FROM Product_Image WHERE Product_Image_Id=?");
+
+				$STH->bindParam(1, $image_id);
+
+				$STH->execute();
+			}
+		}
 	}
+
+
 
 	//delete a product from the inventory
 	if(isset($_POST['delete']))
@@ -72,6 +104,10 @@
 		$STH->bindParam(1, $product_id);
 		$STH->execute();
 	}
+
+
+
+	
 	
 	$products = [];
 	
@@ -95,97 +131,106 @@
 		);
 	}
 	?>
-<!DOCTYPE HTML>
-<html>
+	<!DOCTYPE HTML>
+	<html>
+
 	<head>
 		<?php include 'scripts.php' ?>
-		<script type="text/javascript">
-		function validate(form)
-		{
-			return confirm('Are you certain?');
-		}
-		</script>
+			<script type="text/javascript">
+				function validate(form) {
+					return confirm('Are you certain?');
+				}
+			</script>
 	</head>
+
 	<body>
 		<div class="wrap">
-		<?php include 'header.php';?>
-		<div class="main">
-			</br>
-			<div class="col-md-12">
-				<a href="inventory.php" class="btn btn-info"><u>Back</u></a>
-				</br>
-				</br>
-				<div class="panel panel-info " >
-					<div class="panel-heading">
-						<div class="panel-title">Edit Products</div>
-					</div>
-					<div style="padding-top:30px" class="panel-body" >
-						<?php
+			<?php include 'header.php';?>
+				<div class="main">
+					</br>
+					<div class="col-md-12">
+						<a href="inventory.php" class="btn btn-info"><u>Back</u></a>
+						</br>
+						</br>
+						<div class="panel panel-info ">
+							<div class="panel-heading">
+								<div class="panel-title">Edit Products</div>
+							</div>
+							<div style="padding-top:30px" class="panel-body">
+								<?php
 							//display all the inventory items
 							for($i = 0 ; $i < count($products) ; $i++)
 							{
-							?>								
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<div class="col-md-2">
-											<img src="<?= $products[$i]['Image_Url'] ?>"/>
-										</div>
-										<div class="col-md-2">
-											<h4><b><?= $products[$i]['product_name'] ?></b></h4>
-										</div>
-										<div class="col-md-2">
-											<h3 class="text-success"><b>$<?= $products[$i]['Price'] ?></b></h3>
-										</div>
-										<div class="productinfo col-md-2">
-											<h3><b>Stock: <?= $products[$i]['Quantity'] ?></b></h3>
-										</div>
-										<div class="col-md-2">
-											<button productid="<?= $products[$i]['product_id'] ?>" type="button" class="edit btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModal">Edit</button>
-										</div>
-										<div class="col-md-2">
-											<form method="POST" onsubmit="return validate(this);">
-												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="delete btn btn-danger btn-lg btn-block" >Delete</button>
-											</form>
+							?>
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div class="col-md-2">
+												<img src="<?= $products[$i]['Image_Url'] ?>" />
+											</div>
+											<div class="col-md-2">
+												<h4><b><?= $products[$i]['product_name'] ?></b></h4>
+											</div>
+											<div class="col-md-2">
+												<h3 class="text-success"><b>$<?= $products[$i]['Price'] ?></b></h3>
+											</div>
+											<div class="productinfo col-md-2">
+												<h3><b>Stock: <?= $products[$i]['Quantity'] ?></b></h3>
+											</div>
+											<div class="col-md-2">
+												<button productid="<?= $products[$i]['product_id'] ?>" type="button" class="edit btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#myModal">Edit</button>
+											</div>
+											<div class="col-md-2">
+												<form method="POST" onsubmit="return validate(this);">
+													<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="delete btn btn-danger btn-lg btn-block">Delete</button>
+												</form>
+											</div>
 										</div>
 									</div>
-								</div>
-					<?php	}
+									<?php	}
 							?>
-						<script type="text/javascript">
-							$( document ).ready(function() {
-							    $(".edit").click(function() {
-							    	 $.ajax({url: "geteditproduct.php?product_id=" + $(this).attr('productid'), success: function(result){
-							    	 	
-								        $("#editproduct").html(result);
-								    },});
-							    							    	
-								});
-							});
-						</script>
-					</div>
-				</div>
-				<!-- Modal -->
-				<div id="myModal" class="modal fade in" style="" role="dialog">
-					<div class="modal-dialog modal-lg">
-						<!-- Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Edit</h4>
-							</div>
-							<div class="modal-body">
-								<div id="editproduct">
+										<script type="text/javascript">
+											$(document).ready(function () {
+												$(".edit").click(function () {
+													$.ajax({
+														url: "geteditproduct.php?product_id=" + $(this).attr('productid'),
+														success: function (result) {
 
-								</div>
+															$("#editproduct").html(result);
+														},
+													});
+
+												});
+											});
+										</script>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+						<!-- Modal -->
+						<div id="myModal" class="modal fade in" style="" role="dialog">
+							<div class="modal-dialog modal-lg">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Edit</h4>
+									</div>
+									<div class="modal-body">
+										<div id="editproduct">
+											<div class="progress">
+												<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+													Loading...
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<?php include 'footer.php';?>
+				<?php include 'footer.php';?>
 	</body>
-</html>
+
+	</html>

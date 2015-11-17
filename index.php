@@ -30,79 +30,7 @@
 		    margin-right: auto;
 		}
 
-		/*full width container*/
-		@media (max-width: 767px) {
-		    .block {
-		        margin-left: -20px;
-		        margin-right: -20px;
-		    }
-		}
-
-        .jssorb05 {
-            position: absolute;
-        }
-
-        .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
-            position: absolute;
-            /* size of bullet elment */
-            width: 16px;
-            height: 16px;
-            background: url('img/b05.png') no-repeat;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .jssorb05 div { 
-        	background-position: -7px -7px; 
-        }
-
-        .jssorb05 div:hover, .jssorb05 .av:hover { 
-        	background-position: -37px -7px; 
-        }
-
-        .jssorb05 .av { 
-        	background-position: -67px -7px; 
-        }
-
-        .jssorb05 .dn, .jssorb05 .dn:hover { 
-        	background-position: -97px -7px; 
-        }
-
-        .jssora22l, .jssora22r {
-            display: block;
-            position: absolute;
-            /* size of arrow element */
-            width: 40px;
-            height: 58px;
-            cursor: pointer;
-            background: url('img/a22.png') center center no-repeat;
-            overflow: hidden;
-        }
-        .jssora22l { 
-        	background-position: -10px -31px;
-        	background-color: black; 
-        }
-
-        .jssora22r { 
-        	background-position: -70px -31px;
-        	background-color: black; 
-        }
-
-        .jssora22l:hover { 
-        	background-position: -130px -31px; 
-        }
-
-        .jssora22r:hover { 
-        	background-position: -190px -31px; 
-        }
-
-        .jssora22l.jssora22ldn { 
-        	background-position: -250px -31px; 
-        }
-
-        .jssora22r.jssora22rdn { 
-        	background-position: -310px -31px; 
-        }
+		
 	</style>
 
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
@@ -184,57 +112,6 @@
 				</div>
 			</div>
 			<div class="col-md-10 header_bottom_right">
-				<!--<div class="slider">
-					<div id="slider">
-						<div id="mover">
-							
-							<div id="slide-1" class="slide">
-								<div class="slider-img">
-									<a href="preview.php"><img src="images/slide-1-image.png" alt="learn more" /></a>									    
-								</div>
-								<div class="slider-text">
-									<h1>Clearance<br><span>SALE</span></h1>
-									<h2>UPTo 20% OFF</h2>
-									<div class="features_list">
-										<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
-									</div>
-									<a href="preview.php" class="button">Shop Now</a>
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="slide">
-								<div class="slider-text">
-									<h1>Clearance<br><span>SALE</span></h1>
-									<h2>UPTo 40% OFF</h2>
-									<div class="features_list">
-										<h4>Get to Know More About Our Memorable Services</h4>
-									</div>
-									<a href="preview.php" class="button">Shop Now</a>
-								</div>
-								<div class="slider-img">
-									<a href="preview.php"><img src="images/slide-3-image.jpg" alt="learn more" /></a>
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="slide">
-								<div class="slider-img">
-									<a href="preview.php"><img src="images/slide-2-image.jpg" alt="learn more" /></a>
-								</div>
-								<div class="slider-text">
-									<h1>Clearance<br><span>SALE</span></h1>
-									<h2>UPTo 10% OFF</h2>
-									<div class="features_list">
-										<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
-									</div>
-									<a href="preview.php" class="button">Shop Now</a>
-								</div>
-								<div class="clear"></div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div> -->
 				<div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden; visibility: hidden;">
 			        <!-- Loading Screen -->
 			        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">

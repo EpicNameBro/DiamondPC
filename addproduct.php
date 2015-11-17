@@ -56,87 +56,11 @@
 		$STH->execute();
 
 		
-		//Upload up to 5 images
-		for($i = 1 ; $i <= 5 ; $i++)
+		foreach($_FILES['addimage']['name'] as $name) 
 		{
-			$input = "image$i";
-			if(is_uploaded_file($_FILES[$input]['tmp_name'])/*isset($_FILES[$input])*/)
-			{
-				$filepath = "none";
-				try {	
-					    // Undefined | Multiple Files | $_FILES Corruption Attack
-					    // If this request falls under any of them, treat it invalid.
-					    if (
-					        !isset($_FILES[$input]['error']) ||
-					        is_array($_FILES[$input]['error'])
-					    ) {
-					        throw new RuntimeException('Invalid parameters.');
-					    }
-
-					    // Check $_FILES[$input]['error'] value.
-					    switch ($_FILES[$input]['error']) {
-					        case UPLOAD_ERR_OK:
-					            break;
-					        case UPLOAD_ERR_NO_FILE:
-					            throw new RuntimeException('No file sent.');
-					        case UPLOAD_ERR_INI_SIZE:
-					        case UPLOAD_ERR_FORM_SIZE:
-					            throw new RuntimeException('Exceeded filesize limit.');
-					        default:
-					            throw new RuntimeException('Unknown errors.');
-					    }
-
-					    // You should also check filesize here. 
-					    if ($_FILES[$input]['size'] > 1000000) {
-					        throw new RuntimeException('Exceeded filesize limit.');
-					    }
-
-					    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
-					    // Check MIME Type by yourself.
-					    $finfo = new finfo(FILEINFO_MIME_TYPE);
-					    if (false === $ext = array_search(
-					        $finfo->file($_FILES[$input]['tmp_name']),
-					        array(
-					            'jpg' => 'image/jpeg',
-					            'png' => 'image/png',
-					            'gif' => 'image/gif',
-					        ),
-					        true
-					    )) {
-					        throw new RuntimeException('Invalid file format.');
-					    }
-
-					    // You should name it uniquely.
-					    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
-					    // On this example, obtain safe unique name from its binary data.
-					    $filename = sha1_file($_FILES[$input]['tmp_name']);
-					    $filepath = 'product_images/' . $filename . '.' . $ext;
-					    if (!move_uploaded_file(
-					        $_FILES[$input]['tmp_name'],
-					        sprintf('product_images/%s.%s',
-					            $filename,
-					            $ext
-					        )
-					    )) {
-					        throw new RuntimeException('Failed to move uploaded file.');
-					    }
-
-					    //echo 'File is uploaded successfully.';
-
-					    $productimage = array(
-						'product_id' => $product_id,
-						'image_url' => $filepath				
-						);
-						$STH = $DBH->prepare(
-							"INSERT INTO Product_Image (Product_Id, Image_Url)
-							 VALUES (:product_id, :image_url)");
-						$STH->execute($productimage);
-
-					} catch (RuntimeException $e) {
-					    //echo 'try exception: ' . $e->getMessage() . "</br>";
-					}
-			}
-		}
+        	$input = "addimage";
+			require_once 'imageupload.php';
+    	}
 		
 	}
 	?>
@@ -232,7 +156,7 @@
 											<div class="form-group">
 												<label for="image1" class="col-md-2 control-label">Image <?= $i ?></label>
 												<div class="col-md-5">
-													<input imagenum="<?= $i ?>"  type="file" class="image form-control" id="image<?= $i ?>" name="image<?= $i ?>">
+													<input imagenum="<?= $i ?>"  type="file" class="image form-control" id="image<?= $i ?>" name="addimage[]">
 												</div>
 												<div class="col-md-5">
 													<div class="panel-group" >
