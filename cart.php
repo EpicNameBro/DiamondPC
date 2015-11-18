@@ -158,7 +158,7 @@
 									<div><h3><b>Subtotal:</b></h3></div>
 									<div><h3 class="text-success"><b>$<?= $subtotal ?></b></h3></div>
 									</br>
-									<a href="#" class="btn btn-info">Checkout</a>
+									<a href="checkout.php" class="btn btn-info">Checkout</a>
 								</div>
 							</div>
 						</div>	

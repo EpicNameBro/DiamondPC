@@ -55,7 +55,9 @@
 						<li><a href="logout.php">Logout</a></li>
 						<li><a href="myaccount.php">My Account</a></li>
 						<li><a href="wishlist.php">Wish List</a></li>
-						<?php	}
+						<li><a href="cart.php">Cart</a></li>
+						<li><a href="checkout.php">Checkout</a></li>
+			<?php	}
 					else
 					{
 					?>
@@ -66,13 +68,9 @@
 					{
 					?>
 						<li><a href="inventory.php">Inventory</a></li>
-						<li><a href="manageusers.php">Manage Users</a></li>
-									
+						<li><a href="manageusers.php">Manage Users</a></li>		
 <?php				}
 					?>
-						<li><a href="cart.php">Cart</a></li>
-						<li><a href="#">Checkout</a></li>
-
 									
 				</ul>
 			</div>
