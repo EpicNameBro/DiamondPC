@@ -67,7 +67,8 @@
 					?>
 								<li><a href="inventory.php">Inventory</a></li>
 								<li><a href="manageusers.php">Manage Users</a></li>
-								<?php					}
+									
+<?php				}
 					?>
 									<li><a href="cart.php">Cart</a></li>
 									<li><a href="#">Checkout</a></li>
