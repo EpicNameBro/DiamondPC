@@ -229,76 +229,61 @@
 									</div>
 									
 									<div class="tab-pane" id="reviews">
-										<div class="panel panel-default widget">
-											<div class="panel-body">
-												<ul class="list-group">
-													<li class="list-group-item">
-														<div class="row">
-														<?php
+                                        <?php
 
-															$today = date("F j, Y, g:i a");
+                                            date_default_timezone_set('America/Montreal');
+                                            $timestamp = date('Y-m-d h:i:s a', time());
 
-															if(isset($_SESSION["UserSession"]))
-														    {
-														        $id = $DBH->quote($_SESSION["UserSession"]);        
+                                            if(isset($_SESSION["UserSession"]))
+                                            {
+                                                $id = $DBH->quote($_SESSION["UserSession"]);
 
-														        if(isset($_POST["username"]))
-														        {
-														            $username = $_POST["username"];
-														        }
-														    }
-    
-														?>
-															<div class="col-xs-10 col-md-10">
-																<div>
-																	<div class="mic-info"> By: <a href="#">Display username</a> on <?= $today ?> </div>
-																</div>
-																<textarea rows="4" class="form-control" name="comment" placeholder="Enter your review..."></textarea>
-																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
-																<br />
-																<div class="row">
-								                                    <!-- Button -->                                        
-								                                    <div class="col-md-10">
-								                                        <input type="submit" id="btn-comment" class="btn btn-info" name="comment" value="Comment">
-								                                    </div>
-								                                </div>
-															</div>
-														</div>
-													</li>
-													<!--<li class="list-group-item">
-														<div class="row">
-															<div class="col-xs-2 col-md-2"> <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""></div>
-															<div class="col-xs-10 col-md-10">
-																<div>
-																	<a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
-																	<div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
-																</div>
-																<div class="comment-text"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-																	euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim 
-																</div>
-																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="row">
-															<div class="col-xs-2 col-md-2"> <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""></div>
-															<div class="col-xs-10 col-md-10">
-																<div>
-																	<a href="">Lorem ipsum dolor sit amet</a>
-																	<div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
-																</div>
-																<div class="comment-text"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-																	euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim 
-																</div>
-																<div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
-															</div>
-														</div>
-													</li>-->
-												</ul>
-												<!--<a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a>--> 
-											</div>
-										</div>
+                                                /*$STH = $DBH->prepare(
+                                                    "INSERT INTO product_review (review, time_posted) 
+                                                     VALUES (?, ?)");
+
+                                                $STH->bindParam(1, $_POST["review"]);
+                                                $STH->bindParam(1, $_POST["time_posted"]);
+
+                                                $STH->execute();
+
+                                                die();*/
+
+                                                if(isset($_POST["username"]) && isset($_POST["comment"]))
+                                                {
+                                                    $username = $_POST["username"];
+                                                    $comment = $_POST["comment"];
+                                                }
+                                            }
+
+                                        ?>
+                                        
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-xs-10 col-md-10">
+                                                    <div>
+                                                        <a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
+                                                        <div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <textarea name="review" rows="4" cols="50" placeholder="Enter your review"></textarea>
+                                                    </div>
+                                                    <div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
+                                                    <br />
+                                                </div>
+                                                <div class="col-xs-10 col-md-10">
+                                                    <div>
+                                                        <a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
+                                                        <div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        blabla
+                                                    </div>
+                                                    <div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> 
+													</div>
+                                                </div>
+                                            </div>
+                                        </li>
 									</div>
 								</div>
 							</div>

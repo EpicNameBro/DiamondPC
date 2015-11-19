@@ -25,7 +25,7 @@
                 font-size: 160%;
             }
             .panel-heading{
-                background: #333!important;
+                background: #2eadd3!important;
             }
             .panel-title{
                 color: white;

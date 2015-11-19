@@ -10,8 +10,7 @@
 	
 	if(isset($_POST['cardtype']) && isset($_POST['cardnumber']) && isset($_POST['expirymonth']) && isset($_POST['expiryyear']) && isset($_POST['cv']))
 	{
-		
-		
+			
 		$cardtype = $_POST['cardtype'];
 		$cardnumber = $_POST['cardnumber'];
 		$expirymonth = $_POST['expirymonth'];

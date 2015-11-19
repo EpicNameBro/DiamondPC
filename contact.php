@@ -1,9 +1,14 @@
 <?PHP
     require_once 'databaseconnect.php';
 
+    date_default_timezone_set('America/Montreal');
+    $timestamp = date('Y-m-d h:i:s a', time());
+
    $contactdata = array(	@$_POST["contact_name"],
                             @$_POST["email"],
-                            @$_POST["message"]);
+                            @$_POST["subject"],
+                            @$_POST["message"], 
+                            $timestamp);
 
     $valid = true;
 
@@ -15,19 +20,19 @@
 		}
 	}
     
-    date_default_timezone_set('America/Montreal');
-    $timestamp = date('Y-m-d h:i:s a', time());
+    
 
     if($valid)
     {
         $STH = $DBH->prepare(
-			"INSERT INTO contact_message (contact_name, email, message, time_posted) 
-			 VALUES (?, ?, ?, ?)");
+			"INSERT INTO contact_message (contact_name, email, subject, message, time_posted) 
+			 VALUES (?, ?, ?, ?, ?)");
 
         $STH->bindParam(1, $_POST["contact_name"]);
         $STH->bindParam(2, $_POST["email"]);
-        $STH->bindParam(3, $_POST["message"]);
-        $STH->bindParam(4, $_POST["time_posted"]);
+        $STH->bindParam(3, $_POST["subject"]);
+        $STH->bindParam(4, $_POST["message"]);
+        $STH->bindParam(5, $_POST["time_posted"]);
         $STH->execute();
 
         die();
@@ -73,6 +78,10 @@
                                     <div>
                                         <span><label>E-mail</label></span>
                                         <span><input name="email" type="text" class="textbox"></span>
+                                    </div>
+                                    <div>
+                                        <span><label>Subject</label></span>
+                                        <span><input name="subject" type="text" class="textbox" ></span>
                                     </div>
                                     <div>
                                         <span><label>Message:</label></span>

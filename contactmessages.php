@@ -1,10 +1,5 @@
 <?php
 	require_once 'databaseconnect.php';
-    
-    $STH = $DBH->query(
-                "SELECT contact_name, email, message, time_posted, viewed FROM contact_message ORDER BY time_posted");
-
-    $contact_user = $STH->fetch();
 
 ?>
 <!DOCTYPE HTML>
@@ -13,7 +8,7 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#posts").accordion({ 
+            $(".posts").accordion({ 
                 header: "div.tab", 
                 alwaysOpen: false,
                 autoheight: false
@@ -32,7 +27,7 @@
             font-size: 160%;
         }
         .panel-heading{
-            background: #333!important;
+            background: #2eadd3!important;
         }
         .panel-title{
             color: white;
@@ -46,29 +41,38 @@
   	<!-- HEADER BEGIN -->
 	<?php include 'header.php';?>
 	<!-- HEADER END -->
-
-            <div class="bs-example">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">MESSAGE</a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>Date: <?PHP echo $contact_user['time_posted'] ?> </p>
-                                <br />
-                                <p>Name: <input type="text" value="<?=$contact_user['contact_name']?>" /></p>
-                                <br />
-                                <p>Email: <input type="text" value="<?=$contact_user['email']?>" /></p>
-                                <br />
-                                <p>Message: <textarea name="userMessage" > <?PHP echo $contact_user['message'] ?></textarea></p>
+        <?PHP 
+            $STH = $DBH->query(
+            "SELECT contact_name, email, subject, message, time_posted, viewed FROM contact_message ORDER BY time_posted DESC");
+            $i=0;
+            while($contact_user = $STH->fetch())
+            {
+?>                <div class="bs-example">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $i ?>">
+                                        Subject: <?= $contact_user['subject']?> <br />
+                                        By <b><?= $contact_user['contact_name']?></b>
+                                        On <b>Date: <?= $contact_user['time_posted'] ?> </b>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse<?= $i ?>" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <b>Sent from: <?=$contact_user['email']?></b>
+                                    <br />
+                                    <div class="well"><?= $contact_user['message'] ?></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+<?PHP       $i++;
+            }
+?>              
+            
     </div>
     
 	<!-- FOOTER BEGIN -->
