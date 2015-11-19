@@ -84,7 +84,7 @@
 											</h3>
 									</div>
 									<div class="panel-body">
-										<form role="form">
+										<form role="form" method="post" action="processcheckout.php">
 											<div class="form-group">
 												<div class="form-group">
 													<label for="cardtype">Card Type:</label>
@@ -99,7 +99,7 @@
 												<label for="cardNumber">
 													CARD NUMBER</label>
 												<div class="input-group">
-													<input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required />
+													<input name="cardnumber" type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required />
 													<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 												</div>
 											</div>
@@ -123,7 +123,7 @@
 													<div class="form-group">
 														<label for="cvCode">
 															CV CODE</label>
-														<input type="password" class="form-control" id="cvCode" placeholder="CV" required />
+														<input name="cv" type="password" class="form-control" id="cvCode" placeholder="CV" required />
 													</div>
 												</div>
 											</div>
@@ -163,7 +163,7 @@
 
 
 															<span class="col-md-3 vcenter">
-																<b>Quantity: <?= $products[$i]['Quantity'] ?></b>
+																<b>x<?= $products[$i]['Quantity'] ?></b>
 															</span>
 
 														</form>
