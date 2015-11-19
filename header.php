@@ -57,6 +57,7 @@
 						<li><a href="wishlist.php">Wish List</a></li>
 						<li><a href="cart.php">Cart</a></li>
 						<li><a href="checkout.php">Checkout</a></li>
+						<li><a href="orders.php">Orders</a></li>
 			<?php	}
 					else
 					{
@@ -179,7 +180,7 @@
 			<div class="clear"></div>
 		</div>
 
-		<div class="header_bottom">
+		<div class="header_bottom" style="margin-bottom: 20px;">
 			<div class="menu">
 				<ul>
 					<li><a href="index.php">Home</a></li>
@@ -194,13 +195,13 @@
 									$STH = $DBH->query("SELECT Category_Id, Name FROM Category");
 									while($row = $STH->fetch())
 									{
-								?>
+						?>
 									<li>
 										<a href="category.php?category_id=<?= $row['Category_Id'] ?>">
 											<?= $row['Name'] ?>
 										</a>
 									</li>
-									<?php
+						<?php
 									}
 								?>
 							</ul>
@@ -214,24 +215,24 @@
 				</ul>
 				<script type="text/javascript">
 					/*var path = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-																				var list = document.getElementsByClassName("menu")[0].getElementsByTagName("li");
-																				if (path.indexOf("index.php") >= 0)
-																					list[0].setAttribute("class", "active");
-																				
-																				else if(path.indexOf("category.php") >= 0)
-																					list[1].setAttribute("class", "active");
-																				
-																				else if (path.indexOf("about.php") >= 0)
-																					list[2].setAttribute("class", "active");
-																				
-																				else if (path.indexOf("delivery.php") >= 0)
-																					list[3].setAttribute("class", "active");
-																				
-																				else if (path.indexOf("news.php") >= 0)
-																					list[4].setAttribute("class", "active");
-																				
-																				else if (path.indexOf("contact.php") >= 0)
-																					list[5].setAttribute("class", "active");*/
+					var list = document.getElementsByClassName("menu")[0].getElementsByTagName("li");
+					if (path.indexOf("index.php") >= 0)
+						list[0].setAttribute("class", "active");
+
+					else if(path.indexOf("category.php") >= 0)
+						list[1].setAttribute("class", "active");
+
+					else if (path.indexOf("about.php") >= 0)
+						list[2].setAttribute("class", "active");
+
+					else if (path.indexOf("delivery.php") >= 0)
+						list[3].setAttribute("class", "active");
+
+					else if (path.indexOf("news.php") >= 0)
+						list[4].setAttribute("class", "active");
+
+					else if (path.indexOf("contact.php") >= 0)
+						list[5].setAttribute("class", "active");*/
 				</script>
 			</div>
 			<div class="search_box">
