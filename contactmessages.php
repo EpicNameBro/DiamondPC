@@ -2,7 +2,9 @@
 	require_once 'databaseconnect.php';
     
     $STH = $DBH->query(
-                "SELECT contact_name, email, message, time_posted, viewed FROM contact_message");
+                "SELECT contact_name, email, message, time_posted, viewed FROM contact_message ORDER BY time_posted");
+
+    $contact_user = $STH->fetch();
 
 ?>
 <!DOCTYPE HTML>
@@ -35,6 +37,7 @@
         .panel-title{
             color: white;
         }
+
     </style>
 	
 </head>
@@ -42,54 +45,25 @@
 	<div class="wrap">
   	<!-- HEADER BEGIN -->
 	<?php include 'header.php';?>
-	<!-- HEADER END -->   
+	<!-- HEADER END -->
+
             <div class="bs-example">
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. What is DIAMONDPC?</a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">MESSAGE</a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p>For information about the company go to <a href="about.php" target="_blank">DIAMONDPC</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. How do I register?</a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>To register please click on "Register" on the top of the page and follow the steps.</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. How do I log in?</a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>To log in please click on "Login" on the top of the page and put in your username and password.</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">4. How do I buy on DIAMONDPC?</a>
-                            </h4>
-                        </div>
-                        <div id="collapseFour" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>You don't have to be registered to buy a product. Chose your product and go through the checkout process.</a></p>
+                                <p>Date: <?PHP echo $contact_user['time_posted'] ?> </p>
+                                <br />
+                                <p>Name: <input type="text" value="<?=$contact_user['contact_name']?>" /></p>
+                                <br />
+                                <p>Email: <input type="text" value="<?=$contact_user['email']?>" /></p>
+                                <br />
+                                <p>Message: <textarea name="userMessage" > <?PHP echo $contact_user['message'] ?></textarea></p>
                             </div>
                         </div>
                     </div>

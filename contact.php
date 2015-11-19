@@ -3,10 +3,10 @@
 
    $contactdata = array(	@$_POST["contact_name"],
                             @$_POST["email"],
-                            @$_POST["message"],
-                            @$_POST["time_posted"]);
+                            @$_POST["message"]);
 
     $valid = true;
+
 	for($i = 0 ; $i < count($contactdata) ; $i++)
 	{
 		if(!isset($contactdata[$i]))
@@ -15,19 +15,19 @@
 		}
 	}
     
+    date_default_timezone_set('America/Montreal');
+    $timestamp = date('Y-m-d h:i:s a', time());
+
     if($valid)
     {
-        date_default_timezone_set('America/Montreal');
-        $timestamp = date('Y-m-d h:i:s a', time());
-        
         $STH = $DBH->prepare(
-			"INSERT INTO constact_message (contact_name, email, message, time_posted) 
+			"INSERT INTO contact_message (contact_name, email, message, time_posted) 
 			 VALUES (?, ?, ?, ?)");
 
         $STH->bindParam(1, $_POST["contact_name"]);
         $STH->bindParam(2, $_POST["email"]);
         $STH->bindParam(3, $_POST["message"]);
-        $STH->bindParam(4, $_POST["timestamp"]);
+        $STH->bindParam(4, $_POST["time_posted"]);
         $STH->execute();
 
         die();
@@ -40,13 +40,15 @@
 
 <head>
     <?php include 'scripts.php' ?>
-    
-    
 
     <style type="text/css">
         .company_address {
             font-size: 120%;
         }
+        label[for=date]{
+            color: black;
+        }
+       
     </style>
     
 </head>
@@ -62,20 +64,19 @@
                                 <h2>Contact Us</h2>
                                 <form method="post" action="contact.php">
                                     <div>
+                                        <span><label for="time_posted">Date: <?PHP echo $timestamp ?></label></span>
+                                    </div>
+                                    <div>
                                         <span><label>Name (First, Last)</label></span>
-                                        <span><input name="userName" type="text" class="textbox" ></span>
+                                        <span><input name="contact_name" type="text" class="textbox" ></span>
                                     </div>
                                     <div>
                                         <span><label>E-mail</label></span>
-                                        <span><input name="userEmail" type="text" class="textbox"></span>
+                                        <span><input name="email" type="text" class="textbox"></span>
                                     </div>
                                     <div>
-                                        <span><label>Company Name</label></span>
-                                        <span><input name="userCompany" type="text" class="textbox"></span>
-                                    </div>
-                                    <div>
-                                        <span><label>Subject</label></span>
-                                        <span><textarea name="userMsg"> </textarea></span>
+                                        <span><label>Message:</label></span>
+                                        <span><textarea name="message"> </textarea></span>
                                     </div>
                                     <div>
                                         <span><input type="submit" value="Submit"  class="myButton"></span>
@@ -83,65 +84,65 @@
                                 </form>
 
                                 <?php
-					    	if(isset($_POST["userName"]) && isset($_POST["userEmail"]) && isset($_POST["userMsg"]) && isset($_POST["userCompany"]))
-					    	{
-								//echo 'tests';
-					    		$userName = $_POST["userName"];
-					    		$userEmail = $_POST["userEmail"];
-					    		$companyName = $_POST["userCompany"];
-					    		$userMessage = $_POST["userMsg"];
-								
-					    		$to = "futurediamondpc@gmail.com"; // this is your Email address
-							    $from = $userEmail; // this is the sender's Email address
-							    $subject = "Form submission";
-							    $subject2 = "Copy of your form submission";
-							    $message = $userName . " wrote the following:" . "\n\n" . $userMessage;
-							    $message2 = "Here is a copy of your message " . $userName . "\n\n" . $userMessage;
+                                    /*if(isset($_POST["userName"]) && isset($_POST["userEmail"]) && isset($_POST["userMsg"]) && isset($_POST["userCompany"]))
+                                    {
+                                        //echo 'tests';
+                                        $userName = $_POST["userName"];
+                                        $userEmail = $_POST["userEmail"];
+                                        $companyName = $_POST["userCompany"];
+                                        $userMessage = $_POST["userMsg"];
 
-							    $headers = "From:" . $from;
-							    $headers2 = "From:" . $to;
-							    $success = mail($to, $subject, $message, $headers);
-							    $success2 = mail($from, $subject2, $message2, $headers2); // sends a copy of the message to the sender
+                                        $to = "futurediamondpc@gmail.com"; // this is your Email address
+                                        $from = $userEmail; // this is the sender's Email address
+                                        $subject = "Form submission";
+                                        $subject2 = "Copy of your form submission";
+                                        $message = $userName . " wrote the following:" . "\n\n" . $userMessage;
+                                        $message2 = "Here is a copy of your message " . $userName . "\n\n" . $userMessage;
 
-							    if($success && $success2)
-							    {
-							    	echo "Mail Sent. Thank you " . $userName . ", we will contact you shortly.";
-							    }
-							    else
-							    {
-							    	echo "Error";
-							    }
-								
-								/*require_once "Mail.php";
+                                        $headers = "From:" . $from;
+                                        $headers2 = "From:" . $to;
+                                        $success = mail($to, $subject, $message, $headers);
+                                        $success2 = mail($from, $subject2, $message2, $headers2); // sends a copy of the message to the sender
 
-								$from = $userEmail;
-								$to = 'jonathan_delcorpo@hotmail.com';
-								$subject = 'Hi!';
-								$body = $userMessage;
+                                        if($success && $success2)
+                                        {
+                                            echo "Mail Sent. Thank you " . $userName . ", we will contact you shortly.";
+                                        }
+                                        else
+                                        {
+                                            echo "Error";
+                                        }*/
 
-								$headers = array(
-									'From' => $from,
-									'To' => $to,
-									'Subject' => $subject
-								);
+                                        /*require_once "Mail.php";
 
-								$smtp = Mail::factory('smtp', array(
-										'host' => 'ssl://smtp.gmail.com',
-										'port' => '465',
-										'auth' => true,
-										'username' => 'futurediamonpc@gmail.com',
-										'password' => 'gjbigboss4321'
-									));
+                                        $from = $userEmail;
+                                        $to = 'jonathan_delcorpo@hotmail.com';
+                                        $subject = 'Hi!';
+                                        $body = $userMessage;
 
-								$mail = $smtp->send($to, $headers, $body);
+                                        $headers = array(
+                                            'From' => $from,
+                                            'To' => $to,
+                                            'Subject' => $subject
+                                        );
 
-								if (PEAR::isError($mail)) {
-									echo('<p>' . $mail->getMessage() . '</p>');
-								} else {
-									echo('<p>Message successfully sent!</p>');
-								}*/
-					    	}
-					    ?>
+                                        $smtp = Mail::factory('smtp', array(
+                                                'host' => 'ssl://smtp.gmail.com',
+                                                'port' => '465',
+                                                'auth' => true,
+                                                'username' => 'futurediamonpc@gmail.com',
+                                                'password' => 'gjbigboss4321'
+                                            ));
+
+                                        $mail = $smtp->send($to, $headers, $body);
+
+                                        if (PEAR::isError($mail)) {
+                                            echo('<p>' . $mail->getMessage() . '</p>');
+                                        } else {
+                                            echo('<p>Message successfully sent!</p>');
+                                        }
+                                    }*/
+                                ?>
                             </div>
                         </div>
                         <div class="col span_1_of_3">
