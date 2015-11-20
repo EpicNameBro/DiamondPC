@@ -34,8 +34,6 @@
         $STH->bindParam(4, $_POST["message"]);
         $STH->bindParam(5, $_POST["time_posted"]);
         $STH->execute();
-
-        die();
     }
     
 ?>
@@ -91,67 +89,6 @@
                                         <span><input type="submit" value="Submit"  class="myButton"></span>
                                     </div>
                                 </form>
-
-                                <?php
-                                    /*if(isset($_POST["userName"]) && isset($_POST["userEmail"]) && isset($_POST["userMsg"]) && isset($_POST["userCompany"]))
-                                    {
-                                        //echo 'tests';
-                                        $userName = $_POST["userName"];
-                                        $userEmail = $_POST["userEmail"];
-                                        $companyName = $_POST["userCompany"];
-                                        $userMessage = $_POST["userMsg"];
-
-                                        $to = "futurediamondpc@gmail.com"; // this is your Email address
-                                        $from = $userEmail; // this is the sender's Email address
-                                        $subject = "Form submission";
-                                        $subject2 = "Copy of your form submission";
-                                        $message = $userName . " wrote the following:" . "\n\n" . $userMessage;
-                                        $message2 = "Here is a copy of your message " . $userName . "\n\n" . $userMessage;
-
-                                        $headers = "From:" . $from;
-                                        $headers2 = "From:" . $to;
-                                        $success = mail($to, $subject, $message, $headers);
-                                        $success2 = mail($from, $subject2, $message2, $headers2); // sends a copy of the message to the sender
-
-                                        if($success && $success2)
-                                        {
-                                            echo "Mail Sent. Thank you " . $userName . ", we will contact you shortly.";
-                                        }
-                                        else
-                                        {
-                                            echo "Error";
-                                        }*/
-
-                                        /*require_once "Mail.php";
-
-                                        $from = $userEmail;
-                                        $to = 'jonathan_delcorpo@hotmail.com';
-                                        $subject = 'Hi!';
-                                        $body = $userMessage;
-
-                                        $headers = array(
-                                            'From' => $from,
-                                            'To' => $to,
-                                            'Subject' => $subject
-                                        );
-
-                                        $smtp = Mail::factory('smtp', array(
-                                                'host' => 'ssl://smtp.gmail.com',
-                                                'port' => '465',
-                                                'auth' => true,
-                                                'username' => 'futurediamonpc@gmail.com',
-                                                'password' => 'gjbigboss4321'
-                                            ));
-
-                                        $mail = $smtp->send($to, $headers, $body);
-
-                                        if (PEAR::isError($mail)) {
-                                            echo('<p>' . $mail->getMessage() . '</p>');
-                                        } else {
-                                            echo('<p>Message successfully sent!</p>');
-                                        }
-                                    }*/
-                                ?>
                             </div>
                         </div>
                         <div class="col span_1_of_3">
