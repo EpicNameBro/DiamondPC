@@ -33,203 +33,209 @@
 		die();
 	}
 ?>
-<!DOCTYPE HTML>
-<html>
+	<!DOCTYPE HTML>
+	<html>
+
 	<head>
 		<?php include 'scripts.php';?>
-		<style>
-			#mainimage
-			{
-				width: auto;
-				height: 300px;
-			}
+			<style>
+				#mainimage {
+					width: auto;
+					height: 300px;
+				}
+				
+				.productboxthumb {
+					outline: 1px solid grey;
+					margin: 10px 0px 10px 0px;
+				}
+				
+				.previewimage {
+					cursor: pointer;
+				}
+				
+				.description {
+					height: 100%;
+				}
+				
+				.share {
+					background-color: black;
+					border-radius: 5px;
+					margin: 30px 20px 10px 0px;
+				}
+				
+				.share img {
+					width: 35px;
+					height: 35px;
+				}
+				
+				.producttitle h2 {
+					font-size: 1.1em;
+					text-align: center;
+				}
+				
+				.price-number p {
+					font-size: 1.0em;
+					vertical-align: middle;
+					text-align: center;
+				}
+				
+				.well {
+					background: white;
+				}
+				
+				.details {
+					margin-top: 40px;
+				}
+				
+				.related {
+					text-align: center;
+				}
+				
+				.comment {
+					height: 50px;
+				}
+			</style>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$(".previewimage").click(function() {
+						$("#mainimage").attr("src", $(this).attr("src"));
+					});
+					$(".previewimage").hover(function() {
+						$("#mainimage").attr("src", $(this).attr("src"));
+					});
 
-			.productboxthumb
-			{
-				outline: 1px solid grey;
-				margin: 10px 0px 10px 0px;
-			}
-
-			.previewimage
-			{
-				cursor: pointer;
-			}
-
-			.description
-			{
-				height: 100%;
-			}
-
-			.share
-			{
-				background-color: black;
-				border-radius: 5px;
-				margin: 30px 20px 10px 0px;
-			}
-
-			.share img
-			{
-				width: 35px;
-				height: 35px;
-			}
-			.producttitle h2
-			{
-				font-size: 1.1em;
-				text-align: center;
-			}
-
-			.price-number p
-			{
-				font-size:1.0em;
-				vertical-align: middle;
-				text-align: center;
-			}
-
-			.well 
-			{
-   				 background: white;
-			}
-
-			.details
-			{
-				margin-top: 40px;
-			}
-
-			.related
-			{
-				text-align: center;
-			}
-
-			.comment{
-				height: 50px;
-			}
-
-			
-
-		</style>
-		<script type="text/javascript">
-			$( document ).ready(function() {
-			    $(".previewimage").click(function() {
-				  	$("#mainimage").attr("src", $(this).attr("src")); 
 				});
-			    $(".previewimage").hover(function() {
-				  	$("#mainimage").attr("src", $(this).attr("src")); 
-				});
-
-			});
-		</script>
+			</script>
 	</head>
+
 	<body>
 		<div class="wrap">
 			<?php include 'header.php';?>
-			<div class="main">
-				</br>
+				<div class="main">
+					<br/>
 
-				<ol class="breadcrumb">
-					<li><a href="index.php"><i class="glyphicon glyphicon-home"></i></a></li>
-					<li><a href="category.php?category_id=<?= $product['category_id'] ?>"><?= $product['category_name'] ?></a></li>
-					<li><a href="product.html"><?= $product['product_name'] ?></a></li>
-				</ol>
+					<ol class="breadcrumb">
+						<li><a href="index.php"><i class="glyphicon glyphicon-home"></i></a></li>
+						<li>
+							<a href="category.php?category_id=<?= $product['category_id'] ?>">
+								<?= $product['category_name'] ?>
+							</a>
+						</li>
+						<li>
+							<a href="product.html">
+								<?= $product['product_name'] ?>
+							</a>
+						</li>
+					</ol>
 
-				<div class="col-md-10">
-					<div class="col-md-12">
-						<div class="row">
-							<div class="row clearfix">
-								<div class="col-md-6 column">
-									<div class="row">
-										<div class="panel panel-default">
-											<div class="panel-body">
-												<div class="col-md-3">
-													<?php
+					<div class="col-md-10">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="row clearfix">
+									<div class="col-md-6 column">
+										<div class="row">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<div class="col-md-3">
+														<?php
 														for($i = 0 ; $i < count($images) ; $i++)
 														{
-											?>																	
-															<img style="width: 50px; height: 50px;" src="<?= $images[$i] ?>" class="productboxthumb previewimage img-responsive" alt="Alt Text">															
-											<?php		}
+											?>
+															<img style="width: 50px; height: 50px;" src="<?= $images[$i] ?>" class="productboxthumb previewimage img-responsive" alt="Alt Text">
+															<?php		}
 													?>
-												</div>
+													</div>
 
-												<div class="col-md-9">
-													<img id="mainimage"  src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+													<div class="col-md-9">
+														<img id="mainimage" src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="well">
-											<b>Description:</b>
-											</br>
-											<?= $product['Description'] ?><br>
+										<div class="row">
+											<div class="well">
+												<b>Description:</b>
+												<br/>
+												<?= $product['Description'] ?>
+													<br>
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="description col-md-6 column">
-									<div class="">
-										<h1><?= $product['product_name'] ?></h1>
-										<hr>
-										
-										<div class="rating"><h3><b>Rating:</b></h3></div>
-										<div class="price"><h3 class="text-success"><b>Price: </b>$<?= $product['Price'] ?></h3></div>
-										<hr>
-										<div class="col-md-6">
-											<form role="form" method="POST" action="cart.php">
-												<div class="form-group">
+									<div class="description col-md-6 column">
+										<div class="">
+											<h1><?= $product['product_name'] ?></h1>
+											<hr>
 
-													<label>Quantity : </label>
-													</br>.
-													<select class="form-control" name="quantity">
-														<?php
+											<div class="rating">
+												<h3><b>Rating:</b></h3></div>
+											<div class="price">
+												<h3 class="text-success"><b>Price: </b>$<?= $product['Price'] ?></h3></div>
+											<hr>
+											<div class="col-md-6">
+												<form role="form" method="POST" action="cart.php">
+													<div class="form-group">
+
+														<label>Quantity : </label>
+														<br/>.
+														<select class="form-control" name="quantity">
+															<?php
 														for($i = 1 ; $i <= 10 ; $i++)
 														{
-									?>			
-															<option value="<?= $i ?>"><?= $i ?></option>
-									<?php 				}
+									?>
+																<option value="<?= $i ?>">
+																	<?= $i ?>
+																</option>
+																<?php 				}
 														?>
-													</select>
-												
-												</div>
-												
-												<button name="addcart" value="<?= $id ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
-												</br></br>								
-											</form>
-											<form method='post' action='wishlist.php'>
-												<button name="wishlistadd" value="<?= $_GET['product_id'] ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
-											</form>
-										</div>
-										<div class="col-md-6">
-											<label>Share : </label>
-											</br>
-											<a class="share" href="#"><img src="images/facebook.png"/></a>
-											<a class="share" href="#"><img src="images/twitter.png"/></a>
+														</select>
+
+													</div>
+
+													<button name="addcart" value="<?= $id ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</button>
+													<br/>
+													<br/>
+												</form>
+												<form method='post' action='wishlist.php'>
+													<button name="wishlistadd" value="<?= $_GET['product_id'] ?>" type="submit" class="btn btn-info"><span class="glyphicon glyphicon-gift"></span> ADD TO WISH LIST</button>
+												</form>
+											</div>
+											<div class="col-md-6">
+												<label>Share : </label>
+												<br/>
+												<a class="share" href="#"><img src="images/facebook.png" /></a>
+												<a class="share" href="#"><img src="images/twitter.png" /></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					</br></br>
-					<div class="row">
-						<div class="row clearfix">
-							<div class="col-md-12 details">
-								<ul class="nav nav-tabs">
-									<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-									<li><a href="#reviews" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Reviews</a></li>
-								</ul>
-								<!-- Tab panes -->
-								<div class="tab-content">
-									<div class="tab-pane active" id="details">
-										<div class="tabcontent">
-											<div class="panel panel-default">
-												<div class="panel-body">
-													<?= $product['Details'] ?>
+						<br/>
+						<br/>
+						<div class="row">
+							<div class="row clearfix">
+								<div class="col-md-12 details">
+									<ul class="nav nav-tabs">
+										<li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+										<li><a href="#reviews" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Reviews</a></li>
+									</ul>
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div class="tab-pane active" id="details">
+											<div class="tabcontent">
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<?= $product['Details'] ?>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									
-									<div class="tab-pane" id="reviews">
-                                        <?php
+
+										<div class="tab-pane" id="reviews">
+											<div class="panel panel-default">
+												<div class="panel-body">
+													<?php
 
                                             date_default_timezone_set('America/Montreal');
                                             $timestamp = date('Y-m-d h:i:s a', time());
@@ -254,45 +260,61 @@
                                                     $username = $_POST["username"];
                                                     $comment = $_POST["comment"];
                                                 }
+												
                                             }
 
                                         ?>
-                                        
-                                        <li class="list-group-item">
-                                            <div class="row">
-                                                <div class="col-xs-10 col-md-10">
-                                                    <div>
-                                                        <a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
-                                                        <div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <textarea name="review" rows="4" cols="50" placeholder="Enter your review"></textarea>
-                                                    </div>
-                                                    <div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> </div>
-                                                    <br />
-                                                </div>
-                                                <div class="col-xs-10 col-md-10">
-                                                    <div>
-                                                        <a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</a>
-                                                        <div class="mic-info"> By: <a href="#">Jon Harding</a> on 19 Oct 2013 </div>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        blabla
-                                                    </div>
-                                                    <div class="action"> <b>Rating:</b> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> 
+
+														<?php
+														if(isset($_SESSION['UserSession']))
+														{
+														?>
+															<form method="post">
+																<div class="form-group">
+																	<label for="usr">Title:</label>
+																	<input name="title" type="text" class="form-control" id="usr">
+																</div>
+																<div class="form-group">
+																	<label for="comment">Review:</label>
+																	<textarea name="review" class="form-control" rows="5" id="comment"></textarea>
+																</div>
+																<div class="form-group">
+																	<input class="btn btn-info" name="review" type="submit">
+																</div>
+															</form>
+															<?php
+														}
+													?>
+														
+													
+													<!-- USE A WHILE LOOP WITH THIS CODE FOR EACH REVIEW-->
+													<div class="well">
+														<div class="row">
+															<div class="col-md-2" style="border-right: 1px solid #333;">
+																Name:
+																<br/>
+																Date:
+																<br/>
+																Star Rating
+															</div>
+
+															<div class="col-md-10">
+																<div><b>Title</b></div>
+																<div>Review</div>
+															</div>
+														</div>
 													</div>
-                                                </div>
-                                            </div>
-                                        </li>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="col-md-2 right">
-					
+					<div class="col-md-2 right">
+
 						<div class="categories">
 							<ul>
 								<h3>Categories</h3>
@@ -303,21 +325,21 @@
 										echo "<li><a href='category.php?category_id=$row[Category_Id]'>$row[Name]</a></li>";
 									}
 								?>
-								
+
 							</ul>
-						</div>	
-					
-					</br>
-					
-					
+						</div>
+
+						<br/>
+
+
 						<div class="categories">
 							<ul>
 
 								<h3>Related Products</h3>
 								<!-- <li><a href='#'>See all</a></li> -->
-								
+
 							</ul>
-						</div>	
+						</div>
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<?php
@@ -344,33 +366,34 @@
 										for($i = 0 ; $i < count($related_products) ; $i++)
 										{
 									?>
-											<div class="well">
-												<div class="producttitle">
-													<a href="preview.php?product_id=<?= $related_products[$i]['Product_Id'] ?>">
+									<div class="well">
+										<div class="producttitle">
+											<a href="preview.php?product_id=<?= $related_products[$i]['Product_Id'] ?>">
 														<img style="width: 212px; height: auto;" src="<?= $related_products[$i]['Image_Url'] ?>" alt="" />
 													</a>
-													<h2 class=""><?= $related_products[$i]['Name'] ?></h2>
-													<div class="price-details">
-														<div class="price-number">
-															<p><span class="rupees">$<?= $related_products[$i]['Price'] ?></span></p>
-														</div>
-														
-														<a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a>
-														
-														<div class="clear"></div>
-													</div>
+											<h2 class=""><?= $related_products[$i]['Name'] ?></h2>
+											<div class="price-details">
+												<div class="price-number">
+													<p><span class="rupees">$<?= $related_products[$i]['Price'] ?></span></p>
 												</div>
+
+												<a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a>
+
+												<div class="clear"></div>
 											</div>
-											<hr>
+										</div>
+									</div>
+									<hr>
 									<?php
 										}
 									?>
 							</div>
-						</div>	
-					
+						</div>
+
+					</div>
 				</div>
-			</div>
 		</div>
 		<?php include 'footer.php';?>
 	</body>
-</html>
+
+	</html>
