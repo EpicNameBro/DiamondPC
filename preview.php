@@ -237,33 +237,41 @@
 												<div class="panel-body">
 													<?php
 
-                                            date_default_timezone_set('America/Montreal');
-                                            $timestamp = date('Y-m-d h:i:s a', time());
+                                                        date_default_timezone_set('America/Montreal');
+                                                        $timestamp = date('Y-m-d h:i:s a', time());
 
-                                            if(isset($_SESSION["UserSession"]))
-                                            {
-                                                $id = $DBH->quote($_SESSION["UserSession"]);
+                                                        if(isset($_SESSION["UserSession"]))
+                                                        {
+                                                            $id = $DBH->quote($_SESSION["UserSession"]);
 
-                                                /*$STH = $DBH->prepare(
-                                                    "INSERT INTO product_review (review, time_posted) 
-                                                     VALUES (?, ?)");
+                                                            /*$STH = $DBH->prepare(
+                                                                "INSERT INTO product_review (title, review) 
+                                                                 VALUES (?, ?)");
 
-                                                $STH->bindParam(1, $_POST["review"]);
-                                                $STH->bindParam(1, $_POST["time_posted"]);
+                                                            $STH->bindParam(1, $_POST["title"]);
+                                                            $STH->bindParam(1, $_POST["review"]);
 
-                                                $STH->execute();
+                                                            $STH->execute();*/
 
-                                                die();*/
+                                                            //die();
 
-                                                if(isset($_POST["username"]) && isset($_POST["comment"]))
-                                                {
-                                                    $username = $_POST["username"];
-                                                    $comment = $_POST["comment"];
-                                                }
-												
-                                            }
+                                                            if(isset($_POST["title"]) && isset($_POST["comment"]))
+                                                            {
+                                                                /*$username = $_POST["username"];
+                                                                $comment = $_POST["comment"];*/
+                                                                $STH = $DBH->prepare(
+                                                                "INSERT INTO product_review (title, review) 
+                                                                 VALUES (?, ?)");
 
-                                        ?>
+                                                                $STH->bindParam(1, $_POST["title"]);
+                                                                $STH->bindParam(1, $_POST["review"]);
+
+                                                                $STH->execute();
+                                                            }
+
+                                                        }
+
+                                                    ?>
 
 														<?php
 														if(isset($_SESSION['UserSession']))
@@ -304,6 +312,7 @@
 															</div>
 														</div>
 													</div>
+                                                    
 												</div>
 											</div>
 										</div>
