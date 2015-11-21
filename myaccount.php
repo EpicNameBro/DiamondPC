@@ -55,8 +55,13 @@
        
         if(isset($_POST["delete"]))
         {
-            $STH = $DBH->query("DELETE FROM User_Info WHERE user_info.user_id = $id");
-            $STH = $DBH->query("DELETE FROM User WHERE user.user_id = $id");
+            $STH = $DBH->prepare("DELETE FROM User_Info WHERE user_info.user_id = ?");
+            $STH->bindParam(1, $id);
+            $STH->execute();
+            
+            $STH = $DBH->prepare("DELETE FROM User WHERE user.user_id = ?");
+            $STH->bindParam(1, $id);
+            $STH->execute();
 
             header("Location: logout.php");
             die();

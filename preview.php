@@ -94,6 +94,12 @@
 				.comment {
 					height: 50px;
 				}
+                
+                .form-delete {
+                    width: 150px;
+                    float: right;
+                }
+
 			</style>
 			<script type="text/javascript">
 				$(document).ready(function() {
@@ -106,6 +112,13 @@
 
 				});
 			</script>
+               
+        <script type="text/javascript">
+            function validate(form)
+            {
+                return confirm('Are you certain?');
+            }
+        </script>
 	</head>
 
 	<body>
@@ -257,6 +270,14 @@
                                                             }
 
                                                         }
+                                                            
+                                                        if(isset($_POST["delete"]))
+                                                        {
+                                                            $STH = $DBH->prepare("DELETE FROM product_review WHERE product_review_id = ? ");
+                                                            
+                                                            $STH->bindParam(1, $_POST["reviewID"]);
+                                                            $STH->execute();
+                                                        }
 
                                                     ?>
 
@@ -277,6 +298,7 @@
 																	<input class="btn btn-info" name="review" type="submit">
 																</div>
 															</form>
+                                                            
 															<?php
 														}
 													?>
@@ -285,12 +307,13 @@
                                                     
                                                         //$STH = $DBH->query("SELECT Username FROM user WHERE user_id= $id");
 
-                                                        $STH = $DBH->query("SELECT title, review, username FROM product_review INNER JOIN user ON user.user_id = product_review.user_id;");
+                                                        $STH = $DBH->query("SELECT title, review, username, product_review_id, product_review.user_id FROM product_review INNER JOIN user ON user.user_id = product_review.user_id;");
                                                     
                                                         $i=0;
                                                     
                                                         while($user_review = $STH->fetch())
-                                                        { 
+                                                        {
+                                                            
                                                            
                                             ?>              <div class="well">
                                                                 <div class="row">
@@ -302,8 +325,18 @@
 
                                                                     <div class="col-md-10">
                                                                         <div><b>Title</b> <?= $user_review['title']?></div>
-                                                                        <div><?= $user_review['reviewMessage']?></div>
-                                                                    </div>
+                                                                        <div><?= $user_review['review']?></div>
+                                                        <?php           if($user_review['user_id'] == $userid)
+                                                                        {
+                                                                            ?>
+                                                                            <form method="POST" onsubmit="return validate(this);" class="form-delete">
+                                                                                <input type="hidden" name="reviewID" value="<?= $user_review['product_review_id'] ?>"/>
+                                                                                <button type="submit" name="delete" class="btn btn-danger btn-lg btn-block">Delete Review</button>
+                                                                            </form>
+                                                                            <?php           
+
+                                                                      }
+                                                        ?>          </div>
                                                                 </div>
                                                             </div>
                                                     

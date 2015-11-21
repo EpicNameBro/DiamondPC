@@ -7,6 +7,14 @@
 		header("Location: index.php");
 		die();
 	}
+
+    if(isset($_POST["delete"]))
+    {
+        $STH = $DBH->prepare("DELETE FROM sale WHERE sale_id = ?");
+
+        $STH->bindParam(1, $_POST["saleID"]);
+        $STH->execute();
+    }
 	
 ?>
 	<!DOCTYPE HTML>
@@ -14,6 +22,14 @@
 
 	<head>
 		<?php include 'scripts.php' ?>
+        
+        <style type="text/css">
+            
+            .form-delete {
+                    width: 150px;
+                    float: right;
+                }
+        </style>
 	</head>
 
 	<body>
@@ -86,13 +102,17 @@
 									<span><h3>Total: <b class="text-success">$<?= $total ?></b></h3></span>
 									<span><h3>Status: <b class="text-success"><?= $sale['Status'] ?></b></h3></span>
 								</div>
+                                <form method="POST" onsubmit="return validate(this);" class="form-delete">
+                                    <input type="hidden" name="saleID" value="<?= $sale['Sale_Id'] ?>"/>
+                                    <button type="submit" name="delete" class="btn btn-danger btn-lg btn-block">Cancel Order</button>
+                                </form>
 							</div>
 						</div>
 						<?php
 					
 							
 						}	
-					
+					    
 						if($i == 0)
 						{
 					?>
