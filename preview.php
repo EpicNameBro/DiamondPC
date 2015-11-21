@@ -249,7 +249,7 @@
                                                                 $STH = $DBH->prepare("INSERT INTO product_review (title, review, user_id, product_id) VALUES (?, ?, ?, ?)");
 
                                                                 $STH->bindParam(1, $_POST["title"]);
-                                                                $STH->bindParam(2, $_POST["review"]);
+                                                                $STH->bindParam(2, $_POST["reviewMessage"]);
                                                                 $STH->bindParam(3, $userid);
                                                                 $STH->bindParam(4, $id);
                                                                 $STH->execute();
@@ -302,7 +302,7 @@
 
                                                                     <div class="col-md-10">
                                                                         <div><b>Title</b> <?= $user_review['title']?></div>
-                                                                        <div><?= $user_review['review']?></div>
+                                                                        <div><?= $user_review['reviewMessage']?></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
