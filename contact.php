@@ -3,38 +3,41 @@
 
     date_default_timezone_set('America/Montreal');
     $timestamp = date('Y-m-d h:i:s a', time());
-
-   $contactdata = array(	@$_POST["contact_name"],
+    if(isset($_POST["submitMessage"]))
+    {
+         $contactdata = array(	@$_POST["contact_name"],
                             @$_POST["email"],
                             @$_POST["subject"],
                             @$_POST["message"], 
                             $timestamp);
 
-    $valid = true;
+        $valid = true;
 
-	for($i = 0 ; $i < count($contactdata) ; $i++)
-	{
-		if(!isset($contactdata[$i]))
-		{
-			$valid = false;
-		}
-	}
-    
-    
+        for($i = 0 ; $i < count($contactdata) ; $i++)
+        {
+            if(!isset($contactdata[$i]))
+            {
+                $valid = false;
+            }
+        }
 
-    if($valid)
-    {
-        $STH = $DBH->prepare(
-			"INSERT INTO contact_message (contact_name, email, subject, message, time_posted) 
-			 VALUES (?, ?, ?, ?, ?)");
 
-        $STH->bindParam(1, $_POST["contact_name"]);
-        $STH->bindParam(2, $_POST["email"]);
-        $STH->bindParam(3, $_POST["subject"]);
-        $STH->bindParam(4, $_POST["message"]);
-        $STH->bindParam(5, $_POST["time_posted"]);
-        $STH->execute();
+
+        if($valid)
+        {
+            $STH = $DBH->prepare(
+                "INSERT INTO contact_message (contact_name, email, subject, message, time_posted) 
+                 VALUES (?, ?, ?, ?, ?)");
+
+            $STH->bindParam(1, $_POST["contact_name"]);
+            $STH->bindParam(2, $_POST["email"]);
+            $STH->bindParam(3, $_POST["subject"]);
+            $STH->bindParam(4, $_POST["message"]);
+            $STH->bindParam(5, $_POST["time_posted"]);
+            $STH->execute();
+        }
     }
+  
     
 ?>
 
@@ -86,7 +89,7 @@
                                         <span><textarea name="message"> </textarea></span>
                                     </div>
                                     <div>
-                                        <span><input type="submit" value="Submit"  class="myButton"></span>
+                                        <span><input type="submit" value="Submit"  class="myButton" name="submitMessage"></span>
                                     </div>
                                 </form>
                             </div>
