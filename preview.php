@@ -237,36 +237,23 @@
 												<div class="panel-body">
 													<?php
 
-                                                        date_default_timezone_set('America/Montreal');
-                                                        $timestamp = date('Y-m-d h:i:s a', time());
-
                                                         if(isset($_SESSION["UserSession"]))
                                                         {
-                                                            $id = $DBH->quote($_SESSION["UserSession"]);
+                                                            $userid = $_SESSION["UserSession"];
 
-                                                            /*$STH = $DBH->prepare(
-                                                                "INSERT INTO product_review (title, review) 
-                                                                 VALUES (?, ?)");
-
-                                                            $STH->bindParam(1, $_POST["title"]);
-                                                            $STH->bindParam(1, $_POST["review"]);
-
-                                                            $STH->execute();*/
-
-                                                            //die();
-
-                                                            if(isset($_POST["title"]) && isset($_POST["comment"]))
+                                                            if(isset($_POST["title"]) && isset($_POST["reviewMessage"]) && isset($_POST["review"]))
                                                             {
-                                                                /*$username = $_POST["username"];
-                                                                $comment = $_POST["comment"];*/
-                                                                $STH = $DBH->prepare(
-                                                                "INSERT INTO product_review (title, review) 
-                                                                 VALUES (?, ?)");
+                                                                $title = $_POST["title"];
+                                                                $review = $_POST["review"];
+                                                                
+                                                                $STH = $DBH->prepare("INSERT INTO product_review (title, review, user_id, product_id) VALUES (?, ?, ?, ?)");
 
                                                                 $STH->bindParam(1, $_POST["title"]);
-                                                                $STH->bindParam(1, $_POST["review"]);
-
+                                                                $STH->bindParam(2, $_POST["review"]);
+                                                                $STH->bindParam(3, $userid);
+                                                                $STH->bindParam(4, $id);
                                                                 $STH->execute();
+                                                                
                                                             }
 
                                                         }
@@ -284,7 +271,7 @@
 																</div>
 																<div class="form-group">
 																	<label for="comment">Review:</label>
-																	<textarea name="review" class="form-control" rows="5" id="comment"></textarea>
+																	<textarea name="reviewMessage" class="form-control" rows="5" id="comment"></textarea>
 																</div>
 																<div class="form-group">
 																	<input class="btn btn-info" name="review" type="submit">
@@ -294,25 +281,37 @@
 														}
 													?>
 														
-													
-													<!-- USE A WHILE LOOP WITH THIS CODE FOR EACH REVIEW-->
-													<div class="well">
-														<div class="row">
-															<div class="col-md-2" style="border-right: 1px solid #333;">
-																Name:
-																<br/>
-																Date:
-																<br/>
-																Star Rating
-															</div>
-
-															<div class="col-md-10">
-																<div><b>Title</b></div>
-																<div>Review</div>
-															</div>
-														</div>
-													</div>
+													<?php
                                                     
+                                                        //$STH = $DBH->query("SELECT Username FROM user WHERE user_id= $id");
+
+                                                        $STH = $DBH->query("SELECT title, review, username FROM product_review INNER JOIN user ON user.user_id = product_review.user_id;");
+                                                    
+                                                        $i=0;
+                                                    
+                                                        while($user_review = $STH->fetch())
+                                                        { 
+                                                           
+                                            ?>              <div class="well">
+                                                                <div class="row">
+                                                                    <div class="col-md-2" style="border-right: 1px solid #333;">
+                                                                        Username: <?= $user_review['username'] ?>
+                                                                        <br/>
+                                                                        Star Rating
+                                                                    </div>
+
+                                                                    <div class="col-md-10">
+                                                                        <div><b>Title</b> <?= $user_review['title']?></div>
+                                                                        <div><?= $user_review['review']?></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    
+                                            <?php           $i++; 
+                                                        }
+                                                ?>    
+                                                    
+													     
 												</div>
 											</div>
 										</div>
