@@ -18,6 +18,16 @@
 			{
 				$_SESSION["UserSession"] = $row["user_id"];
 				$_SESSION["UserType"] = $row["user_type"];
+				
+				if(isset($_COOKIE['AnonUser']))
+				{
+					$STH = $DBH->prepare(
+					"UPDATE Cart SET User_Id=?, Anon_Id=NULL WHERE Anon_id=?");
+
+					$STH->execute(array($row['user_id'], $_COOKIE['AnonUser']));
+					setcookie("AnonUser", "", time() - 3600);
+				}
+				
 				header("Location: index.php");
 				die();
 			}					

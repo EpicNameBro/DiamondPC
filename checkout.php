@@ -4,7 +4,7 @@
 	//User must be logged in to see this page
 	if(!isset($_SESSION["UserSession"]))
 	{
-		header("Location: index.php");
+		header("Location: login.php");
 		die();
 	}
 

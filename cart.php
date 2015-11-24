@@ -1,12 +1,12 @@
 <?php
 	require_once 'databaseconnect.php';
-
-	//User must be logged in to see this page
-	if(!isset($_SESSION["UserSession"]))
+	if(!isset($_COOKIE['AnonUser']))
 	{
-		header("Location: index.php");
-		die();
+		setcookie("AnonUser", uniqid());
 	}
+
+	$user_type = isset($_SESSION['UserSession']) ? "User_Id" : "Anon_Id";
+	$user_id = isset($_SESSION['UserSession']) ? $_SESSION['UserSession'] : $_COOKIE['AnonUser'];
 
 	//delete from the users cart
 	if(isset($_POST['delete']))
@@ -14,10 +14,10 @@
 		$product_id = $_POST['delete'];
 		$STH = $DBH->prepare(
 			"DELETE FROM Cart 
-			  WHERE Product_Id=? AND User_Id=?");
+			  WHERE Product_Id=? AND $user_type=?");
 
 		$STH->bindParam(1, $product_id);
-		$STH->bindParam(2, $_SESSION['UserSession']);
+		$STH->bindParam(2, $user_id);
 		$STH->execute();
 	}
 
@@ -28,17 +28,18 @@
 		{
 			$product_id = $_POST['addcart'];
 			$STH = $DBH->prepare(
-				"INSERT INTO Cart (User_Id, Product_Id, Quantity)
-				 VALUES (?,?,?)");
+				"INSERT INTO Cart ($user_type, Product_Id, Quantity)
+				 VALUES (?,?,?)"
+			);
 
-			$STH->bindParam(1, $_SESSION['UserSession']);
+			$STH->bindParam(1, $user_id);
 			$STH->bindParam(2, $product_id);
 			$STH->bindParam(3, isset($_POST["quantity"]) ? $_POST["quantity"] : 1);
 			$STH->execute();
 		}
 		catch (PDOException $e)
 		{
-    		
+			echo $e->getMessage();
 		}
 	}
 
@@ -49,26 +50,26 @@
 		$quantity = $_POST['quantity'];
 		$STH = $DBH->prepare(
 			"UPDATE Cart SET Quantity=?
-			 WHERE Product_Id=? AND User_Id=?");
+			 WHERE Product_Id=? AND $user_type=?");
 
 		$STH->bindParam(1, $quantity);
 		$STH->bindParam(2, $product_id);
-		$STH->bindParam(3, $_SESSION['UserSession']);
+		$STH->bindParam(3, $user_id);
 		$STH->execute();
 	}
 
-	
+
 	$products = [];
-	
+
 	$STH = $DBH->query(
 		"SELECT Product.Product_Id AS product_id, Product.Name AS product_name, Price, Image_Url, Quantity, Price * Quantity as total_cost
 		   FROM Cart 
 		  INNER JOIN Product  ON Cart.Product_Id = Product.Product_Id  
 		  INNER JOIN Product_Image  ON Product.Product_Id = Product_Image.Product_Id  
-		  WHERE Cart.User_Id = $_SESSION[UserSession]
-	         GROUP BY Product_Id ORDER BY Date_Added DESC");
-	
-	
+		  WHERE Cart.$user_type = '$user_id'
+		  GROUP BY Product_Id ORDER BY Date_Added DESC");
+
+
 	//get info of all cart products for the user
 	while($product = $STH->fetch())
 	{
@@ -88,7 +89,6 @@
 	{
 		$subtotal += $products[$i]['total_cost'];
 	}
-
 
 	?>
 <!DOCTYPE HTML>
@@ -112,10 +112,10 @@
 		<div class="wrap">
 		<?php include 'header.php';?>
 		<div class="main">
-			</br>
+			<br/>
 			<div class="col-md-12">
-				</br>
-				</br>
+				<br/>
+				<br/>
 				<div class="panel panel-info " >
 					<div class="panel-heading">
 						<div class="panel-title">Cart</div>
@@ -144,7 +144,9 @@
 									        </span>
 									            
 									            
-											<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="col-md-2 btn btn-danger btn-lg vcenter" >Delete</button>
+											<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="col-md-2 btn vcenter" style="background-color: rgba(0, 0, 0, 0.0);">												
+												<span style="font-size: 1.8em;" class="glyphicon glyphicon-trash"></span>	
+											</button>
 										</form>
 									</div>
 								</div>
@@ -157,7 +159,7 @@
 								<div class="panel-body">
 									<div><h3><b>Subtotal:</b></h3></div>
 									<div><h3 class="text-success"><b>$<?= $subtotal ?></b></h3></div>
-									</br>
+									<br/>
 									<a href="checkout.php" class="btn btn-info">Checkout</a>
 								</div>
 							</div>

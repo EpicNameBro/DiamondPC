@@ -1,6 +1,11 @@
 <?php
 	session_start();
 
+	if(!isset($_COOKIE['AnonUser']))
+	{
+		setcookie("AnonUser", uniqid());
+	}
+
 	$host = 'localhost';
 	$dbname = 'DiamondPC';
 	$user = 'root';

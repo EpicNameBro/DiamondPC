@@ -1,35 +1,37 @@
-<?php 
+<?php
 	require_once 'databaseconnect.php';
-
 	//only get some user specific if the user is logged in
+
 	if(isset($_SESSION['UserSession']))
 	{
 		$STH = $DBH->query("SELECT first_name FROM user_info WHERE user_id=" . $_SESSION['UserSession']);
-	
+
 		# setting the fetch mode
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$row = $STH->fetch();
 		$name = $row["first_name"];
+	}
+	
+	$user_type = isset($_SESSION['UserSession']) ? "User_Id" : "Anon_Id";
+	$user_id = isset($_SESSION['UserSession']) ? $_SESSION['UserSession'] : $_COOKIE['AnonUser'];
 
+	$STH = $DBH->query(
+		"SELECT Price * Quantity as total_cost, Quantity
+		   FROM Cart 
+		  INNER JOIN Product  ON Cart.Product_Id = Product.Product_Id   
+		  WHERE Cart.$user_type='$user_id'
+		  GROUP BY Product.Product_Id ORDER BY Date_Added DESC");
+
+
+	$subtotal = 0;
+	$totalquantity = 0;
+	while($row = $STH->fetch())
+	{
+		$subtotal += $row['total_cost'];
+		$totalquantity += $row['Quantity'];
+	}
 
 	
-		$STH = $DBH->query(
-			"SELECT Price * Quantity as total_cost, Quantity
-			   FROM Cart 
-			  INNER JOIN Product  ON Cart.Product_Id = Product.Product_Id   
-			  WHERE Cart.User_Id = $_SESSION[UserSession]
-		      GROUP BY Product.Product_Id ORDER BY Date_Added DESC");
-		
-		
-		$subtotal = 0;
-		$totalquantity = 0;
-		while($row = $STH->fetch())
-		{
-			$subtotal += $row['total_cost'];
-			$totalquantity += $row['Quantity'];
-		}
-
-	}
 ?>
 	<div class="header">
 		<div class="headertop_desc">
@@ -97,14 +99,13 @@
 						</li>
 						<?php
 						//diplay cart items in dropdown
-						if(isset($_SESSION['UserSession']))
-						{
+						
 							$STH = $DBH->query(
 							  "SELECT Product.Product_Id AS product_id, Product.Name AS product_name, Price, Image_Url, Quantity, Price * Quantity as total_cost
 							     FROM Cart 
 							    INNER JOIN Product  ON Cart.Product_Id = Product.Product_Id  
 							    INNER JOIN Product_Image  ON Product.Product_Id = Product_Image.Product_Id  
-							    WHERE Cart.User_Id = $_SESSION[UserSession]
+							    WHERE Cart.$user_type='$user_id'
 						        GROUP BY Product_Id ORDER BY Date_Added DESC");
 		
 							while($row = $STH->fetch())
@@ -143,7 +144,7 @@
 							</li>
 							<?php					
 							}
-						}	
+							
 					?>
 
 					</ul>
