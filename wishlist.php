@@ -78,10 +78,10 @@
 		<div class="wrap">
 		<?php include 'header.php';?>
 		<div class="main">
-			</br>
+			<br/>
 			<div class="col-md-12">
-				</br>
-				</br>
+				<br/>
+				<br/>
 				<div class="panel panel-info " >
 					<div class="panel-heading">
 						<div class="panel-title">Wish List</div>
@@ -99,33 +99,15 @@
 										</a>
 										<span class="col-md-3 vcenter"><b>$<?= $products[$i]['Price'] ?></b></span>
 										<form method="POST" onsubmit="return validate(this);" class="col-md-3 vcenter" style="display: inline-block">
-												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="btn btn-danger btn-lg btn-block" >Delete</button>
+												<button type="submit" name="delete" value="<?= $products[$i]['product_id'] ?>" class="col-md-2 btn vcenter" style="background-color: rgba(0, 0, 0, 0.0);">
+													<span style="font-size: 1.8em;" class="glyphicon glyphicon-trash"></span>	
+												</button>
 										</form>
 									</div>
 								</div>
 							
 					<?php	}
 							?>
-					</div>
-				</div>
-				<!-- Modal -->
-				<div id="myModal" class="modal fade in" style="" role="dialog">
-					<div class="modal-dialog modal-lg">
-						<!-- Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Edit</h4>
-							</div>
-							<div class="modal-body">
-								<div id="editproduct">
-
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

@@ -155,7 +155,7 @@
 														{
 											?>
 															<img style="width: 50px; height: 50px;" src="<?= $images[$i] ?>" class="productboxthumb previewimage img-responsive" alt="Alt Text">
-															<?php		}
+											<?php		}
 													?>
 													</div>
 
@@ -198,7 +198,7 @@
 																<option value="<?= $i ?>">
 																	<?= $i ?>
 																</option>
-																<?php 				}
+									<?php 				}
 														?>
 														</select>
 
@@ -250,6 +250,7 @@
 												<div class="panel-body">
 													<?php
 
+														$userid = "";
                                                         if(isset($_SESSION["UserSession"]))
                                                         {
                                                             $userid = $_SESSION["UserSession"];
@@ -323,20 +324,27 @@
                                                                         Star Rating
                                                                     </div>
 
-                                                                    <div class="col-md-10">
+                                                                    <div class="col-md-8">
                                                                         <div><b>Title</b> <?= $user_review['title']?></div>
                                                                         <div><?= $user_review['review']?></div>
-                                                        <?php           if($user_review['user_id'] == $userid)
+																	</div>
+																	<div class="col-md-2">
+														<?php           if($user_review['user_id'] == $userid)
                                                                         {
-                                                                            ?>
+                                                                   ?>
                                                                             <form method="POST" onsubmit="return validate(this);" class="form-delete">
+																				
                                                                                 <input type="hidden" name="reviewID" value="<?= $user_review['product_review_id'] ?>"/>
-                                                                                <button type="submit" name="delete" class="btn btn-danger btn-lg btn-block">Delete Review</button>
+                                                                                <!--ton type="submit" name="delete" class="btn btn-danger btn-lg btn-block">Delete Review</button>-->
+																				<button type="submit" name="delete" class="col-md-2 btn vcenter" style="background-color: rgba(0, 0, 0, 0.0);">												
+																					<span style="font-size: 1.8em;" class="glyphicon glyphicon-trash"></span>	
+																				</button>
                                                                             </form>
-                                                                            <?php           
+                                                                  <?php           
 
-                                                                      }
-                                                        ?>          </div>
+                                                                      	}
+                                                        			?>         
+																	</div>
                                                                 </div>
                                                             </div>
                                                     
@@ -410,16 +418,17 @@
 									<div class="well">
 										<div class="producttitle">
 											<a href="preview.php?product_id=<?= $related_products[$i]['Product_Id'] ?>">
-														<img style="width: 212px; height: auto;" src="<?= $related_products[$i]['Image_Url'] ?>" alt="" />
-													</a>
-											<h2 class=""><?= $related_products[$i]['Name'] ?></h2>
+												<img style="width: 212px; height: auto;" src="<?= $related_products[$i]['Image_Url'] ?>" alt="" />
+												<h2 class=""><?= $related_products[$i]['Name'] ?></h2>
+											</a>
 											<div class="price-details">
-												<div class="price-number">
-													<p><span class="rupees">$<?= $related_products[$i]['Price'] ?></span></p>
-												</div>
+												<div style="margin-top: 10px">
+													<div class="price-number">
+														<p><span class="rupees">$<?= $related_products[$i]['Price'] ?></span></p>
+													</div>
 
-												<a class="addcart btn btn-info btn-sm" href="preview.php"><span class="glyphicon glyphicon-shopping-cart"></span> ADD TO CART</a>
-
+													<a class="addcart btn btn-info btn-sm" href="preview.php" style="float: right"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+												</div>		
 												<div class="clear"></div>
 											</div>
 										</div>

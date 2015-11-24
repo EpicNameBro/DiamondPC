@@ -69,7 +69,15 @@
 					?>
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3 class="panel-title">Order #<?= $i ?> On <?= $sale['Order_Date'] ?></h3>
+								<div style="display: inline-block">
+									<h3 class="panel-title">Order #<?= $i ?> On <?= $sale['Order_Date'] ?></h3>
+								</div>
+								<div style="float:right; font-size: 80%; position: relative; top:-7px">
+									<form method="POST" onsubmit="return validate(this);" class="form-delete">
+										<input type="hidden" name="saleID" value="<?= $sale['Sale_Id'] ?>"/>
+										<button type="submit" name="delete" class="btn btn-danger btn-block">Cancel Order</button>
+									</form>
+								</div>
 							</div>
 							<div class="panel-body">
 								
@@ -82,9 +90,9 @@
 									<div class="panel-body" style="text-align: center;">
 										<form method="POST" onsubmit="return validate(this);">
 											<a href="preview.php?product_id=<?= $order['Product_Id'] ?>">
-															<img style="height: auto; width: 125px" class="col-md-3 vcenter" src="<?= $order['Image_Url'] ?>"/>
-															<span class="col-md-3 vcenter"><b><h4><?= $order['Name'] ?></h4></b></span>
-														</a>
+												<img style="height: auto; width: 125px" class="col-md-3 vcenter" src="<?= $order['Image_Url'] ?>"/>
+												<span class="col-md-3 vcenter"><b><h4><?= $order['Name'] ?></h4></b></span>
+											</a>
 											<span class="col-md-3 vcenter"><b class="text-success">$<?= $order['Price'] ?></b></span>
 
 
@@ -102,10 +110,7 @@
 									<span><h3>Total: <b class="text-success">$<?= $total ?></b></h3></span>
 									<span><h3>Status: <b class="text-success"><?= $sale['Status'] ?></b></h3></span>
 								</div>
-                                <form method="POST" onsubmit="return validate(this);" class="form-delete">
-                                    <input type="hidden" name="saleID" value="<?= $sale['Sale_Id'] ?>"/>
-                                    <button type="submit" name="delete" class="btn btn-danger btn-lg btn-block">Cancel Order</button>
-                                </form>
+								
 							</div>
 						</div>
 						<?php
