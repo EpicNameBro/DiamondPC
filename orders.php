@@ -30,6 +30,13 @@
                     float: right;
                 }
         </style>
+        
+        <script type="text/javascript">
+            function validate(form)
+            {
+                return confirm('Are you certain?');
+            }
+        </script>
 	</head>
 
 	<body>

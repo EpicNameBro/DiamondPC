@@ -300,13 +300,12 @@
 																</div>
 															</form>
                                                             
-															<?php
+												        <?php
 														}
 													?>
 														
 													<?php
                                                     
-                                                        //$STH = $DBH->query("SELECT Username FROM user WHERE user_id= $id");
 
                                                         $STH = $DBH->query("SELECT title, review, username, product_review_id, product_review.user_id FROM product_review INNER JOIN user ON user.user_id = product_review.user_id;");
                                                     
