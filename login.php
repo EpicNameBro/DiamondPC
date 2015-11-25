@@ -52,6 +52,7 @@
 									</div>
  <?php                           		
                             	}
+							
                             	if(isset($_GET["loginfailed"]))
                             	{
 	?>								<div id="alertdiv" class="alert alert-danger fade in">

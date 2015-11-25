@@ -10,7 +10,7 @@
 			# using the shortcut ->query() method here since there are no variable
 			# values in the select statement.
 			$STH = $DBH->query("SELECT user_id, password, user_type FROM user WHERE username='$username'");
-
+			
 			# setting the fetch mode
 			$STH->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $STH->fetch();
@@ -31,7 +31,7 @@
 				header("Location: index.php");
 				die();
 			}					
-			else			
+			else
 			{
 				header("Location: login.php?loginfailed");
 				die();

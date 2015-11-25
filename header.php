@@ -30,8 +30,6 @@
 		$subtotal += $row['total_cost'];
 		$totalquantity += $row['Quantity'];
 	}
-
-	
 ?>
 	<div class="header">
 		<div class="headertop_desc">
