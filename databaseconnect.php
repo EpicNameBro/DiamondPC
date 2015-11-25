@@ -3,7 +3,9 @@
 
 	if(!isset($_COOKIE['AnonUser']))
 	{
-		setcookie("AnonUser", uniqid());
+		$id = uniqid();
+		setcookie("AnonUser", $id);
+		$_COOKIE['AnonUser'] = $id;
 	}
 
 	$host = 'localhost';
