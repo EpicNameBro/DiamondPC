@@ -45,82 +45,80 @@
         
             $STH_user = $DBH->query(
                 "SELECT user.User_Id, Username 
-                FROM user 
-                INNER JOIN sale ON sale.user_id = user.user_id
-                INNER JOIN order_detail ON order_detail.sale_id = sale.sale_id
-                INNER JOIN product ON product.Product_Id = order_detail.Product_Id
-                INNER JOIN product_image ON product_image.product_id = product.product_id");
+                FROM user");
             $i=0;
             
             while($user = $STH_user->fetch())              
             {
-                $i=0;
                 $STH_order = $DBH->query(
-                    "SELECT order_detail.Sale_Id, order_detail.Product_Id, order_detail.Quantity, order_detail.Price, user.User_Id, Username, product.Name 
-                    FROM user 
-                    INNER JOIN sale ON sale.user_id = user.user_id
-                    INNER JOIN order_detail ON order_detail.sale_id = sale.sale_id
-                    INNER JOIN product ON product.Product_Id = order_detail.Product_Id
-                    INNER JOIN product_image ON product_image.product_id = product.product_id
-                    WHERE Sale.User_Id=$user[User_Id]");
+                    "SELECT DISTINCT Sale.Sale_Id, Order_Date, Status
+                     FROM Sale
+                     INNER JOIN Order_Detail ON Sale.Sale_Id=Order_Detail.Sale_Id
+                     WHERE User_Id=$user[User_Id]
+                     ORDER BY Order_Date DESC");
         ?>
-                <div class="bs-example">
-                    <div class="panel-group" id="accordion">
+                
+                    <div class="panel-group">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $i ?>">
+                                    <a data-toggle="collapse" href="#collapse<?= $i ?>">
                                         Username: <?=$user['Username']?>
                                     </a>
                                 </h4>
                             </div>
-        <?PHP
-                while($order = $STH_order->fetch())
-                {
-                    $STH_product = $DBH->query(
-                        "SELECT order_detail.Product_Id, order_detail.Price, product.Name, Image_Url 
-                        FROM user 
-                        INNER JOIN sale ON sale.user_id = user.user_id
-                        INNER JOIN order_detail ON order_detail.sale_id = sale.sale_id
-                        INNER JOIN product ON product.Product_Id = order_detail.Product_Id
-                        INNER JOIN product_image ON product_image.product_id = product.product_id");
-                ?>
-                    <div id="collapse<?= $i ?>" class="panel-collapse collapse">
-                                <div class="panel-body">
-                <?PHP
-                        while($product = $STH_product->fetch())
-                        {    
-                        
-                    ?>      
-                            <div class="col-md-12 panel panel-default">
-                                <div class="panel-body" style="text-align: center;">
-                                    <form method="POST" onsubmit="return validate(this);">
-                                        <a href="preview.php?product_id=<?= $product['Product_Id'] ?>">
+                            <div id="collapse<?= $i ?>" class="panel-collapse collapse">
+                                <div class="panel-body" style="">
+                    <?PHP
+                                    $j = 1;
+                                    while($order = $STH_order->fetch())
+                                    {
+                                        
+                            ?>
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">Order #<?= $j ?></div>
+                                            <div class="panel-body">
+                            <?php
+                                        $j++;
+                                        $STH_product = $DBH->query(
+                                            "SELECT Order_Detail.Product_Id, Name, Order_Detail.Quantity, Order_Detail.Price, Image_Url
+                                             FROM Sale
+                                             INNER JOIN Order_Detail ON Sale.Sale_Id=Order_Detail.Sale_Id
+                                             INNER JOIN Product ON Order_Detail.Product_Id=Product.Product_Id
+                                             INNER JOIN Product_Image ON Product.Product_Id=Product_Image.Product_Id
+                                             WHERE Sale.User_Id=$user[User_Id] AND Sale.Sale_Id=$order[Sale_Id]
+                                             GROUP BY Order_Detail.Product_Id");
+                                            while($product = $STH_product->fetch())
+                                            {    
+
+                                        ?>      <div class="row">
+                                                    <a href="preview.php?product_id=<?= $product['Product_Id'] ?>">
                                                         <img style="height: auto; width: 125px" class="col-md-3 vcenter" src="<?= $product['Image_Url'] ?>"/>
                                                         <span class="col-md-3 vcenter"><b><h4><?= $product['Name'] ?></h4></b></span>
                                                     </a>
-                                        <span class="col-md-3 vcenter"><b class="text-success">$<?= $product['Price'] ?></b></span>
+                                                    <span class="col-md-3 vcenter"><b class="text-success">$<?= $product['Price'] ?></b></span>
 
 
-                                        <span class="col-md-3 vcenter">
-                                            <b>x<?= $product['Quantity'] ?></b>
-                                        </span>
+                                                    <span class="col-md-3 vcenter">
+                                                        <b>x<?= $product['Quantity'] ?></b>
+                                                    </span>
+                                                </div>
 
-                                    </form>
-                                </div>
-                            </div>
-                    <?PHP
-                        }
-                    ?>
-                           </div>
-                    </div>
-        <?PHP
-                }
+
+                                        <?PHP
+                                            }            
+                            ?>
+                                            </div>    
+                                        </div>
+                            <?PHP
+                                    }
                 
         ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                
 <?PHP
                 $i++;
             }
