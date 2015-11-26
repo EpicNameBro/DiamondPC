@@ -287,16 +287,20 @@
 														{
 														?>
 															<form method="post">
-																<div class="form-group">
-																	<label for="usr">Title:</label>
-																	<input name="title" type="text" class="form-control" id="usr">
-																</div>
-																<div class="form-group">
-																	<label for="comment">Review:</label>
-																	<textarea name="reviewMessage" class="form-control" rows="5" id="comment"></textarea>
-																</div>
-																<div class="form-group">
-																	<input class="btn btn-info" name="review" type="submit">
+																<div class="row">
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label for="usr">Title:</label>
+																			<input name="title" type="text" class="form-control" id="usr">
+																		</div>
+																		<div class="form-group">
+																			<label for="comment">Review:</label>
+																			<textarea name="reviewMessage" class="form-control" rows="5" id="comment"></textarea>
+																		</div>
+																		<div class="form-group">
+																			<input class="btn btn-info" name="review" type="submit">
+																		</div>
+																	</div>
 																</div>
 															</form>
                                                             
@@ -305,10 +309,10 @@
 													?>
 														
 													<?php
-                                                    
+                                                    	$id = $DBH->quote($id);
 
-                                                        $STH = $DBH->query("SELECT title, review, username, product_review_id, product_review.user_id FROM product_review INNER JOIN user ON user.user_id = product_review.user_id;");
-                                                    
+                                                        $STH = $DBH->query("SELECT title, review, username, product_review_id, product_review.user_id FROM product_review INNER JOIN user ON user.user_id = product_review.user_id WHERE product_id=$id");
+                                                    	
                                                         $i=0;
                                                     
                                                         while($user_review = $STH->fetch())
@@ -317,14 +321,13 @@
                                                            
                                             ?>              <div class="well">
                                                                 <div class="row">
-                                                                    <div class="col-md-2" style="border-right: 1px solid #333;">
-                                                                        Username: <?= $user_review['username'] ?>
-                                                                        <br/>
-                                                                        Star Rating
+                                                                    <div class="col-md-2" >
+                                                                        <b><?= $user_review['username'] ?></b>
+                                                                        
                                                                     </div>
 
-                                                                    <div class="col-md-8">
-                                                                        <div><b>Title</b> <?= $user_review['title']?></div>
+                                                                    <div class="col-md-8" style="border-left: 1px solid #333;">
+                                                                        <div><b><?= $user_review['title']?></b></div>
                                                                         <div><?= $user_review['review']?></div>
 																	</div>
 																	<div class="col-md-2">
@@ -334,7 +337,7 @@
                                                                             <form method="POST" onsubmit="return validate(this);" class="form-delete">
 																				
                                                                                 <input type="hidden" name="reviewID" value="<?= $user_review['product_review_id'] ?>"/>
-                                                                                <!--ton type="submit" name="delete" class="btn btn-danger btn-lg btn-block">Delete Review</button>-->
+                                                                               
 																				<button type="submit" name="delete" class="col-md-2 btn vcenter" style="background-color: rgba(0, 0, 0, 0.0);">												
 																					<span style="font-size: 1.8em;" class="glyphicon glyphicon-trash"></span>	
 																				</button>
