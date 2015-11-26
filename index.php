@@ -213,7 +213,7 @@
 										
 
 										<div class="price-details" >
-											</br>
+											<br/>
 											<div class="price-number">
 												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
 											</div>
