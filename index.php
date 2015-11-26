@@ -136,7 +136,7 @@
 							  WHERE Product_Id=$row[Product_Id] LIMIT 1");
 							$image = $STH_image->fetch()['Image_Url'];
 ?>
-							<div data-p="225.00" style="display: none;">
+							<div data-p="225.00" style="display: none;margin-left: 10%">
 								<!--<img data-u="image" src="img/red.jpg" />-->
 								<a href="preview.php?product_id=<?= $row['Product_Id'] ?>">
 									<div class="slider-img" >
@@ -218,7 +218,9 @@
 												<p><span class="rupees">$<?= $row['Price'] ?></span></p>
 											</div>
 											<form role="form" method="POST" action="cart.php">
-												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+												<button name="addcart" value="<?= $row['Product_Id'] ?>" type="submit" class="addcart btn btn-info">
+													
+												<span class="glyphicon glyphicon-shopping-cart"></span></button>
 											</form>
 											<div class="clear"></div>
 										</div>
