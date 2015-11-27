@@ -9,6 +9,10 @@
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+
+<script src="js/jquery.elevatezoom.js" type="text/javascript"></script>
+
+
 <link href="css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all"/>
 <link rel="stylesheet" href="css/global.css">
 

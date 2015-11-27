@@ -109,8 +109,10 @@
 					$(".previewimage").hover(function() {
 						$("#mainimage").attr("src", $(this).attr("src"));
 					});
-
+					$("#mainimage").elevateZoom({scrollZoom : true,easing : true, zoomType	: "inner", cursor: "crosshair" });
 				});
+				
+				
 			</script>
                
         <script type="text/javascript">
@@ -160,7 +162,7 @@
 													</div>
 
 													<div class="col-md-9">
-														<img id="mainimage" src="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
+														<img id="mainimage" src="<?= $images[0] ?>" data-zoom-image="<?= $images[0] ?>" class="img-responsive" alt="Alt Text">
 													</div>
 												</div>
 											</div>
