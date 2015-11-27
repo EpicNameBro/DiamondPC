@@ -56,27 +56,16 @@
         if(isset($_POST["delete"]))
         {
             $STH = $DBH->prepare("DELETE FROM User_Info WHERE user_info.user_id = ?");
-            $STH->bindParam(1, $id);
+            $STH->bindParam(1, $_SESSION["UserSession"]);
             $STH->execute();
             
             $STH = $DBH->prepare("DELETE FROM User WHERE user.user_id = ?");
-            $STH->bindParam(1, $id);
+            $STH->bindParam(1, $_SESSION["UserSession"]);
             $STH->execute();
 
             header("Location: logout.php");
             die();
         }
-
-        /*$attributes = '';
-        if(!isset($_GET["edit"]))
-        {
-            $attributes ='readonly disabled';
-        }
-        else
-        {
-
-        }*/
-
         
     }
 ?>
@@ -125,23 +114,6 @@
                             <!--<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="login.php" >Sign In</a></div>-->
                         </div>  
                         <div class="panel-body" >
-                        <!--<?php
-                                //if(isset($_GET["editsuccess"]))
-                                {
- ?>                                 <div id="alertdiv" class="alert alert-success fade in">
-                                            <a class="close" data-dismiss="alert">×</a> 
-                                            <strong><span>Edit Successful!</span></strong>                                            
-                                    </div>
- <?php                                  
-                                }
-                                //if(isset($_GET["editfailed"]))
-                                {
-    ?>                              <div id="alertdiv" class="alert alert-danger fade in">
-                                        <a class="close" data-dismiss="alert">×</a> 
-                                        <strong><span>Edit Failed: Please make sure your inputs are correct.</span></strong>                                           
-                                    </div>
-<?php                           }                               
-                            ?>-->        
 
                             <form id="myinfoform" class="form-horizontal" role="form" action="myaccount.php" method="POST" data-toggle="validator">
 

@@ -3,7 +3,6 @@
     <head> 
         <?php include 'scripts.php' ?>
 
-
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#posts").accordion({ 
