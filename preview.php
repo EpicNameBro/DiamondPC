@@ -42,6 +42,7 @@
 				#mainimage {
 					width: auto;
 					height: 300px;
+					border: 1px solid black;
 				}
 				
 				.productboxthumb {
@@ -104,12 +105,27 @@
 			<script type="text/javascript">
 				$(document).ready(function() {
 					$(".previewimage").click(function() {
-						$("#mainimage").attr("src", $(this).attr("src"));
+						//$("#mainimage").attr("src", $(this).attr("src"));
+						//$("#mainimage").attr("data-zoom-image", $(this).attr("src"));
+						//$(".zoomWindowContainer").children("div").css("background-image: url(" + $(this).attr("src") + ")");
+						//$(".zoomContainer").remove();
+						//$("#mainimage").refresh();
+						//$("#mainimage").elevateZoom({zoomWindowPosition: 1,scrollZoom : true,easing : true});
+						
 					});
 					$(".previewimage").hover(function() {
-						$("#mainimage").attr("src", $(this).attr("src"));
+						//$("#mainimage").attr("src", $(this).attr("src"));
+						//$("#mainimage").attr("data-zoom-image", $(this).attr("src"));
+						//$(".zoomWindowContainer").children("div").css("background-image","url(" + $(this).attr("src") + ")");
+						//$(".zoomContainer").remove();
+						//$("#mainimage").refresh();
+						//$("#mainimage").elevateZoom({zoomWindowPosition: 1,scrollZoom : true,easing : true});
+						
 					});
-					$("#mainimage").elevateZoom({scrollZoom : true,easing : true, zoomType	: "inner", cursor: "crosshair" });
+					
+					$("#mainimage").elevateZoom({gallery:'gal1', cursor: 'pointer', galleryActiveClass: 'active', zoomWindowPosition: 2,scrollZoom : true,easing : true, zoomWindowOffetx: 30});
+					//$("#mainimage").bind("click", function(e) { var ez = $('#gal1').data('elevateZoom');	$.fancybox(ez.getGalleryList()); return false; });
+					//$("#mainimage").bind("hover", function(e) { var ez = $('#gal1').data('elevateZoom');	$.fancybox(ez.getGalleryList()); return false; });
 				});
 				
 				
@@ -152,13 +168,16 @@
 											<div class="panel panel-default">
 												<div class="panel-body">
 													<div class="col-md-3">
+														<div id="gal1">
 														<?php
 														for($i = 0 ; $i < count($images) ; $i++)
 														{
-											?>
-															<img style="width: 50px; height: 50px;" src="<?= $images[$i] ?>" class="productboxthumb previewimage img-responsive" alt="Alt Text">
+											?>				<a href="#"  data-image="<?= $images[$i] ?>"  data-zoom-image="<?= $images[$i] ?>">
+																<img id="img_01" style="width: 75px; height: 75px;" src="<?= $images[$i] ?>" class="productboxthumb previewimage img-responsive" alt="Alt Text">
+															</a>
 											<?php		}
 													?>
+														</div>
 													</div>
 
 													<div class="col-md-9">
